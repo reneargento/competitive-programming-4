@@ -1,0 +1,8 @@
+1.1.1
+
+Counter example:
+N = 3
+Coordinates of the 2N: {0, 0}, {1, 7}, {2, 7}, {5, 9}, {6, 9}, {10, 12}
+Cost with greedy algorithm: 17.6 - pairs {{1, 7}, {2, 7}}, {{5, 9}, {6, 9}}, {{0, 0}, {10, 12}}
+Cost with optimum solution: 15.6 - pairs {{0, 0}, {1, 7}}, {{2, 7}, {5, 9}}, {{6, 9}, {10, 12}}
+
