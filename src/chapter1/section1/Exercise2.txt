@@ -1,0 +1,5 @@
+1.1.2
+
+Time complexity of the naive complete search solution:
+C(16, 2) * C(14, 2) * ... * C(2, 2) = 16C2 * 14C2 * ... * 2C2 = 16! / ((2!)^8)
+That is approximately 8 * 10^10 for the largest test case with N = 8.

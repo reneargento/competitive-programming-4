@@ -12,5 +12,6 @@
 .idea/
 .project
 .settings/
+out/
 bin/
 competitive-programming-4.iml
