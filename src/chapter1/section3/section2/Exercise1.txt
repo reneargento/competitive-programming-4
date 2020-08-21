@@ -1,0 +1,13 @@
+1.3.2.1
+
+Word Cloud: Ad Hoc
+Turbo: Fenwick Tree; RSQ
+Rat Attack: Complete Search or DP
+H-Index: Data Structure (BSTA + binary search)
+Dragon of Loowater: Greedy (Non Classical)
+Wedding Shopping: Dynamic Programming (Non Classical)
+GATTACA: String Processing (Suffix Array, LRS)
+Useless Tile Packers: Computational Geometry (Convex Hull + Area of Polygon)
+Angry Programmer: Graph (Min Cut)
+Bilateral Projects: Bipartite; Graph Matching
+Carpool: All Pairs Shortest Path; Complete Search; Dynamic Programming
