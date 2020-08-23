@@ -1,0 +1,65 @@
+1.3.2.2
+
+Word Cloud
+Let P be the font size of a word measured in points, given by the formula P = 8 + Ceiling((40 * (Cw - 4)) / (Cmax - 4)), where Cw is the frequency of a word and CMax is the maximum frequency of a word in a data set and let a word width be computed as Ceiling(9/16 * t * P) points, where t is the number of its characters.
+Placing the words in rows (with as many words as possible in each row), with 10 points horizontal space between adjacent words, considering a maximum row width W, the height of a given row is equal to the maximum font size of any word in it.
+Output the sum of all row heights in T tests given N words (given in the order to be displayed) and each respective word frequency C.
+Constraints: 1 <= T <= 20; W <= 5000; 1 <= N <= 100 and 5 <= C <= 1000.
+
+Turbo
+You are given an array of N integers, each between 1 and N (inclusive), with no duplicates.
+Consider a sorting routine which on odd phases chooses the smallest number not yet chosen and repeatedly swaps it with consecutive elements until it is in the correct position, and on even phases does the same thing, but for the largest number not yet chosen.
+Output for each of the N phases the number of swaps performed, each on a single line.
+Constraints: 1 <= N <= 100000
+
+Rat Attack
+Consider a grid of 1025 x 1025 fields; the (x, y) locations of n rat nests and their sizes rs; and the radius d of the gas diffusion of a gas bomb, which, given a location (x1, y1) on the grid, a point (x2, y2) is within the diffusion area of the bomb with radius d if the following equation holds:
+max(abs(x2 - x1), abs(y2 - y1)) <= d
+Given S scenarios, for each of them output the best position (x and y coordinates) in the grid to explode the bomb, which maximizes the sum of all rs rat population sizes within the diffusion area of the gas bomb or, if there is more than one of these best positions, the location with the "minimal" position (positions are ordered first by their x coordinate and second by their y coordinate).
+Also output (on the same line per scenario) the sum of the rs rat population sizes which will be extinguished, with all three numbers (x, y and sum of population size) separated by a space.
+Constraints: 1 <= d <= 50; 1 <= n <= 20000; 1 <= rs <= 255; 0 <= x, y <= 1024, no position is given more than once.
+
+H-Index
+Given n papers and the number of c citations of each paper, output the H-index, which is largest number H such that there exists H papers with at least H citations.
+Constraints: 1 <= n <= 100000; 0 <= c <= 1000000000.
+
+Dragon of Loowater
+You are given t test cases, each with n dragon heads and their respective diameters (which are all different); m knights and their respective heights.
+Each knight can chop off one dragon head, and in order to do this, the knight must be at least as tall as the diameter of the head, and in the event of chopping it off, the knight receives a wage equal to one gold coin for each centimetre of his height.
+If there are enough knights to chop of all of the dragon heads, output a line containing the minimum number of gold coins required to pay the knights; otherwise output the line 'Loowater is doomed!'.
+Constraints: 1 <= n, m <= 20000, diameters and heights are integers, and the last test case is followed by a line containing '0 0'.
+
+Wedding Shopping
+You are given t test cases, each with an available amount of money M; the number of garments C you have to buy; and C lines in which the first number K indicates the number of different models available for that garment, and is followed by K integers indicating the price of each model.
+For each test case output one integer indicating the maximum amount of money necessary to buy one element of each garment without exceeding M; if there is no solution output 'no solution'.
+Constraints: 1 <= M <= 200; 1 <= C <= 20; 1 <= K <= 20.
+
+GATTACA
+You are given T test cases, each with a string S of length n, that consists only of the letters 'A', 'C', 'G' and 'T'.
+For each test case output a line specifying the largest substring of S that appears two or more times repeated in S, followed by a space, and the number of occurrences of that substring in S.
+If there are two or more substrings of maximal length that are repeated, print the smallest substring in lexicographic order; if there is no repetition in S, print 'No repetitions found!'.
+Constraints: 1 <= T <= 100; 1 <= n <= 1000.
+
+Useless Tile Packers
+You are given data blocks, each representing a tile, in which the first line contains an integer N indicating the number of corner points of the tile and each of the next N lines contains two integers giving the (x, y) coordinates of the corner points.
+Computing a convex polygon container for each tile, that has the minimum space possible inside to hold it, would generate wasted space (space inside the container not used by the tile).
+For each tile T (with T starting from 1), output two lines: the first in the format 'Tile #T', and the second in the format 'Wasted Space = x.xx %', where x.xx is the percentage of wasted space rounded to two digits after the decimal point; and a blank line after each output block.
+Constraints: 3 <= N <= 100; 0 <= x, y <= 1000; the coordinates given in the input follow the same order they have on the boundary of the tile; no three consecutive coordinates in the input represent co-linear points and the input terminates with a value of '0' for N.
+
+Angry Programmer
+You are given T test cases, each with a line with two integers M and W, representing (respectively) the number of machines and the number of wires in a network; M - 2 lines, one per machine (except machines 1 and M), containing the following information separated by spaces: an integer mi with the identifier of the machine and an integer mc specifying the cost of destroying the machine; and W lines, one per wire, containing the following information separated by spaces: two integers j and k specifying the identifiers of the machines linked by the wire (the wire is bidirectional) and an integer md, specifying the cost of cutting the wire.
+Two computers A and B can communicate if there is a sequence of undestroyed machines x1, ..., xn, such that x1 = A, xn = B and x(i) is linked with x(i + 1) with an uncut wire for each 1 <= i <= n - 1.
+For each test case print a line with the minimum cost of interrupting the communication between the computer with identifier 1 and the computer with identifier M (you can destroy machines and wires, but you can't destroy machines with identifier 1 or M).
+Constraints: 2 <= M <= 50; 0 <= W <= 1000; 2 <= mi <= M - 1; 0 <= mc <= 100000; 1 <= j, k <= M; 0 <= md <= 100000; there is at most one wire between any pair of machines; there can be pairs of machines without a wire between them; the machines have distinct identifiers; the end of the input is specified by a line with the string '0 0'.
+
+Bilateral Projects
+You are given a line containing the integer m indicating the number of two-person teams, followed by m lines, each consisting of two employee IDs i and j (separated by a space) composing one of the teams.
+Considering that an employee can be a member of several teams, create a list with at least one person from each project, containing the minimum number of people as possible and if possible (subject to the set of people being the smallest possible) the list should contain the employee ID 1009.
+Output first a single line with an integer k indicating the size of the list, then output k lines, each with an ID of an employee in the list. If there are several solutions possible, output any of them.
+Constraints: 1 <= m <= 10000; 1000 <= i <= 1999; 2000 <= j <= 2999; there cannot be more than one team consisting of the same pair of employees.
+
+Carpool
+You are given a line with two integers n and m, the number of people and the number of roads in a city, respectively; and m lines, each containing three integers separated by a space: the first two integers i and j describe two places connected by a stretch of road and the third integer l specify the length of the stretch of road, in kilometers.
+Considering that the people will move in the city in cars that drive one kilometer per minute; that each car can take at most five people; that everyone starts at place 0 and ends the journey at place n + 1; that each place in the city needs to be visited at least once, that each visit takes five minutes; that the overall travel time is the maximum of the travel times of each car and an optimal assignment is one that minimizes the overall travel time; write a program to compute an optimal assignment of people to cars.
+Output a single integer, the number of minutes required until everyone reaches place n + 1 using an optimal assignment of people to cars.
+Constraints: 1 <= n <= 15; 1 <= m <= 1000; 0 <= i, j <= n + 1; 0 <= l <= 100000; a road may be taken in both directions; there is a sequence of roads connecting every place in the city to every other place.
