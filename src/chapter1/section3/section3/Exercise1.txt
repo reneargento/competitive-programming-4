@@ -1,0 +1,45 @@
+1.3.3.1
+
+1. There are n webpages (1 <= n <= 10M). Page i has a page rank r(i). A new page can be added or an existing page can be removed frequently.
+You want to pick the current top 10 pages with the highest page ranks, in order. Which method is better?
+b) Use a Priority Queue data structure.
+
+2. Given a list L with 100K integers, you need to frequently obtain sum(i, j), i.e., the sum of L[i] + L[i + 1] + ... + L[j].
+Which data structure should you use?
+a) Simple Array pre-processed with Dynamic Programming.
+
+3. Given an M x N integer matrix Q (1 <= M, N <= 70), determine if there exists a sub-matrix S of Q of size A x B (1 <= A <= M, 1 <= B <= N) where mean(S) = 7.
+Which algorithm will not exceed 100M operations per test case in the worst case?
+b) Try all possible sub-matrices, but in O(M^2 x N^2) with this technique: 2D Range Sum Query.
+
+4. Given a multiset S of M = 100K integers, we want to know how many different integers we can form if we pick two (not necessarily distinct) integers from S and sum them.
+The content of multiset S is prime numbers no more than 20K. Which algorithm will not exceed 100M operations per test case in the worst case?
+b) Perform an algorithm as above, but after performing this technique: Data Compression.
+
+5. You have to compute the shortest path between two vertices on a weighted Directed Acyclic Graph (DAG) with |V|, |E| <= 100K.
+Which algorithm(s) can be used?
+a) Dynamic Programming.
+
+6. Which algorithm produces a list of the first 10M prime numbers with the best time complexity?
+a) Sieve of Eratosthenes.
+
+7. How to test if the factorial of n, i.e., n! is divisible by an integer m? 1 <= n <= 10^14.
+b) The naive approach above will not work, use: Legendre's formula.
+
+8. You want to enumerate all occurrences of a substring P (of length m) in a (long) string T (of length n), if any.
+Both n and m have a maximum of 1M characters. Which algorithm is faster?
+b) There are better algorithms, we can use: Knuth-Morris-Pratt, Boyer-Moore, Suffix Array or Rabin Karp.
+
+9. Given a set S of N points scattered on a 2D plane (2 <= N <= 5000), find two points E S that have the greatest separating Euclidean distance.
+Is an O(N^2) complete search algorithm that tries all possible pairs feasible?
+a) Yes, such complete search is possible.
+
+10. See question above, but now with a larger set of points: 2 <= N <= 200K and one additional constraint: The points are randomly scattered on a 2D plane.
+b) The naive approach above will not work, use: find the Convex Hull of the N points in O(N log N).
+Let the number of points in CH(S) = k. As the points are randomly scattered, k will be much smaller than N.
+Then, find the two farthest points by examining all pairs of points in the CH(S) in O(k^2).
+
+11. See the same question above. We still have a set of 2 <= N <= 200K points.
+But this time there is no guarantee that the points are randomly scattered on a 2D plane.
+c) When the points may not be randomly scattered, k can be N, i.e., all points lie in the Convex Hull.
+To solve this variant, we need the O(n) Rotating Caliper technique.
