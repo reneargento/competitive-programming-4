@@ -1,0 +1,36 @@
+1.3.5.1
+
+1. You receive a WA verdict for a very easy problem. What should you do?
+d) Create tricky test cases to find the bug.
+
+2. You receive a TLE verdict for your O(N^3) solution.
+However, the maximum N is just 100. What should you do?
+c) Create tricky test cases to find the bug.
+
+3. Follow up to question above: What if the maximum N is 100 000?
+b) Improve the performance of your solution (code optimizations/better algorithm).
+
+4. Another follow up question: What if the maximum N is 5000, the output only depends on the size of the input N, and you still have four hours of competition time left?
+Pre-calculate all possible solutions by running the O(N^3) algorithm in the background for a few minutes and submit the O(1) answer once the algorithm finishes running (assuming it does not exceed the source code size limit imposed by the judge).
+
+5. You receive an RTE verdict. Your code (seems to) execute perfectly on your machine.
+What should you do?
+Check the code and design test cases for the most common causes of RTE:
+out-of-bound accesses in arrays, stack overflow and infinite recursion.
+
+6. Thirty minutes into the contest, you take a glance at the scoreboard. There are many other teams that have solved a problem X that your team has not attempted.
+What should you do?
+One team member should immediately attempt the problem X, as it may be relatively easy.
+
+7. Midway through the contest, you take a glance at the scoreboard. The leading team (assume that it is not your team) has just solved problem Y.
+What should you do?
+Since my team is not the "pace-setter", it should ignore what the leading team is doing and should concentrate instead on solving the problems that it has identified to be "solvable".
+
+8. Your team has spent two hours on a nasty problem. You have submitted several implementations by different team members.
+All submissions have been judged incorrect. You have no idea what's wrong. What should you do?
+Move on to another problem.
+
+9. There is one hour to go before the end of the contest. You have 1 WA code and 1 fresh idea for another problem.
+What should you (or your team) do?
+(Assuming that the idea for the other problem does not involve complex and tedious code):
+c) (In ICPC): Print the WA code. Ask two other team members to scrutinize it while you switch to that other problem in an attempt to solve two more problems.
