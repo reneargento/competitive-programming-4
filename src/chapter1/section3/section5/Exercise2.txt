@@ -1,0 +1,13 @@
+1.3.5.2
+
+1. The code is missing parentheses on the S values.
+The correct should be:
+#define LSOne(S) ((S) & -(S))
+
+2. __builtin_ctz(v) is for 32-bit int. For 64-bit int __builtin_ctzl(v) should be used.
+
+3. Using ms.erase(v) will erase all copies of v. To erase just one copy of v use ms.erase(ms.find(v)).
+
+4. The iterator is invalidated when the vector has to double its size and reallocate its contents.
+
+5. Pointers/references are also invalidated when the vector has to double its size and reallocate its contents.
