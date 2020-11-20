@@ -1,0 +1,5 @@
+1.5.5
+
+A hash map should be used.
+We can scan all the tokens, and every time we see a token, increment its corresponding frequency in the hash map.
+After that, we can iterate through all keys in the hash map to find the one with the highest frequency.

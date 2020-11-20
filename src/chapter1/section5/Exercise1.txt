@@ -1,0 +1,7 @@
+1.5.1
+
+a) We can use the classes String, StringBuilder or StringBuffer.
+b) We can read each line with the nextLine() method of the Scanner class.
+For faster I/O we can use the readLine() method in the BufferedReader class.
+c) We can use the append(String) method in StringBuilder class.
+d) We can use the method startsWith(String) in the String class.

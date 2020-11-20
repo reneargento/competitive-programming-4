@@ -1,0 +1,5 @@
+1.5.4
+
+a) To tokenize a string we can use the method split(regex) of the String class or the StringTokenizer class.
+b) The split(regex) method returns an array of strings with the tokens as its result.
+c) We can use the sort() method in the Arrays class.

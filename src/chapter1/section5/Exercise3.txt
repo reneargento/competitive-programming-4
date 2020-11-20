@@ -1,0 +1,7 @@
+1.5.3
+
+First we can transform all characters to lowercase using the toLowerCase() method in the String class.
+Then we add all lowercase vowels to a hash set.
+Iterate through the characters in T and for each character check if it is a digit with the method isDigit() from the Character class.
+If it is, increment the digit count. Otherwise, check if it is a letter with the method isLetter() from the Character class.
+If it is, check if the letter is contained in the vowel set. If it is, increment the vowel count. Otherwise, increment the consonant count.

@@ -1,0 +1,6 @@
+1.5.2
+
+a) To find the first occurrence of a substring in a string we can use the method indexOf(String) of the String class.
+b) To find the next occurrences we can use the method indexOf(String, int fromIndex) of the String class.
+Every time we find an occurrence we update the value of fromIndex to the occurrence index + 1, to start the search from the next index.
+Repeat until the indexOf() method returns -1.
