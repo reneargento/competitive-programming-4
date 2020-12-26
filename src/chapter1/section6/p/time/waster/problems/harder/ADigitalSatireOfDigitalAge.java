@@ -151,7 +151,7 @@ public class ADigitalSatireOfDigitalAge {
         private static int nextInt() throws IOException {
             return Integer.parseInt(next());
         }
-        
+
         private static String getLine() throws IOException {
             return reader.readLine();
         }

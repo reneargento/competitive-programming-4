@@ -1,4 +1,4 @@
-package chapter1.section6.o.time.waster.problems.easier;
+package chapter1.section6.p.time.waster.problems.harder;
 
 import java.io.*;
 import java.util.*;
