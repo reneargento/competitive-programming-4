@@ -36,10 +36,7 @@ public class Interpreter {
 
             int instructionIdToExecute = 0;
             while (!halted) {
-                String instructionToExecute = ram[instructionIdToExecute];
-                if (instructionToExecute == null) {
-                    instructionToExecute = "000";
-                }
+                String instructionToExecute = getRamValue(ram, instructionIdToExecute);
                 char operation = instructionToExecute.charAt(0);
                 instructionsExecuted++;
                 int digit2 = Character.getNumericValue(instructionToExecute.charAt(1));
@@ -54,7 +51,7 @@ public class Interpreter {
                     case '5': registers[digit2] = registers[digit3]; break;
                     case '6': registers[digit2] = (registers[digit2] + registers[digit3]) % 1000; break;
                     case '7': registers[digit2] = (registers[digit2] * registers[digit3]) % 1000; break;
-                    case '8': registers[digit2] = (Integer.parseInt(ram[registers[digit3]])) % 1000; break;
+                    case '8': registers[digit2] = (Integer.parseInt(getRamValue(ram, registers[digit3]))) % 1000; break;
                     case '9': ram[registers[digit3]] = appendZeros(registers[digit2]); break;
                     default:
                         if (registers[digit3] != 0) {
@@ -72,6 +69,14 @@ public class Interpreter {
                 instruction = scanner.nextLine();
             }
         }
+    }
+
+    private static String getRamValue(String[] ram, int instructionIdToExecute) {
+        String instructionToExecute = ram[instructionIdToExecute];
+        if (instructionToExecute == null) {
+            instructionToExecute = "000";
+        }
+        return instructionToExecute;
     }
 
     private static String appendZeros(int value) {
