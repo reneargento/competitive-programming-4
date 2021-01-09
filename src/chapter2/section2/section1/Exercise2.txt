@@ -1,0 +1,10 @@
+2.2.1.2
+
+Test case that will make the algorithm run in O(n^2):
+An array with all equal values such as [1, 1, 1, 1, 1, 1, 1]
+
+Quick fix: partition in three sections.
+The left section will contain elements smaller than the pivot, the middle section will contain elements equal to the pivot
+and the right section will contain elements bigger than the pivot.
+Then, recurse only on the left and right sections.
+This algorithm is known as 3-Way Quicksort, or the Dutch national flag algorithm.
