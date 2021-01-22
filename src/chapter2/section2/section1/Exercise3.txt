@@ -1,0 +1,70 @@
+2.2.1.3
+
+1. Determine if S contains one or more pairs of duplicate integers.
+Create a hash set. Iterate over all values of S and for each value check if the value exists in the hash set.
+If it exists, S contains one or more pairs of duplicate integers.
+Otherwise, insert the value in the hash set.
+If all values in S were checked and no duplicates were found then S does not contain pairs of duplicate integers.
+Time complexity: O(n)
+
+2. Given an integer v, find two integers a, b E S such that a + b = v.
+Create a hash set.
+Iterate through the values in S, and for each value i check if the value x = v - i exists in the hash set.
+If found, these are the integers a and b that sum to v.
+Otherwise, insert i into the hash set.
+If after checking all elements, a and b are not found, then there are no two integers that sum to v.
+Time complexity: O(n)
+
+3. Follow-up to Question 2: What if the given array S is already sorted?
+Use two pointers: one in the beginning of S and one in the end of S.
+Check if the sum of the elements on the left pointer and the on the right pointer equal to v.
+If the sum is equal to v, both a and b are found.
+If the sum is smaller than v, increment the left pointer and repeat the operation.
+If the sum is higher than v, decrement the right pointer and repeat the operation.
+If the two pointers meet or cross, there are no two integers that sum to v.
+This approach uses O(1) space while the approach on Question 2 uses O(n) space.
+Time complexity: O(n)
+
+4. Print the integers in S that fall between a range [a..b] (inclusive) in sorted order.
+If the range [a..b] is small enough that an array of its size can be created we can use counting sort.
+Create an array T of size (b - a + 1).
+Iterate over the elements of S and for each element with value v, increment the value of T[v - a].
+Then iterate from values in the range [a..b] (inclusive) and for each value v - a, print it T[v - a] times.
+Time complexity: O(n)
+If b is too big for an array to be created with its size, then sort S.
+Iterate over S until an element with value between the range [a..b] (inclusive) is found.
+Print the element and all the elements on the right that have value in the range [a..b] (inclusive).
+If any element with value higher than b is found, return.
+Time complexity: O(n lg n)
+
+5. Determine the length of the longest increasing contiguous sub-array in S.
+Start a counter with value 1 and a maxLength variable to value 0.
+Iterate over the elements of S and for each element with value v:
+If the element on its right has value higher than v, increment the counter.
+If the element on its right has value equal or lower than v, or if v has no right element then:
+    Compare the value of counter with the value of maxLength. If counter is higher than maxLength, then update maxLength to counter's value.
+    Reset counter to 1.
+After iterating over all elements, return maxLength.
+Time complexity: O(n)
+
+6. Determine the median (50th percentile) of S. Assume that n is odd.
+Select an element randomly to be the pivot p and partition the array using it.
+After the partition is done, we know the index of p.
+If p is the median, then return it.
+If p is less than the median, recurse on the right partition.
+If p is higher than the median, recurse on the left partition.
+This algorithm is known as Quick select.
+Time complexity: O(n)
+
+7. Find the item that appears > n / 2 times in the array.
+Select the first element of S as the majority element (with frequency > n / 2) candidate m.
+Start a counter with value 1.
+Iterate over the elements of S starting on the second element.
+For each element with value v, if v is equal to m, then increment the counter.
+Otherwise, decrement the counter.
+If the counter reaches value 0, select the current element as m and set the counter to 1.
+After the iteration is over we will know that m is the element that appears the most in the array.
+Iterate again over S and count the number of elements equal to m.
+If there are more than n / 2 elements, return m. Otherwise there is no majority element.
+This algorithm is known as Boyer-Moore Majority Vote algorithm.
+Time complexity: O(n)
