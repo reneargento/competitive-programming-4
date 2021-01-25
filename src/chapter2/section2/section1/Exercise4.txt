@@ -1,0 +1,74 @@
+2.2.1.4
+
+1. Rotate the 2D array 90 degrees (counter) clockwise.
+Create and set the variables startRow and startColumn to value 0 and endRow and endColumn to value (n - 1).
+Also create and set the variable currentColumn to be equal to endColumn.
+Consider the delta d to be d = endColumn - startColumn.
+
+In each iteration the elements will move d positions, starting with the element on startRow and currentColumn.
+In each move the elements in the position to be overwritten will be copied and also moved d positions (this will happen
+4 times because the fourth move will put the fourth element in the position of the first element moved).
+
+The first element will be placed d positions to its left. If this would place the element before startColumn,
+place it on startColumn, consider the remaining positions as r = d - (currentColumn - startColumn) and place the element on the (startRow + r) row.
+The second element (the one to be replaced by the first element) will be placed d positions below.
+If this would place the element after endRow, place it on endRow, consider the remaining positions as r = d - (endRow - elementRow))
+and place the element on the (startColumn + r) column.
+The third element (the one to be replaced by the second element) will move d positions in the inverse direction of the first element.
+It will move right and if it would move beyond endColumn, put it on endColumn and on the (endRow - (delta - (endColumn - elementColumn))) row.
+The fourth element (the one to be replaced by the third element) will be placed on the position of the first element
+(startRow and currentColumn).
+
+Decrement currentColumn and repeat the above process, stopping when currentColumn becomes equal to startColumn.
+
+Increment the startRow and startColumn and decrement the endRow and endColumn.
+Repeat this process until startRow is equals or higher than endRow or startColumn is equals or higher than endColumn.
+
+Example:
+1  2  3  4
+5  6  7  8
+9  10 11 12
+13 14 15 16
+
+startRow = 0
+startColumn = 0
+endRow = 3
+endColumn = 3
+currentColumn = 3
+d = 3
+
+Start with element 4 (on startRow and currentColumn). Move it 3 (d) positions to the left. Copy element 1 before overwriting it.
+Move element 1 3 positions below. Copy element 13 before overwriting it.
+Move element 13 3 positions to the right. Copy element 16 before overwriting it.
+Move element 16 to the position on startRow and currentColumn.
+
+currentColumn = 2
+Start with element 3. Move it 2 positions to the left and 1 position (d - (currentColumn - startColumn)) below. Copy element 5 before overwriting it.
+Move element 5 2 positions below and 1 position (d - (endRow - elementRow)) right. Copy element 14 before overwriting it.
+Move element 14 2 positions to the right and 1 position above, on row (endRow - (d - (endColumn - elementColumn))). Copy element 12 before overwriting it.
+Move element 12 to the position on startRow and currentColumn.
+
+Decrement currentColumn and do the same for elements 2, 9, 15 and 8.
+
+Increment startRow and startColumn and decrement the endRow and endColumn.
+Repeat the process for elements 7, 6, 10 and 11.
+
+The resulting 2D array will be:
+4  8  12 16
+3  7  11 15
+2  6  10 14
+1  5  9  13
+Time complexity: O(n^2)
+
+2. Transpose the 2D array (switch rows and columns).
+Create a new 2D array B with the same dimensions as A (n x n).
+Iterate over the rows and columns in A. For each row rA and column cA in A and row rb and column cB in B:
+Set B[cb][rb] = A[rA][cA].
+Copy elements from B to A.
+Time complexity: O(n^2)
+
+3. Mirror the 2D array along a certain x- (or y-) axis.
+Make a 1D array copy C of the target axis (it will have size n).
+Iterate over A on the target axis, replacing its values with the ones in the reverse position in C.
+For example, to mirror the 3rd row of A, set A[2][i] = C[n - 1 - i] for each position i from 0 to (n - 1).
+Time complexity: O(n)

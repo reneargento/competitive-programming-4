@@ -3,7 +3,7 @@ package chapter2.section2.section1;
 /**
  * Created by Rene Argento on 09/01/21.
  */
-public class Exercise4_2_Mirror {
+public class Exercise4_3_Mirror {
 
     public static void main(String[] args) {
         int[][] array = {
