@@ -1,0 +1,11 @@
+2.2.2.2
+
+There are different approaches to use Radix sort when the array has negative numbers.
+
+One approach is to identify the minimum value in the array. Let's call this value delta.
+Increment all values in the array by delta so that there are no negative numbers.
+Sort the array using Radix sort and then decrement all values by delta.
+
+Another approach is to treat the sign as a separate digit, the most significant one.
+Then the last pass would have two buckets: negative and positive numbers.
+When moving the numbers from the negative bucket to the final array, move them in the reverse order.
