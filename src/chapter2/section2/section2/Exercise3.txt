@@ -1,0 +1,9 @@
+2.2.2.3
+
+In Kattis - magicsequence the range of numbers is [1 ... 10^9].
+Ideally we would use a radix of 10^9 and sort the array in just one pass of radix sort, but that would require too much memory.
+Using a radix higher than sqrt(10^9) we can sort the array in just two passes.
+Also, if the radix is a power of 2 we can use bitwise operations instead of the division and mod operations (which seems
+necessary to get the problem accepted when implementing it in Java).
+The nearest number (rounded up) which is a power of 2 and is higher than sqrt(10^9) is 2^15 (32768).
+So the appropriate radix (base) to solve Kattis - magicsequence is 2^15.
