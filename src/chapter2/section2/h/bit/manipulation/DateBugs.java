@@ -16,20 +16,19 @@ public class DateBugs {
         int caseId = 1;
 
         while (computers != 0) {
-            Set<Integer> intersection = getComputerYears();
+            BitSet intersection = getComputerYears();
 
             for (int i = 1; i < computers; i++) {
-                Set<Integer> years = getComputerYears();
-                intersection = getIntersection(intersection, years);
+                BitSet years = getComputerYears();
+                intersection.and(years);
             }
 
             System.out.printf("Case #%d:\n", caseId);
-            if (intersection.isEmpty()) {
+            if (intersection.cardinality() == 0) {
                 System.out.println("Unknown bugs detected.");
             } else {
-                List<Integer> sortedYears = new ArrayList<>(intersection);
-                Collections.sort(sortedYears);
-                System.out.printf("The actual year is %d.\n", sortedYears.get(0));
+                int firstYear = intersection.nextSetBit(0);
+                System.out.printf("The actual year is %d.\n", firstYear);
             }
             System.out.println();
 
@@ -38,8 +37,8 @@ public class DateBugs {
         }
     }
 
-    private static Set<Integer> getComputerYears() throws IOException {
-        Set<Integer> years = new HashSet<>();
+    private static BitSet getComputerYears() throws IOException {
+        BitSet years = new BitSet();
 
         int startYear = FastReader.nextInt();
         int displayedYearWhenBug = FastReader.nextInt();
@@ -48,20 +47,9 @@ public class DateBugs {
         int offset = realYear - displayedYearWhenBug;
 
         for (int y = startYear; y < 10000; y += offset) {
-            years.add(y);
+            years.set(y);
         }
         return years;
-    }
-
-    private static Set<Integer> getIntersection(Set<Integer> set1, Set<Integer> set2) {
-        Set<Integer> intersection = new HashSet<>();
-
-        for (Integer year : set1) {
-            if (set2.contains(year)) {
-                intersection.add(year);
-            }
-        }
-        return intersection;
     }
 
     private static class FastReader {
