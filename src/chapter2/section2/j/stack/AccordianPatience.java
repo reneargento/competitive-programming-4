@@ -81,7 +81,7 @@ public class AccordianPatience {
 
         if (currentIndex >= 1) {
             int targetPileIndex = currentIndex - 1;
-            if (matchPiles(piles,currentIndex, targetPileIndex)) {
+            if (matchPiles(piles, currentIndex, targetPileIndex)) {
                 return targetPileIndex;
             }
         }
