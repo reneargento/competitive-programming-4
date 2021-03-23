@@ -43,10 +43,10 @@ public class AnagramsByStack {
         if (!stack.isEmpty() && stack.peek() == targetWord.charAt(targetIndex)) {
             StringBuilder copySequence = new StringBuilder(currentSequence.toString());
             copySequence.append("o");
-            Deque<Character> copyStack = new ArrayDeque<>(stack);
-            copyStack.pop();
-            generateSequences(sourceWord, targetWord, copyStack, sourceIndex, targetIndex + 1,
+            char characterToPop = stack.pop();
+            generateSequences(sourceWord, targetWord, stack, sourceIndex, targetIndex + 1,
                     sequences, copySequence);
+            stack.push(characterToPop);
         }
 
         if (sourceIndex < sourceWord.length()) {
@@ -54,6 +54,7 @@ public class AnagramsByStack {
             stack.push(sourceWord.charAt(sourceIndex));
             generateSequences(sourceWord, targetWord, stack, sourceIndex + 1, targetIndex, sequences,
                     currentSequence);
+            stack.pop();
         }
     }
 
