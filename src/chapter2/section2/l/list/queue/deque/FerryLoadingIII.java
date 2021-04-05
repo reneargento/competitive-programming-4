@@ -38,11 +38,8 @@ public class FerryLoadingIII {
             int timeToCross = FastReader.nextInt();
             int cars = FastReader.nextInt();
 
-            int currentTime = 0;
-            boolean isOnLeft = true;
             Queue<Car> carArrivalsOnLeft = new LinkedList<>();
             Queue<Car> carArrivalsOnRight = new LinkedList<>();
-            List<Car> deliveryTimes = new ArrayList<>();
 
             for (int i = 0; i < cars; i++) {
                 int timeOfArrival = FastReader.nextInt();
@@ -56,47 +53,57 @@ public class FerryLoadingIII {
                 }
             }
 
-            while (!carArrivalsOnLeft.isEmpty() || !carArrivalsOnRight.isEmpty()) {
-                boolean shouldPickFromRight = shouldPickFromRight(carArrivalsOnLeft, carArrivalsOnRight, isOnLeft, currentTime);
-
-                if (isOnLeft) {
-                    if (!shouldPickFromRight) {
-                        if (carArrivalsOnLeft.peek().arrivedTime > currentTime) {
-                            currentTime = carArrivalsOnLeft.peek().arrivedTime;
-                        }
-                        transportCars(carsSupported, carArrivalsOnLeft, currentTime, timeToCross, deliveryTimes);
-                        isOnLeft = false;
-                    } else {
-                        if (carArrivalsOnRight.peek().arrivedTime > currentTime) {
-                            currentTime = carArrivalsOnRight.peek().arrivedTime;
-                        }
-                        currentTime += timeToCross;
-                        transportCars(carsSupported, carArrivalsOnRight, currentTime, timeToCross, deliveryTimes);
-                    }
-                } else {
-                    if (shouldPickFromRight) {
-                        if (carArrivalsOnRight.peek().arrivedTime > currentTime) {
-                            currentTime = carArrivalsOnRight.peek().arrivedTime;
-                        }
-                        transportCars(carsSupported, carArrivalsOnRight, currentTime, timeToCross, deliveryTimes);
-                        isOnLeft = true;
-                    } else {
-                        if (carArrivalsOnLeft.peek().arrivedTime > currentTime) {
-                            currentTime = carArrivalsOnLeft.peek().arrivedTime;
-                        }
-                        currentTime += timeToCross;
-                        transportCars(carsSupported, carArrivalsOnLeft, currentTime, timeToCross, deliveryTimes);
-                    }
-                }
-                currentTime += timeToCross;
-            }
-
+            List<Car> deliveryTimes = computeDeliveryTimes(carsSupported, timeToCross, carArrivalsOnLeft,
+                    carArrivalsOnRight);
             Collections.sort(deliveryTimes);
             for (Car car : deliveryTimes) {
                 outputWriter.printLine(car.deliveredTime);
             }
         }
         outputWriter.flush();
+    }
+
+    private static List<Car> computeDeliveryTimes(int carsSupported, int timeToCross, Queue<Car> carArrivalsOnLeft,
+                                                  Queue<Car> carArrivalsOnRight) {
+        List<Car> deliveryTimes = new ArrayList<>();
+        int currentTime = 0;
+        boolean isOnLeft = true;
+
+        while (!carArrivalsOnLeft.isEmpty() || !carArrivalsOnRight.isEmpty()) {
+            boolean shouldPickFromRight = shouldPickFromRight(carArrivalsOnLeft, carArrivalsOnRight, isOnLeft, currentTime);
+
+            if (isOnLeft) {
+                if (!shouldPickFromRight) {
+                    if (carArrivalsOnLeft.peek().arrivedTime > currentTime) {
+                        currentTime = carArrivalsOnLeft.peek().arrivedTime;
+                    }
+                    transportCars(carsSupported, carArrivalsOnLeft, currentTime, timeToCross, deliveryTimes);
+                    isOnLeft = false;
+                } else {
+                    if (carArrivalsOnRight.peek().arrivedTime > currentTime) {
+                        currentTime = carArrivalsOnRight.peek().arrivedTime;
+                    }
+                    currentTime += timeToCross;
+                    transportCars(carsSupported, carArrivalsOnRight, currentTime, timeToCross, deliveryTimes);
+                }
+            } else {
+                if (shouldPickFromRight) {
+                    if (carArrivalsOnRight.peek().arrivedTime > currentTime) {
+                        currentTime = carArrivalsOnRight.peek().arrivedTime;
+                    }
+                    transportCars(carsSupported, carArrivalsOnRight, currentTime, timeToCross, deliveryTimes);
+                    isOnLeft = true;
+                } else {
+                    if (carArrivalsOnLeft.peek().arrivedTime > currentTime) {
+                        currentTime = carArrivalsOnLeft.peek().arrivedTime;
+                    }
+                    currentTime += timeToCross;
+                    transportCars(carsSupported, carArrivalsOnLeft, currentTime, timeToCross, deliveryTimes);
+                }
+            }
+            currentTime += timeToCross;
+        }
+        return deliveryTimes;
     }
 
     private static boolean shouldPickFromRight(Queue<Car> carArrivalsOnLeft, Queue<Car> carArrivalsOnRight,
