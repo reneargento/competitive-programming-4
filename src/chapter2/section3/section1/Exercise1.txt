@@ -1,0 +1,66 @@
+2.3.1.1
+
+1. Insert 26
+Insert 26 at the left subtree of 3.
+Swap 26 with 3.
+Swap 26 with 19.
+
+The array values will be: [-, 90, 26, 36, 17, 19, 25, 1, 2, 7, 3].
+
+2. ExtractMax()
+Extract 90.
+Move 3 to the root.
+Swap 3 with 36.
+Swap 3 with 25.
+Return 90.
+
+The array values will be: [-, 36, 26, 25, 17, 19, 3, 1, 2, 7].
+
+3. Heap Sort()
+Extract 36.
+Move 7 to the root.
+Swap 7 with 26.
+Swap 7 with 19.
+The array values will be: [-, 26, 19, 25, 17, 7, 3, 1, 2].
+
+Extract 26.
+Move 2 to the root.
+Swap 2 with 25.
+Swap 2 with 3.
+The array values will be: [-, 25, 19, 3, 17, 7, 2, 1].
+
+Extract 25.
+Move 1 to the root.
+Swap 1 with 19.
+Swap 1 with 17.
+The array values will be: [-, 19, 17, 3, 1, 7, 2].
+
+Extract 19.
+Move 2 to the root.
+Swap 2 with 17.
+Swap 2 with 7.
+The array values will be: [-, 17, 7, 3, 1, 2].
+
+Extract 17.
+Move 2 to the root.
+Swap 2 with 7.
+The array values will be: [-, 7, 2, 3, 1].
+
+Extract 7.
+Move 1 to the root.
+Swap 1 with 3.
+The array values will be: [-, 3, 2, 1].
+
+Extract 3.
+Move 1 to the root.
+Swap 1 with 2.
+The array values will be: [-, 2, 1].
+
+Extract 2.
+Move 1 to the root.
+The array values will be: [-, 1].
+
+Extract 1.
+The array values will be: [-].
+
+Return the values in the inverse order of extraction.
