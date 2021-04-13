@@ -1,0 +1,3 @@
+2.3.1.2
+
+The structure represented by a 1-based compact array sorted in descending order is a Max Heap because all indices satisfy the Max Heap property.
