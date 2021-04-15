@@ -1,0 +1,7 @@
+2.3.1.4
+
+Statement: The smallest item in a Max Heap with n >= 3 distinct items is always one of the leaves.
+The statement is true.
+If the smallest item weren't a leaf, it would be the parent of another node, which means it would need to have a higher value than its child.
+Since it is the smallest item in the Max Heap this is not possible. Therefore, it must be a leaf.
+
