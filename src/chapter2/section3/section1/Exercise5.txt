@@ -1,0 +1,12 @@
+2.3.1.5
+
+Given a 1-based compact array A containing n integers satisfying the Max Heap property.
+To output all items in A that are greater than an integer v:
+
+Set i = 1.
+Check if the item at index i is greater than v.
+If it is, output it and recurse on indexes 2 * i and (2 * i) + 1 (if the indexes are valid).
+Otherwise, return.
+
+Since the array integers satisfy the Max Heap property we know that if the current item is not greater than v, none of its children will be.
+
