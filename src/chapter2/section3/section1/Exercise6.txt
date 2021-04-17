@@ -1,0 +1,16 @@
+2.3.1.6
+
+Given an unsorted array S of n distinct integers we can find the largest and smallest k integers in O(n log k) in the following way:
+
+1. Create two heaps, a Min Heap minPQ and a Max Heap maxPQ.
+2. Iterate through all integers in S.
+3. For every integer in S, check both minPQ and maxPQ. If any of them has less than k elements, insert the integer.
+If minPQ has k elements: Check if the current integer is larger than the top element of the heap.
+    If it is, extract the top element and insert it.
+If maxPQ has k elements: Check if the current integer is smaller than the top element of the heap.
+    If it is, extract the top element and insert it.
+
+At the end of iteration minPQ will contain the largest k integers and maxPQ will contain the smallest k integers.
+For each of the n integers we may do extract and insert operations on minPQ and maxPQ, both of which have a maximum size of k.
+This takes in total O(n log k).
+
