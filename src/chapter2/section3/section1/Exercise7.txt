@@ -1,0 +1,11 @@
+2.3.1.7
+
+If we only need the DecreaseKey(oldKey, newKey) operation we can use lazy deletion on the oldKey in the following way:
+1. Insert the newKey on the priority queue.
+2. Keep track of deleted items on a hash map. The keys on the hash maps are the deleted keys and the values are the frequency in which that key was deleted.
+3. Search for oldKey on the hash map. If it does not exist, insert it with a value of 1.
+If it exists, increment its frequency counter.
+4. Every time we dequeue a key from the priority queue check if it exists on the hash map.
+If it does not exist, dequeue works as usual.
+If it exists, decrement the frequency counter related to the key and ignore the dequeue result. Dequeue again until finding a valid key or until the priority queue is empty.
+If the frequency counter for any key in the hash map becomes 0, remove the key from the hash map.
