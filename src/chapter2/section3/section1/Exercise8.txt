@@ -1,0 +1,14 @@
+2.3.1.8
+
+If the keys of a priority queue are all integers within a small range, e.g. [0..100] there is a better way to implement it.
+We can have an array with the size of the range and access the elements directly by their index.
+If the minimum value is higher than 0, we can access the indexes using [index + minimum value].
+On enqueue() increment 1 on the index related to the key.
+On dequeue() iterate from the beginning of the array to the end until finding the first existent key (the index with value higher than 0).
+Decrement this value and return the key. This can be used for extractMin(), iterating from the start of the array, or extractMax(), iterating from the end of the array.
+As the range of values is small both operations will run in constant time.
+
+If the range is just [0..1] the same thing can be done, keeping a frequency counter for both 0 keys and 1 keys.
+Instead of an array, 2 integer variables can be used to keep the count.
+On enqueue() we increment the key frequency.
+On dequeue() we check both key frequencies and decrement the frequency and return the smallest existent key (if it is a Min Heap) or the highest (if it is a Max Heap).
