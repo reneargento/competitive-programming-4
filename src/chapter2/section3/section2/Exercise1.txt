@@ -1,0 +1,44 @@
+2.3.2.1
+
+1. Search(8)
+Compute h(8) = 8 % 11 = 8.
+Check cell/slot 8 and the first key is 8. Return it.
+
+Search(35)
+Compute h(35) = 35 % 11 = 2.
+Check cell/slot 2 and iterate over the list in it.
+The third key is 35. Return it.
+
+Search(77)
+Compute h(77) = 77 % 11 = 0.
+Check cell/slot 0 and iterate over the list.
+After iterating over all the list and not finding 77, return null.
+
+2. Insert(77)
+Compute h(77) = 77 % 11 = 0.
+Check cell/slot 0 and iterate over the list.
+Insert 77 after the key 11.
+
+Insert(13)
+Compute h(13) = 13 % 11 = 2.
+Check cell/slot 2 and iterate over the list.
+Key 13 already exists, so return.
+
+Insert(19)
+Compute h(19) = 19 % 11 = 8.
+Check cell/slot 8 and iterate over the list.
+Insert 19 after the key 8.
+
+3. Remove(9)
+Compute h(9) = 9 % 11 = 9.
+Check cell/slot 9. The list is empty, so return.
+
+Remove(7)
+Compute h(7) = 7 % 11 = 7.
+Check cell/slot 7 and iterate over the list.
+The key 7 is found at the end of the list. Remove it by updating the next reference of key 18 to null.
+
+Remove(13)
+Compute h(13) = 13 % 11 = 2.
+Check cell/slot 2 and iterate over the list.
+The key 13 is found at the second position of the list. Remove it by updating the next reference of key 24 to key 35.
