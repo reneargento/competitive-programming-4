@@ -1,0 +1,4 @@
+2.3.2.2
+
+The approach of storing key -> value pairs in a sorted array of structs to be able to search in O(log n) with binary search is feasible.
+However, insertions and deletions would have a runtime of O(n) because the keys would need to be moved to keep the array always sorted and without any gaps.
