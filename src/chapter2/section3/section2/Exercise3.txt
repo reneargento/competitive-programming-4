@@ -1,0 +1,10 @@
+2.3.2.3
+
+Given the M strings, N of which are unique, we can index them from [0..N-1] in the following way:
+Create a hash table.
+Iterate over the M strings.
+For every string, if it does not exist in the hash table:
+   Assign it the index equal to the hash table size and insert it into the hash table with a value equal to its index.
+If it exists in the hash table:
+   Search for the string in the hash table and get its value (index).
+   Assign the current string the same index.
