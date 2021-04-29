@@ -1,0 +1,9 @@
+2.3.2.5
+
+To hash a pair of integers that represents a cell (r, c) in a 2D array of size N x M it is possible to use the following function:
+h(r, c, M, S) = (r * M + c) % S
+
+Where S is the number of buckets in the hash table.
+This will generate unique numbers for each cell that will then be used to generate a hash after applying the MOD operation.
+
+
