@@ -1,0 +1,14 @@
+2.3.2.4
+
+In general there is a minor improvement in the runtime when using a HashSet instead of a TreeSet, but there can also be cases where the TreeSet has better performance.
+
+Experiments:
+        Problem                   Runtime with TreeSet     Runtime with HashSet       Best
+Cards' Exchange (UVa 11678)             0.61                       0.55              HashSet
+Prerequisites? (UVa 10919)              0.61                       0.53              HashSet
+Correct Move (UVa 255)                  1.13                       1.63              TreeSet
+Tarot scores (UVa 11225)                0.19                       0.18              HashSet
+Eb Alto Saxophone Player (UVa 10415)    0.41                       0.39              HashSet
+
+
+
