@@ -1,0 +1,94 @@
+2.3.3.1
+
+1. Search(71)
+Check root. 71 is higher than 15, so go to the right sub-tree.
+The current key is 50. 71 is higher, so go to the right sub-tree.
+The current key is 71, so it was found.
+
+Search(7)
+Check root. 7 is smaller than 15, so go to the left sub-tree.
+The current key is 4. 7 is higher, so go to the right sub-tree.
+The current key is 7, so it was found.
+
+Search(22)
+Check root. 22 is higher than 15, so go to the right sub-tree.
+The current key is 50. 22 is smaller, so go to the left sub-tree.
+The current key is 23. 22 is smaller, and the left sub-tree is empty, so the key was not found.
+
+2. After inserting the keys 15, 4, 50, 2, 7, 23, 71, 10, 65 we have the BST:
+
+      15
+   /      \
+  4        50
+ / \      /  \
+2   7    23  71
+     \       /
+     10     65
+
+3. findMin()
+Check the root (15). It has a left sub-tree, so go to it.
+Check the current key (4). It has a left sub-tree, so go to it.
+Check the current key (2). It does not have a left sub-tree, so 2 is the minimum value. Return it.
+
+findMax()
+Check the root (15). It has a right sub-tree, so go to it.
+Check the current key (50). It has a right sub-tree, so go to it.
+Check the current key (71). It does not have a right sub-tree, so 71 is the maximum value. Return it.
+
+4. Inorder traversal: 2, 4, 7, 10, 15, 23, 50, 65, 71.
+The output is sorted.
+
+5.
+Preorder traversal: 15, 4, 2, 7, 10, 50, 23, 71, 65.
+Postorder traversal: 2, 10, 7, 4, 23, 65, 71, 50, 15.
+Level order traversal: 15, 4, 50, 2, 7, 23, 71, 10, 65.
+
+6. Successor(50)
+Check root (15). 50 is higher than 15, so go to the right sub-tree.
+The current key is 50. Go to its right sub-tree.
+The current key is 71. Go to its left sub-tree.
+The current key is 65. The left sub-tree is empty, so return it.
+
+Successor(10)
+Check root (15). 10 is smaller than 15, so go to the left sub-tree. Keep track of 15 as the last key from which we went left.
+The current key is 4. 10 is higher, so go to the right sub-tree.
+The current key is 7. 10 is higher, so go to the right sub-tree.
+The current key is 10. The right sub-tree is empty so return the last key from which we moved left, 15.
+
+Successor(71)
+Check root (15). 71 is higher than 15, so go to the right sub-tree.
+The current key is 50. 71 is higher, so go to the right sub-tree.
+The current key is 71. The right sub-tree is empty and we have not moved left any time. So 71 has no successor, return null.
+
+Predecessor(23)
+Check root (15). 23 is higher than 15, so go to the right sub-tree. Keep track of 15 as the last key from which we went right.
+The current key is 50. 23 is smaller, so go to the left sub-tree.
+The current key is 23. The left sub-tree is empty so return the last key from which we moved right, 15.
+
+Predecessor(7)
+Check root (15). 7 is smaller than 15, so go to the left sub-tree.
+The current key is 4. 7 is higher than 4, so go to the right sub-tree. Keep track of 4 as the last key from which we went right.
+The current key is 7. The left sub-tree is empty so return the last key from which we moved right, 4.
+
+Predecessor(71)
+Check root (15). 71 is higher than 15, so go to the right sub-tree. Keep track of 15 as the last key from which we went right.
+The current key is 50. 71 is higher, so go to the right sub-tree. Keep track of 50 as the last key from which we went right.
+The current key is 71. Go to its left sub-tree.
+The current key is 65. The right sub-tree is empty so return 65.
+
+7. Remove(65)
+Check root (15). 65 is higher than 15, so go to the right sub-tree.
+The current key is 50. 65 is higher, so go to the right sub-tree.
+The current key is 71. 65 is smaller, so go to the left sub-tree.
+The current key is 65. It is a leaf, so remove it by setting the key 71's left subtree to null.
+
+Remove(71)
+Check root (15). 71 is higher than 15, so go to the right sub-tree.
+The current key is 50. 71 is higher, so go to the right sub-tree.
+The current key is 71. The right sub-tree is empty so go to the left sub-tree.
+The current key is 65. The right sub-tree is empty so remove 71 by returning 65 as the key 50's right sub-tree.
+
+Remove(15)
+15 is the root and has a left and a right sub-tree. Go to the right sub-tree.
+The current key is 50. Go to the left sub-tree.
+The current key is 23. It is a leaf and also the successor of 15, so remove it (by setting the key 50's left subtree to null) and place it where key 15 was.
