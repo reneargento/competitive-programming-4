@@ -1,0 +1,5 @@
+2.3.3.2
+
+To support many dynamic insertions and deletions and many requests for the data in sorted order we should use a balanced binary search tree (Java TreeSet or C++ STL set).
+It will handle insertions and deletions in O(log n) and outputting data in sorted order in O(n) with an inorder traversal.
+If data no longer needs to be output in a sorted way a Java hash set (or C++ STL unordered_set) can be used, handling insertions and deletions in O(1) and outputting data in O(n).
