@@ -1,0 +1,9 @@
+2.3.3.4
+
+The code also produces the BST items in sorted order.
+It can be made to run in a total time of O(n) instead of O(n log n) by keeping track of the nodes as we recurse to the left sub-trees.
+A stack can be used and every time we recurse to the left sub-tree the current node would be pushed to the stack.
+Once there is no left sub-tree, print the key. Then recurse to the right sub-tree.
+If there is no left and no right sub-trees, print and pop the key at the top of the stack. Recurse on the right sub-tree of the popped key.
+Continue until the stack is empty.
+This algorithm will run in a total time of O(n).

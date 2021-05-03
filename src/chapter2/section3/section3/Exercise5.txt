@@ -1,0 +1,14 @@
+2.3.3.5
+
+Key to value mapping:
+A balanced BST should only be used when we need to have a key to value mapping and also need to query the keys in sorted order.
+Otherwise a hash map is more efficient because its operations are O(1) against the bBST operations in O(log n).
+
+Sorting (Tree Sort):
+A balanced BST should only be used to sort keys if there are frequent updates, insertions and deletions of the keys.
+Otherwise we should use quick sort. It runs on same expected time complexity as the bBST but with lower constants.
+
+Priority queue needs:
+A balanced BST should be used when we need the updateKey(oldKey, newKey) and/or the removeKey(key) or both the extractMin() and extractMax() operations together.
+If these methods are not needed it is best to use a compressed array as it has O(1) extractMin() (or extractMax()) operations against the O(log n) in the bBST.
+

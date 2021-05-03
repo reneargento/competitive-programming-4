@@ -1,0 +1,12 @@
+2.3.3.3
+
+1. Check if T is a BST.
+Do an inorder traversal and check if the keys are sorted. Time complexity: O(n).
+
+2. Output the items in T that are within a given range [a..b] in ascending order.
+Do an inorder traversal and during the traversal if the key is in the range [a..b], print it. Time complexity: O(n).
+
+3. Output the contents of the leaves of T in descending order.
+Do a level order traversal on T and store the contents of the keys that are leaves (they are the keys with no children).
+The level order traversal will visit the leaves in ascending order.
+After finishing the traversal output the contents from the end to the start.
