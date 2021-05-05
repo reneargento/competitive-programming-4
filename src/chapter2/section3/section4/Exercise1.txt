@@ -1,0 +1,8 @@
+2.3.4.1
+
+To handle duplicates in the tree we can use the less_equal<int> comparator when defining the tree:
+typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics_node_update> ost;
+
+Note that when using the less_equal comparator the lower_bound() function works as upper_bound() and vice-versa.
+
+Reference: Comments section on https://codeforces.com/blog/entry/11080
