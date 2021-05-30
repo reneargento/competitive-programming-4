@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by Rene Argento on 29/05/21.
  */
-public class Conformity {
+public class ConformityKattis {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
