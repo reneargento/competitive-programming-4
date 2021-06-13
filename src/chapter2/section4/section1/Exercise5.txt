@@ -1,0 +1,14 @@
+2.4.1.5
+
+Other methods to represent graphs include:
+* Adjacency Set: Storing the edges as lists of sets instead of lists of lists.
+                 This enables a fast way to iterate over neighbor vertices and O(1) checks for connectivity.
+* Adjacency Tree: Storing the edges as lists of balanced binary trees instead of lists of lists.
+                  This enables a fast way to iterate over neighbor vertices and keeps the neighbor vertices in sorted order.
+* Bipartite Matrix: In a bipartite graph there are two sets of vertices, set A and set B.
+                    We can have an A x B matrix with the vertices of set A on the vertical axis and the vertices of set B on the horizontal axis.
+                    The matrix cell values represent the weight of the edges between the vertices (if any exist).
+                    This works the same way as an Adjacency Matrix, but uses less memory since the matrix size is A x B instead of V x V.
+* Star Set: In a star graph one vertex is connected to all the other vertices and all the other vertices are connected only to this main vertex.
+            If we know that the graph will always be a star graph we can have one variable to store the main vertex number and a set to store all the other vertices.
+            This makes swapping the main vertex with one of the other vertices to have O(1) runtime as it only requires updating the main vertex variable and updating the set.

@@ -1,0 +1,3 @@
+2.4.1.1
+
+If the Adjacency Matrix (AM) of a (simple) graph has the property that it is equal to its transpose this implies that the graph is undirected.
