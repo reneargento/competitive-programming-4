@@ -1,0 +1,7 @@
+2.4.1.6
+
+If the neighbors of vertices are not listed in increasing vertex number in the input but we prefer them to be in sorted order we can either:
+1- Use an Adjacency List representation and after reading the input sort all the lists by increasing vertex number.
+or
+2- Use an Adjacency Tree representation where all neighbors are stored in a list of trees, which keep the order by increasing vertex number.
+Both implementations would have a runtime of V * (D * lg(D)), where D is the average degree (number of neighbors) of the vertices.
