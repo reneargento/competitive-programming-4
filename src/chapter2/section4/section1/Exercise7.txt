@@ -1,0 +1,7 @@
+2.4.1.7
+
+Always storing vertex numbers in increasing order inside the Adjacency List is not always a good idea.
+There are cases when the vertex numbers need to be stored in a different order.
+For example, to compute the faces of a planar graph the vertices should be stored in clockwise order given by the planar embedding of the graph.
+
+Reference: https://mathoverflow.net/questions/23811/reporting-all-faces-in-a-planar-graph
