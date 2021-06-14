@@ -1,0 +1,8 @@
+2.4.1.8
+
+A situation/problem where using more than one graph data structure at the same time is useful is the following:
+Given an undirected unweighted graph G, there will be two types of queries, Q1 and Q2.
+Q1 gives a source vertex and a target vertex and asks for the shorted path length between them.
+Q2 gives vertex 1 and vertex 2 and asks if there is an edge between them or not.
+
+Having the graph represented as Adjacency Lists would be useful for the traversal required in Q1 and having it represented as an Adjacency Matrix would be useful for doing O(1) checks in Q2.
