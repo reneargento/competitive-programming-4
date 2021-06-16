@@ -1,0 +1,10 @@
+2.4.2.1
+
+Sequence of unionSet(i, j) operations to create a tree with the shortest possible height:
+unionSet(0, 1)
+unionSet(0, 2)
+unionSet(0, 3)
+...
+unionSet(0, N-1)
+
+This creates a tree with height 1.

@@ -1,0 +1,17 @@
+2.4.2.3
+
+Sequence of unionSet(i, j) and findSet(i) operations to create a tree with the shortest possible height:
+unionSet(0, 1)
+unionSet(0, 2)
+unionSet(0, 3)
+...
+unionSet(0, N-1)
+
+Without the "union by rank" heuristic the resulting tree can be as tall as N - 1.
+This tree can be flattened to a star graph by calling:
+findSet(0)
+findSet(1)
+...
+findSet(N - 1)
+
+This will compress the paths from all vertices to the root and will create a tree with height 1.

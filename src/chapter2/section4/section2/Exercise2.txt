@@ -1,0 +1,20 @@
+2.4.2.2
+
+Sequence of unionSet(i, j) operations to create a tree with rank = log2(N):
+unionSet(0, 1)
+unionSet(2, 3)
+...
+unionSet(N-2, N-1)
+
+This will reduce the number of disjoint sets from N to N / 2.
+Repeat the process until there is only one set left.
+unionSet(0, 2)
+unionSet(4, 6)
+...
+unionSet(N-4, N-2)
+
+This creates a tree with rank = log2(N).
+It is not possible to create a tree with rank > log2(N).
+This is because after each iteration of the above unionSet operations, the number of disjoint sets is reduced by half and the sets rank increases by 1.
+So in total there will be log2(N) iterations, each increasing the sets rank by 1.
+This is the worst possible case, so a tree with rank > log2(N) is not possible to be created.

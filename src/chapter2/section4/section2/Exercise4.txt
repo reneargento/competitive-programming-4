@@ -1,0 +1,4 @@
+2.4.2.4
+
+We can avoid using self loops by setting the parent of representative items to a dummy value such as -1.
+The condition to check if an item is the representative item of the set would then change from p[i] == i to p[i] == -1.
