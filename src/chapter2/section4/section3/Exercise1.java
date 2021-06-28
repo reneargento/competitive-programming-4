@@ -79,7 +79,7 @@ public class Exercise1 {
         long[] values = {0, 1, 2, 3, 1, 10, 11, 100};
         FenwickTree fenwickTree = new FenwickTree(values);
 
-        System.out.println("Select 0: " + fenwickTree.select(0) + " Expected: 1");
+        System.out.println("Select 1: " + fenwickTree.select(1) + " Expected: 1");
         System.out.println("Select 2: " + fenwickTree.select(2) + " Expected: 2");
         System.out.println("Select 7: " + fenwickTree.select(7) + " Expected: 4");
         System.out.println("Select 20: " + fenwickTree.select(20) + " Expected: 6");
