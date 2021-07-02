@@ -1,0 +1,12 @@
+2.4.4.1
+
+Note that the exercise refers to the segment tree described in exercise 2.4.4.2.
+RSQ(1, 7) = 167
+RSQ(3, 8) = 139
+
+If array A is never changed using a Segment Tree is overkill.
+A better approach is to use the prefix sum technique.
+With it a pre-processing is done in O(n) time and all queries are answered in O(1) time.
+
+If array A is frequently changed a better approach is to use a Fenwick Tree.
+Both a Segment Tree and a Fenwick Tree can answer the RSQ queries in O(log n) time, but the Fenwick Tree is simpler to code.
