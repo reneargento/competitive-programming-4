@@ -1,0 +1,12 @@
+2.4.4.4
+
+Deleting an existing value will possibly invalidate its parent nodes on the segment tree.
+This could happen if the deleted value was the smallest value in the range represented by one or more of its parent nodes.
+To address that, after a deletion, walk from that leaf node parent to the root of the segment tree, updating the nodes' values when necessary.
+Replace the deleted node parent with its other child node. Delete that child node too.
+This is useful to avoid having nodes with only one child.
+For each other node in the path to the root, compare its both children (one of which may have a new value) and update its value if necessary.
+If any node do not need to be updated during the path, the algorithm can finish because no other nodes above it will be updated.
+
+Inserting a new value will require the same process of updating the leaf node's parents.
+This is because the inserted value may be smaller than all other nodes represented on parent node ranges.
