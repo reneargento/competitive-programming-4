@@ -1,0 +1,11 @@
+2.4.4.5
+
+Problems solved with both Fenwick Tree and Segment Tree:
+
+     Problem                    Fenwick Tree runtime      Segment Tree runtime
+UVa 12086 - Potentiometers              0.74 s                   1.13 s
+Kattis - Just for Sidekicks             0.75 s                   0.86 s
+Kattis - Movie Collection               0.58 s                   0.90 s
+Kattis - Supercomputer                  0.42 s                   0.58 s
+
+Fenwick Tree not only was simpler to code, but it also solved the problems with a faster runtime.
