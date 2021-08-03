@@ -86,7 +86,7 @@ public class FrequentValues {
     private static class SegmentTree {
         private static class Node {
             long max;
-            
+
             int left;
             int right;
 
