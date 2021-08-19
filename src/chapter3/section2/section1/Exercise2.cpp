@@ -1,34 +1,24 @@
-#include <iostream>
 #include <algorithm>
-#include <unordered_set>
+#include <vector>
 
 using namespace std;
 
-unordered_set<string> getKOutOfCCombinations(int k, int c) {
-    int numbers[c];
-    for (int i = 1; i <= c; i++) {
-        numbers[i - 1] = i;
+void printKOutOfCCombinations(int k, int c) {
+    vector<int> taken(c, 0);
+    for (int i = c - k; i < c; i++) {
+        taken[i] = 1;
     }
 
-    unordered_set<string> uniqueValues;
     do {
-        string values;
-        for (int i = 0; i < k; i++) {
-            values += to_string(numbers[i]);
-            if (i != k - 1) {
-                values += " ";
+        for (int i = 0; i < c; i++) {
+            if (taken[i]) {
+                printf("%d ", i);
             }
         }
-        uniqueValues.insert(values);
-    } while (next_permutation(numbers, numbers + c));
-
-    return uniqueValues;
+        printf("\n");
+    } while (next_permutation(taken.begin(), taken.end()));
 }
 
 int main() {
-    unordered_set<string> kCombinations = getKOutOfCCombinations(3, 6);
-
-    for (const string& kCombination : kCombinations) {
-        cout<< kCombination << "\n";
-    }
+    printKOutOfCCombinations(3, 6);
 }
