@@ -53,14 +53,14 @@ public class SGCoin {
         return null;
     }
 
-    private static ComputationResult hash(long previousHash, String transaction, long target) {
+    private static ComputationResult hash(long previousHash, String transaction, long targetHash) {
         long hashValue = previousHash;
         for (int i = 0; i < transaction.length(); i++) {
             hashValue = (hashValue * 31 + transaction.charAt(i)) % 1000000007;
         }
         long newHash = (hashValue * 7) % 1000000007;
-        long token = (target + 1000000007 - newHash) % 1000000007;
-        return new ComputationResult(token, target);
+        long token = (targetHash - newHash + 1000000007) % 1000000007;
+        return new ComputationResult(token, targetHash);
     }
 
     private static class FastReader {
