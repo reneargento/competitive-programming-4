@@ -1,7 +1,8 @@
 package chapter3.section2.b.iterative.two.nested.loops;
 
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Rene Argento on 06/11/21.
@@ -11,32 +12,43 @@ public class SummerTrip {
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int tests = FastReader.nextInt();
 
-        for (int t = 0; t < tests; t++) {
-            
+        String events = FastReader.getLine();
+        long goodItineraries = 0;
+
+        for (int i = 0; i < events.length(); i++) {
+            char startEvent = events.charAt(i);
+
+            if (i < events.length() - 1
+                    && startEvent == events.charAt(i + 1)) {
+                continue;
+            }
+            Set<Character> computedEvents = new HashSet<>();
+
+            for (int j = i + 1; j < events.length(); j++) {
+                char currentEvent = events.charAt(j);
+                if (currentEvent == startEvent) {
+                    break;
+                }
+
+                if (computedEvents.contains(currentEvent)) {
+                    continue;
+                }
+
+                computedEvents.add(currentEvent);
+                goodItineraries++;
+            }
         }
+
+        outputWriter.printLine(goodItineraries);
         outputWriter.flush();
     }
 
     private static class FastReader {
         private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
 
         static void init() {
             reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
-        }
-
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
-            }
-            return tokenizer.nextToken();
-        }
-
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
         }
 
         private static String getLine() throws IOException {
