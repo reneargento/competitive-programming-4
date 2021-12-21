@@ -1,40 +1,49 @@
 package chapter3.section2.h.mathematical.simulation.easier;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 18/12/21.
+ * Created by Rene Argento on 19/12/21.
  */
-public class PetersSmokes {
+public class TrollHunt {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        String line = FastReader.getLine();
+        int bridges = FastReader.nextInt();
+        int knights = FastReader.nextInt();
+        int membersPerGroup = FastReader.nextInt();
 
-        while (line != null) {
-            String[] data = line.split(" ");
-            long cigarettes = Integer.parseInt(data[0]);
-            int k = Integer.parseInt(data[1]);
-
-            long totalCigarettes = (k * cigarettes - 1) / (k - 1);
-
-            outputWriter.printLine(totalCigarettes);
-
-            line = FastReader.getLine();
+        int bridgesPerDay = knights / membersPerGroup;
+        int daysNeeded = bridges / bridgesPerDay;
+        if (bridges % bridgesPerDay > 1) {
+            daysNeeded++;
+        } else if (bridgesPerDay == 1) {
+            daysNeeded--;
         }
+        outputWriter.printLine(daysNeeded);
         outputWriter.flush();
     }
 
     private static class FastReader {
         private static BufferedReader reader;
+        private static StringTokenizer tokenizer;
 
         static void init() {
             reader = new BufferedReader(new InputStreamReader(System.in));
+            tokenizer = new StringTokenizer("");
         }
 
-        private static String getLine() throws IOException {
-            return reader.readLine();
+        private static String next() throws IOException {
+            while (!tokenizer.hasMoreTokens()) {
+                tokenizer = new StringTokenizer(reader.readLine());
+            }
+            return tokenizer.nextToken();
+        }
+
+        private static int nextInt() throws IOException {
+            return Integer.parseInt(next());
         }
     }
 

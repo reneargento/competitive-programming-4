@@ -1,40 +1,54 @@
 package chapter3.section2.h.mathematical.simulation.easier;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 18/12/21.
+ * Created by Rene Argento on 20/12/21.
  */
-public class PetersSmokes {
+public class VideoSpeedup {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        String line = FastReader.getLine();
+        int events = FastReader.nextInt();
+        int speedUp = FastReader.nextInt();
+        int videoLength = FastReader.nextInt();
 
-        while (line != null) {
-            String[] data = line.split(" ");
-            long cigarettes = Integer.parseInt(data[0]);
-            int k = Integer.parseInt(data[1]);
+        int lastTimestamp = 0;
+        double currentSpeed = 1;
+        double originalVideoTime = 0;
 
-            long totalCigarettes = (k * cigarettes - 1) / (k - 1);
-
-            outputWriter.printLine(totalCigarettes);
-
-            line = FastReader.getLine();
+        for (int e = 1; e <= events; e++) {
+            int timestamp = FastReader.nextInt();
+            originalVideoTime += (timestamp - lastTimestamp) * currentSpeed;
+            currentSpeed = (100 + (speedUp * e)) / 100.0;
+            lastTimestamp = timestamp;
         }
+        originalVideoTime += (videoLength - lastTimestamp) * currentSpeed;
+
+        outputWriter.printLine(originalVideoTime);
         outputWriter.flush();
     }
 
     private static class FastReader {
         private static BufferedReader reader;
+        private static StringTokenizer tokenizer;
 
         static void init() {
             reader = new BufferedReader(new InputStreamReader(System.in));
+            tokenizer = new StringTokenizer("");
         }
 
-        private static String getLine() throws IOException {
-            return reader.readLine();
+        private static String next() throws IOException {
+            while (!tokenizer.hasMoreTokens()) {
+                tokenizer = new StringTokenizer(reader.readLine());
+            }
+            return tokenizer.nextToken();
+        }
+
+        private static int nextInt() throws IOException {
+            return Integer.parseInt(next());
         }
     }
 
