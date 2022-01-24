@@ -1,40 +1,53 @@
 package chapter3.section2.j.josephus.problem;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 22/01/22.
+ * Created by Rene Argento on 23/01/22.
  */
-public class PowerCrisis {
+public class MusicalChairs {
+
+    private static class FacultyMember {
+        int position;
+        int favoriteOpus;
+
+        public FacultyMember(int position, int favoriteOpus) {
+            this.position = position;
+            this.favoriteOpus = favoriteOpus;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int regions = FastReader.nextInt();
+        int facultyMemberNumber = FastReader.nextInt();
+        List<FacultyMember> facultyMembers = new ArrayList<>();
 
-        while (regions != 0) {
-            int offset = computeOffset(regions);
-            outputWriter.printLine(offset);
-            regions = FastReader.nextInt();
+        for (int i = 0; i < facultyMemberNumber; i++) {
+            int favoriteOpus = FastReader.nextInt();
+            facultyMembers.add(new FacultyMember(i, favoriteOpus));
         }
+        int departmentChair = josephus(facultyMembers) + 1;
+        outputWriter.printLine(departmentChair);
         outputWriter.flush();
     }
 
-    private static int computeOffset(int regions) {
-        for (int offset = 1; offset <= regions; offset++) {
-            if (josephus(regions - 1, offset) == 11) {
-                return offset;
-            }
-        }
-        return -1;
-    }
+    private static int josephus(List<FacultyMember> facultyMembers) {
+        int circleSize = facultyMembers.size();
+        int currentFacultyMemberIndex = 0;
 
-    private static int josephus(int circleSize, int skip) {
-        if (circleSize == 1) {
-            return 0;
+        for (int i = 0; i < circleSize - 1; i++) {
+            FacultyMember facultyMember = facultyMembers.get(currentFacultyMemberIndex);
+            currentFacultyMemberIndex = (currentFacultyMemberIndex + (facultyMember.favoriteOpus - 1))
+                    % facultyMembers.size();
+
+            facultyMembers.remove(currentFacultyMemberIndex);
+            currentFacultyMemberIndex = currentFacultyMemberIndex % facultyMembers.size();
         }
-        return (josephus(circleSize - 1, skip) + skip) % circleSize;
+        return facultyMembers.get(0).position;
     }
 
     private static class FastReader {

@@ -4,37 +4,29 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 22/01/22.
+ * Created by Rene Argento on 23/01/22.
  */
-public class PowerCrisis {
+public class Toys {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int regions = FastReader.nextInt();
-
-        while (regions != 0) {
-            int offset = computeOffset(regions);
-            outputWriter.printLine(offset);
-            regions = FastReader.nextInt();
-        }
+        int toys = FastReader.nextInt();
+        int skipLength = FastReader.nextInt();
+        int targetPosition = josephus(toys, skipLength);
+        outputWriter.printLine(targetPosition);
         outputWriter.flush();
     }
 
-    private static int computeOffset(int regions) {
-        for (int offset = 1; offset <= regions; offset++) {
-            if (josephus(regions - 1, offset) == 11) {
-                return offset;
-            }
-        }
-        return -1;
-    }
-
     private static int josephus(int circleSize, int skip) {
-        if (circleSize == 1) {
-            return 0;
+        int position = 0;
+        int currentCircleSize = 2;
+
+        for (int i = 1; i < circleSize; i++) {
+            position = (position + skip) % currentCircleSize;
+            currentCircleSize++;
         }
-        return (josephus(circleSize - 1, skip) + skip) % circleSize;
+        return position;
     }
 
     private static class FastReader {

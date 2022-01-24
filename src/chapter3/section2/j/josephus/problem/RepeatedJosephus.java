@@ -4,37 +4,60 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 22/01/22.
+ * Created by Rene Argento on 23/01/22.
  */
-public class PowerCrisis {
+public class RepeatedJosephus {
+
+    private static class Solution {
+        int repetitions;
+        int lastSurvivorPosition;
+
+        public Solution(int repetitions, int lastSurvivorPosition) {
+            this.repetitions = repetitions;
+            this.lastSurvivorPosition = lastSurvivorPosition;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int regions = FastReader.nextInt();
+        int tests = FastReader.nextInt();
 
-        while (regions != 0) {
-            int offset = computeOffset(regions);
-            outputWriter.printLine(offset);
-            regions = FastReader.nextInt();
+        for (int t = 1; t <= tests; t++) {
+            int people = FastReader.nextInt();
+            Solution solution = computeRepetitions(people);
+            outputWriter.printLine(String.format("Case %d: %d %d", t, solution.repetitions,
+                    solution.lastSurvivorPosition));
         }
         outputWriter.flush();
     }
 
-    private static int computeOffset(int regions) {
-        for (int offset = 1; offset <= regions; offset++) {
-            if (josephus(regions - 1, offset) == 11) {
-                return offset;
-            }
+    private static Solution computeRepetitions(int people) {
+        int repetitions = 0;
+        int survivor = josephusSkip2(people);
+
+        while (survivor != people) {
+            repetitions++;
+            people = survivor;
+            survivor = josephusSkip2(people);
         }
-        return -1;
+        return new Solution(repetitions, survivor);
     }
 
-    private static int josephus(int circleSize, int skip) {
-        if (circleSize == 1) {
-            return 0;
+    private static int josephusSkip2(int people) {
+        String bits = toBinary(people);
+        bits = bits.substring(1) + bits.charAt(0);
+        return Integer.parseInt(bits, 2);
+    }
+
+    private static String toBinary(int number) {
+        StringBuilder bits = new StringBuilder();
+        while (number > 0) {
+            int bit = number % 2;
+            bits.append(bit);
+            number /= 2;
         }
-        return (josephus(circleSize - 1, skip) + skip) % circleSize;
+        return bits.reverse().toString();
     }
 
     private static class FastReader {

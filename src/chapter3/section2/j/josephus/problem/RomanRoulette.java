@@ -1,40 +1,66 @@
 package chapter3.section2.j.josephus.problem;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 22/01/22.
+ * Created by Rene Argento on 23/01/22.
  */
-public class PowerCrisis {
+public class RomanRoulette {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int regions = FastReader.nextInt();
+        int people = FastReader.nextInt();
+        int skip = FastReader.nextInt();
 
-        while (regions != 0) {
-            int offset = computeOffset(regions);
-            outputWriter.printLine(offset);
-            regions = FastReader.nextInt();
+        while (people != 0 || skip != 0) {
+            int startPosition = computeStartPositionToSurvive(people, skip);
+            outputWriter.printLine(startPosition);
+
+            people = FastReader.nextInt();
+            skip = FastReader.nextInt();
         }
         outputWriter.flush();
     }
 
-    private static int computeOffset(int regions) {
-        for (int offset = 1; offset <= regions; offset++) {
-            if (josephus(regions - 1, offset) == 11) {
-                return offset;
+    private static int computeStartPositionToSurvive(int people, int skip) {
+        for (int i = 0; i < people; i++) {
+            if (canSurvive(people, skip, i)) {
+                return i + 1;
             }
         }
         return -1;
     }
 
-    private static int josephus(int circleSize, int skip) {
-        if (circleSize == 1) {
-            return 0;
+    private static boolean canSurvive(int people, int skip, int startPosition) {
+        LinkedList<Integer> peopleList = new LinkedList<>();
+        for (int i = 0; i < people; i++) {
+            peopleList.add(i);
         }
-        return (josephus(circleSize - 1, skip) + skip) % circleSize;
+        int currentPosition = startPosition;
+
+        for (int i = 0; i < people - 1; i++) {
+            int killed = (currentPosition + skip - 1) % peopleList.size();
+            peopleList.remove(killed);
+
+            int replaced = (killed + skip - 1) % (peopleList.size());
+            int personToReplace = peopleList.get(replaced);
+            peopleList.remove(replaced);
+
+            if (replaced < killed) {
+                peopleList.add(killed - 1, personToReplace);
+                currentPosition = killed % peopleList.size();
+            } else if (killed < peopleList.size()) {
+                peopleList.add(killed, personToReplace);
+                currentPosition = (killed + 1) % peopleList.size();
+            } else {
+                peopleList.add(personToReplace);
+                currentPosition = 0;
+            }
+        }
+        return peopleList.get(0) == 0;
     }
 
     private static class FastReader {

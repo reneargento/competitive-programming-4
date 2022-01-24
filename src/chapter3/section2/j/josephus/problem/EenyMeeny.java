@@ -1,40 +1,64 @@
 package chapter3.section2.j.josephus.problem;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 22/01/22.
+ * Created by Rene Argento on 23/01/22.
  */
-public class PowerCrisis {
+public class EenyMeeny {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int regions = FastReader.nextInt();
+        String[] rhyme = FastReader.getLine().split(" ");
+        int skip = rhyme.length - 1;
+        int kids = FastReader.nextInt();
+        List<String> names = new ArrayList<>();
 
-        while (regions != 0) {
-            int offset = computeOffset(regions);
-            outputWriter.printLine(offset);
-            regions = FastReader.nextInt();
+        for (int i = 0; i < kids; i++) {
+            names.add(FastReader.getLine());
         }
+
+        List<String> team1 = new ArrayList<>();
+        List<String> team2 = new ArrayList<>();
+        selectTeams(names, skip, team1, team2);
+
+        printTeamNames(team1, outputWriter);
+        printTeamNames(team2, outputWriter);
         outputWriter.flush();
     }
 
-    private static int computeOffset(int regions) {
-        for (int offset = 1; offset <= regions; offset++) {
-            if (josephus(regions - 1, offset) == 11) {
-                return offset;
+    private static void selectTeams(List<String> names, int skip, List<String> team1, List<String> team2) {
+        int kids = names.size();
+        boolean isTeam1 = true;
+        int kidIndex = 0;
+
+        for (int i = 0; i < kids; i++) {
+            kidIndex = (kidIndex + skip) % names.size();
+
+            if (isTeam1) {
+                team1.add(names.get(kidIndex));
+            } else {
+                team2.add(names.get(kidIndex));
             }
+            isTeam1 = !isTeam1;
+            names.remove(kidIndex);
+
+            if (names.isEmpty()) {
+                break;
+            }
+            kidIndex %= names.size();
         }
-        return -1;
     }
 
-    private static int josephus(int circleSize, int skip) {
-        if (circleSize == 1) {
-            return 0;
+    private static void printTeamNames(List<String> team, OutputWriter outputWriter) {
+        outputWriter.printLine(team.size());
+        for (String name : team) {
+            outputWriter.printLine(name);
         }
-        return (josephus(circleSize - 1, skip) + skip) % circleSize;
     }
 
     private static class FastReader {
@@ -55,6 +79,10 @@ public class PowerCrisis {
 
         private static int nextInt() throws IOException {
             return Integer.parseInt(next());
+        }
+
+        private static String getLine() throws IOException {
+            return reader.readLine();
         }
     }
 
