@@ -74,15 +74,13 @@ public class LEDTest {
         }
 
         for (int i = startIndex; i < leds.length; i++) {
-            char[] led = leds[i];
-
             // Check new lights broken
-            Result result = checkNumbersWithBrokenLights(led, mask, i, leds, filteredNumbers, visited);
+            Result result = checkNumbersWithBrokenLights(leds[i], mask, i, leds, filteredNumbers, visited);
             if (result.equals(Result.MATCHES)) {
                 return true;
             }
 
-            boolean[] numbersWithoutBrokenLights = getPossibleNumbers(led, mask);
+            boolean[] numbersWithoutBrokenLights = getPossibleNumbers(leds[i], mask);
             if (i == 0) {
                 filteredNumbers = numbersWithoutBrokenLights;
             } else {
