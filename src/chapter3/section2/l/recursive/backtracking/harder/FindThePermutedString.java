@@ -6,53 +6,44 @@ import java.util.StringTokenizer;
 /**
  * Created by Rene Argento on 22/02/22.
  */
-// Based on https://codeforces.com/blog/entry/54002
 public class FindThePermutedString {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
         int tests = FastReader.nextInt();
+        double[] factorial = factorial();
 
         for (int t = 0; t < tests; t++) {
             char[] characters = FastReader.getLine().toCharArray();
             int index = FastReader.nextInt();
-            String permutedString = getPermutedString(characters, index);
+            String permutedString = getPermutedString(characters, factorial, index);
             outputWriter.printLine(permutedString);
         }
         outputWriter.flush();
     }
 
-    private static String getPermutedString(char[] characters, int index) {
+    private static String getPermutedString(char[] characters, double[] factorial, double index) {
         StringBuilder permutedString = new StringBuilder();
         index--;
+        double total = factorial[characters.length];
 
-        for (int c = 0; c < characters.length; c++) {
-            if (exceedsLength(c + 2, characters.length, index)) {
-                permutedString.insert(0, characters[c]);
-            } else {
-                long multiplier = 1;
-                for (int i = c + 2; i <= characters.length; i++) {
-                    multiplier *= i;
-                }
-                long position = index / multiplier;
-                permutedString.insert((int) position, characters[c]);
-                index %= multiplier;
-            }
+        for (int i = 0; i < characters.length; i++) {
+            total /= (i + 1);
+            int position = (int) (index / total);
+            permutedString.insert(position, characters[i]);
+            index %= total;
         }
         return permutedString.toString();
     }
 
-    private static boolean exceedsLength(int start, int end, int index) {
-        long multiplier = 1;
-        for (int i = start; i <= end; i++) {
-            long limit = index / multiplier;
-            if (i > limit) {
-                return true;
-            }
-            multiplier *= i;
+    private static double[] factorial() {
+        double[] factorial = new double[27];
+        factorial[0] = 1;
+        for (int i = 1; i < factorial.length; i++) {
+            factorial[i] = factorial[i - 1] * i;
         }
-        return false;
+        return factorial;
     }
 
     private static class FastReader {
