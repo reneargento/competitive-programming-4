@@ -1,0 +1,7 @@
+3.3.1.1
+
+The alternative solution is to do only one simulation and compute the maximum fuel needed.
+Start with a fuel counter with value zero and increment it based on the distance travelled and fuel consumption events.
+Also increment the counter based on the leaks.
+Every time a gas station event happens, reset the counter, keeping track of what was the highest fuel needed so far.
+The highest fuel needed will be the smallest possible tank volume.
