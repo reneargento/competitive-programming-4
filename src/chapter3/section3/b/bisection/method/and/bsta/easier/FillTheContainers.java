@@ -4,21 +4,9 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 25/03/22.
+ * Created by Rene Argento on 26/03/22.
  */
-public class NeedForSpeed {
-
-    private static final double EPSILON = 0.00000000001;
-
-    private static class Segment {
-        int distance;
-        int speedometerReading;
-
-        public Segment(int distance, int speedometerReading) {
-            this.distance = distance;
-            this.speedometerReading = speedometerReading;
-        }
-    }
+public class FillTheContainers {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
@@ -27,51 +15,59 @@ public class NeedForSpeed {
 
         while (line != null) {
             String[] data = line.split(" ");
-            int segmentsNumber = Integer.parseInt(data[0]);
-            Segment[] segments = new Segment[segmentsNumber];
-            int totalTime = Integer.parseInt(data[1]);
-
-            for (int i = 0; i < segments.length; i++) {
-                segments[i] = new Segment(FastReader.nextInt(), FastReader.nextInt());
+            int vessels = Integer.parseInt(data[0]);
+            int containers = Integer.parseInt(data[1]);
+            int[] vesselsCapacity = new int[vessels];
+            for (int i = 0; i < vesselsCapacity.length; i++) {
+                vesselsCapacity[i] = FastReader.nextInt();
             }
-            double constant = computeConstant(segments, totalTime);
-            outputWriter.printLine(constant);
 
+            int minimalMaximalCapacity = computeMinimalMaximalCapacity(vesselsCapacity, containers, 0,
+                    1000000000);
+            outputWriter.printLine(minimalMaximalCapacity);
             line = FastReader.getLine();
         }
         outputWriter.flush();
     }
 
-    private static double computeConstant(Segment[] segments, int totalTime) {
-        double low = -1000;
-        double high = 10000000;
+    private static int computeMinimalMaximalCapacity(int[] vesselsCapacity, int containers, int low, int high) {
+        if (low > high) {
+            return -1;
+        }
 
-        while (high - low > EPSILON) {
-            double middle = low + (high - low) / 2;
-            double timeWithConstant = computeTimeWithConstant(segments, middle);
-            double timeDifference = totalTime - timeWithConstant;
-
-            if (Math.abs(timeDifference) <= EPSILON) {
-                return middle;
-            } else if (timeWithConstant > totalTime) {
-                low = middle;
+        while (low <= high) {
+            int middle = low + (high - low) / 2;
+            if (!canFillContainers(vesselsCapacity, containers, middle)) {
+                low = middle + 1;
             } else {
-                high = middle;
+                int result = middle;
+                int candidateResult = computeMinimalMaximalCapacity(vesselsCapacity, containers, low, middle - 1);
+                if (candidateResult != -1) {
+                    result = candidateResult;
+                }
+                return result;
             }
         }
-        return low;
+        return -1;
     }
 
-    private static double computeTimeWithConstant(Segment[] segments, double constant) {
-        double time = 0;
-        for (Segment segment : segments) {
-            double speed = (segment.speedometerReading + constant);
-            if (speed < EPSILON) {
-                return Double.POSITIVE_INFINITY;
+    private static boolean canFillContainers(int[] vesselsCapacity, int containers, int maxCapacity) {
+        int containersUsed = 0;
+        int currentCapacityFilled = 0;
+
+        for (int vesselCapacity : vesselsCapacity) {
+            if (vesselCapacity > maxCapacity) {
+                return false;
             }
-            time += segment.distance / speed;
+            if (currentCapacityFilled + vesselCapacity > maxCapacity) {
+                containersUsed++;
+                currentCapacityFilled = vesselCapacity;
+            } else {
+                currentCapacityFilled += vesselCapacity;
+            }
         }
-        return time;
+        containersUsed++;
+        return containersUsed <= containers;
     }
 
     private static class FastReader {
@@ -84,7 +80,7 @@ public class NeedForSpeed {
         }
 
         private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
+            while (!tokenizer.hasMoreTokens() ) {
                 tokenizer = new StringTokenizer(reader.readLine());
             }
             return tokenizer.nextToken();
