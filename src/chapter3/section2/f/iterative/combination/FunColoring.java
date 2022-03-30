@@ -8,6 +8,7 @@ import java.util.List;
  * Note: this problem has I/O issues in UVa and is flagged in uDebug, the solution doesn't get accepted.
  * Source: https://github.com/arun-karthikeyan/Algorithms/issues/3
  * and https://www.udebug.com/UVa/12348
+ * On my investigation I found that the first line of the input file has no numbers and that the second line is EOF.
  *
  * Created by Rene Argento on 05/12/21.
  */

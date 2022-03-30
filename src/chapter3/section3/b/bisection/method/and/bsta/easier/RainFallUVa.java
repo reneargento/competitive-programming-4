@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 /**
  * Created by Rene Argento on 28/03/22.
  */
-public class RainFall {
+public class RainFallUVa {
 
     private static final double EPSILON = .000000001;
 
