@@ -32,13 +32,17 @@ public class RoomPainting {
         Arrays.sort(canSizes);
 
         for (int colorMicrolitre : colorMicrolitres) {
-            int canIndex = binarySearchUpperBound(canSizes, colorMicrolitre, 0, canSizes.length - 1);
+            int canIndex = binarySearchUpperBound(canSizes, colorMicrolitre);
             waste += canSizes[canIndex] - colorMicrolitre;
         }
         return waste;
     }
 
-    private static int binarySearchUpperBound(int[] values, int target, int low, int high) {
+    private static int binarySearchUpperBound(int[] values, int target) {
+        int low = 0;
+        int high = values.length - 1;
+        int result = -1;
+
         while (low <= high) {
             int middle = low + (high - low) / 2;
 
@@ -47,15 +51,11 @@ public class RoomPainting {
             } else if (values[middle] < target) {
                 low = middle + 1;
             } else {
-                int result = middle;
-                int candidate = binarySearchUpperBound(values, target, low, middle - 1);
-                if (candidate != -1) {
-                    result = candidate;
-                }
-                return result;
+                result = middle;
+                high = middle - 1;
             }
         }
-        return -1;
+        return result;
     }
 
     private static class FastReader {

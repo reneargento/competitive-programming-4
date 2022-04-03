@@ -52,11 +52,11 @@ public class AMidSummerNightsDream {
         Set<Integer> aSet = new HashSet<>(aList);
         int possibleAsInInput = 0;
         for (int aCandidate : aSet) {
-            int startIndex = binarySearch(numbers, aCandidate, true, 0, numbers.length - 1);
+            int startIndex = binarySearch(numbers, aCandidate, true);
             if (startIndex == -1) {
                 continue;
             }
-            int endIndex = binarySearch(numbers, aCandidate, false, 0, numbers.length - 1);
+            int endIndex = binarySearch(numbers, aCandidate, false);
             possibleAsInInput += (endIndex - startIndex + 1);
         }
         return new Result(minimumAValue, possibleAsInInput, possibleAs);
@@ -78,7 +78,9 @@ public class AMidSummerNightsDream {
         return aList;
     }
 
-    private static int binarySearch(int[] values, int target, boolean isStartIndex, int low, int high) {
+    private static int binarySearch(int[] values, int target, boolean isStartIndex) {
+        int low = 0;
+        int high = values.length - 1;
         int result = -1;
 
         while (low <= high) {
@@ -91,11 +93,7 @@ public class AMidSummerNightsDream {
                     high = middle - 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, true, low, middle - 1);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    high = middle - 1;
                 }
             } else {
                 if (values[middle] > target) {
@@ -104,11 +102,7 @@ public class AMidSummerNightsDream {
                     low = middle + 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, false, middle + 1, high);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    low = middle + 1;
                 }
             }
         }

@@ -49,8 +49,8 @@ public class ThePlayboyChimp {
     }
 
     private static SelectedChimps selectedChimps(int[] ladyChimpHeights, int queryHeight) {
-        int chimpHeight1Index = binarySearch(ladyChimpHeights, queryHeight, false, 0, ladyChimpHeights.length - 1);
-        int chimpHeight2Index = binarySearch(ladyChimpHeights, queryHeight, true, 0, ladyChimpHeights.length - 1);
+        int chimpHeight1Index = binarySearch(ladyChimpHeights, queryHeight, false);
+        int chimpHeight2Index = binarySearch(ladyChimpHeights, queryHeight, true);
 
         int chimpHeight1 = -1;
         if (chimpHeight1Index != -1) {
@@ -63,7 +63,9 @@ public class ThePlayboyChimp {
         return new SelectedChimps(chimpHeight1, chimpHeight2);
     }
 
-    private static int binarySearch(int[] values, int target, boolean isLowerBound, int low, int high) {
+    private static int binarySearch(int[] values, int target, boolean isLowerBound) {
+        int low = 0;
+        int high = values.length - 1;
         int result = -1;
 
         while (low <= high) {
@@ -74,22 +76,14 @@ public class ThePlayboyChimp {
                     low = middle + 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, true, low, middle - 1);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    high = middle - 1;
                 }
             } else {
                 if (values[middle] >= target) {
                     high = middle - 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, false, middle + 1, high);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    low = middle + 1;
                 }
             }
         }

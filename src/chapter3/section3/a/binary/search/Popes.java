@@ -52,7 +52,7 @@ public class Popes {
         for (int i = 0; i < popeYears.length; i++) {
             int startYear = popeYears[i];
             int endYear = startYear + yearRange - 1;
-            int endYearIndex = binarySearchUpperBound(popeYears, endYear, 0, popeYears.length - 1);
+            int endYearIndex = binarySearchUpperBound(popeYears, endYear);
 
             if (endYearIndex != -1 && endYearIndex - i + 1 > largestNumberOfPopes) {
                 largestNumberOfPopes = endYearIndex - i + 1;
@@ -63,7 +63,11 @@ public class Popes {
         return new Result(largestNumberOfPopes, firstPopeYear, lastPopeYear);
     }
 
-    private static int binarySearchUpperBound(int[] values, int target, int low, int high) {
+    private static int binarySearchUpperBound(int[] values, int target) {
+        int low = 0;
+        int high = values.length - 1;
+
+        int result = -1;
         while (low <= high) {
             int middle = low + (high - low) / 2;
 
@@ -72,15 +76,11 @@ public class Popes {
             } else if (values[middle] > target) {
                 high = middle - 1;
             } else {
-                int result = middle;
-                int candidate = binarySearchUpperBound(values, target, middle + 1, high);
-                if (candidate != -1) {
-                    result = candidate;
-                }
-                return result;
+                result = middle;
+                low = middle + 1;
             }
         }
-        return -1;
+        return result;
     }
 
     private static class FastReader {

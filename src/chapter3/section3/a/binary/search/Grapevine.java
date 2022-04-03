@@ -49,15 +49,15 @@ public class Grapevine {
                 continue;
             }
 
-            int low = 0;
-            int high = region.length - 1;
-            int start = binarySearch(region, column, lowerAltitude, low, high);
+            int start = binarySearch(region, column, lowerAltitude);
             rangeStart[column] = start;
         }
         return rangeStart;
     }
 
-    private static int binarySearch(int[][] region, int column, int target, int low, int high) {
+    private static int binarySearch(int[][] region, int column, int target) {
+        int low = 0;
+        int high = region.length - 1;
         int result = -1;
 
         while (low <= high) {
@@ -67,11 +67,7 @@ public class Grapevine {
                 low = middle + 1;
             } else {
                 result = middle;
-                int candidate = binarySearch(region, column, target, low, middle - 1);
-                if (candidate != -1) {
-                    result = candidate;
-                }
-                break;
+                high = middle - 1;
             }
         }
         return result;

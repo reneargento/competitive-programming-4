@@ -33,7 +33,7 @@ public class TheNewRuleInEuphomia {
         for (int i = 0; i < primeNumbers.size(); i++) {
             int currentValue = primeNumbers.get(i);
             if (currentValue < price) {
-                int upperBound = binarySearchUpperBound(primeNumbers, price, currentValue, i + 1, primeNumbers.size());
+                int upperBound = binarySearchUpperBound(primeNumbers, price, currentValue, i + 1);
                 if (upperBound != -1) {
                     waysToPay += upperBound - i;
                 } else {
@@ -47,7 +47,9 @@ public class TheNewRuleInEuphomia {
     }
 
     private static int binarySearchUpperBound(List<Integer> numbers, int targetSum, int currentValue,
-                                              int low, int high) {
+                                              int low) {
+        int high = numbers.size();
+        int result = -1;
         while (low <= high) {
             int middle = low + (high - low) / 2;
             int sum = currentValue + numbers.get(middle);
@@ -55,15 +57,11 @@ public class TheNewRuleInEuphomia {
             if (sum > targetSum) {
                 high = middle - 1;
             } else {
-                int result = middle;
-                int candidate = binarySearchUpperBound(numbers, targetSum, currentValue, middle + 1, high);
-                if (candidate != -1) {
-                    result = candidate;
-                }
-                return result;
+                result = middle;
+                low = middle + 1;
             }
         }
-        return -1;
+        return result;
     }
 
     private static List<Integer> eratosthenesSieve(long number) {

@@ -72,7 +72,7 @@ public class AngryBids {
                 angryPeople += producers.length - 1 - i;
             }
             if (consumers.length > 0) {
-                int upperBound = binarySearch(consumers, price, false, 0, consumers.length - 1);
+                int upperBound = binarySearch(consumers, price, false);
                 if (upperBound != -1) {
                     angryPeople += upperBound;
                 }
@@ -95,7 +95,7 @@ public class AngryBids {
             int angryPeople = i;
 
             if (producers.length > 0) {
-                int lowerBound = binarySearch(producers, price, true, 0, producers.length - 1);
+                int lowerBound = binarySearch(producers, price, true);
                 if (lowerBound != -1) {
                     angryPeople += (producers.length - lowerBound);
                 }
@@ -109,7 +109,9 @@ public class AngryBids {
         return new Solution(bestPrice, leastAngryPeople);
     }
 
-    private static int binarySearch(int[] values, int target, boolean isLowerBound, int low, int high) {
+    private static int binarySearch(int[] values, int target, boolean isLowerBound) {
+        int low = 0;
+        int high = values.length - 1;
         int result = -1;
 
         while (low <= high) {
@@ -120,22 +122,14 @@ public class AngryBids {
                     low = middle + 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, true, low, middle - 1);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    high = middle - 1;
                 }
             } else {
                 if (values[middle] >= target) {
                     high = middle - 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, false, middle + 1, high);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    low = middle + 1;
                 }
             }
         }

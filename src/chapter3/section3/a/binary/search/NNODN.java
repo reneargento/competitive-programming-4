@@ -73,15 +73,17 @@ public class NNODN {
     // Alternative solution with binary search
 
     private static long countValuesInRangeWithBinarySearch(List<Long> sequence, int start, int end) {
-        int lowerBound = binarySearch(sequence, start, true, 0, sequence.size() - 1);
+        int lowerBound = binarySearch(sequence, start, true);
         if (lowerBound == -1) {
             return 0;
         }
-        int upperBound = binarySearch(sequence, end, false, 0, sequence.size() - 1);
+        int upperBound = binarySearch(sequence, end, false);
         return upperBound - lowerBound + 1;
     }
 
-    private static int binarySearch(List<Long> values, int target, boolean isLowerBound, int low, int high) {
+    private static int binarySearch(List<Long> values, int target, boolean isLowerBound) {
+        int low = 0;
+        int high = values.size() - 1;
         int result = -1;
 
         while (low <= high) {
@@ -92,22 +94,14 @@ public class NNODN {
                     low = middle + 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, true, low, middle - 1);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    high = middle - 1;
                 }
             } else {
                 if (values.get(middle) > target) {
                     high = middle - 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, false, middle + 1, high);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    low = middle + 1;
                 }
             }
         }

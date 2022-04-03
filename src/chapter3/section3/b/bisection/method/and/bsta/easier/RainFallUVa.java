@@ -41,18 +41,18 @@ public class RainFallUVa {
 
     private static Result computeRainfall(double leakMmLocation, double waterLeakRate, double rainfallDuration,
                                           double timeBetweenRainEndAndObservation, double waterMmLevelObserved) {
-        double low = 0;
-        double high = waterLeakRate * (rainfallDuration + timeBetweenRainEndAndObservation) + waterMmLevelObserved;
         double smallestRainfall = binarySearch(waterMmLevelObserved, true, leakMmLocation, waterLeakRate,
-                rainfallDuration, timeBetweenRainEndAndObservation, low, high);
+                rainfallDuration, timeBetweenRainEndAndObservation, waterMmLevelObserved);
         double largestRainfall = binarySearch(waterMmLevelObserved, false, leakMmLocation, waterLeakRate,
-                rainfallDuration, timeBetweenRainEndAndObservation, low, high);
+                rainfallDuration, timeBetweenRainEndAndObservation, waterMmLevelObserved);
         return new Result(smallestRainfall, largestRainfall);
     }
 
     private static double binarySearch(double target, boolean isLowerBound, double leakMmLocation, double waterLeakRate,
                                        double rainfallDuration, double timeBetweenRainEndAndObservation,
-                                       double low, double high) {
+                                       double waterMmLevelObserved) {
+        double low = 0;
+        double high = waterLeakRate * (rainfallDuration + timeBetweenRainEndAndObservation) + waterMmLevelObserved;
         double result = -1;
 
         while (low + EPSILON < high) {
@@ -62,19 +62,12 @@ public class RainFallUVa {
 
             if (Math.abs(levelReached - target) < EPSILON) {
                 result = middle;
-                double candidate;
 
                 if (isLowerBound) {
-                    candidate = binarySearch(target, true, leakMmLocation, waterLeakRate,
-                            rainfallDuration, timeBetweenRainEndAndObservation, low, middle);
+                    high = middle;
                 } else {
-                    candidate = binarySearch(target, false, leakMmLocation, waterLeakRate,
-                            rainfallDuration, timeBetweenRainEndAndObservation, middle, high);
+                    low = middle;
                 }
-                if (candidate != -1) {
-                    result = candidate;
-                }
-                break;
             } else if (levelReached < target) {
                 low = middle;
             } else {

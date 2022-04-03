@@ -49,13 +49,13 @@ public class Firefly {
         int distinctLevels = 0;
 
         for (int h = 1; h <= height; h++) {
-            int lowerBound = binarySearch(stalagmites, h, true, 0, stalagmites.length - 1) + 1;
+            int lowerBound = binarySearch(stalagmites, h, true) + 1;
             int stalagmitesBroken = 0;
             if (lowerBound != 0) {
                 stalagmitesBroken = stalagmites.length - lowerBound + 1;
             }
 
-            int stalactitesBroken = binarySearch(stalactites, h, false, 0, stalactites.length - 1) + 1;
+            int stalactitesBroken = binarySearch(stalactites, h, false) + 1;
 
             int obstacles = stalagmitesBroken + stalactitesBroken;
             if (obstacles < minimumObstacles) {
@@ -68,7 +68,9 @@ public class Firefly {
         return new Solution(minimumObstacles, distinctLevels);
     }
 
-    private static int binarySearch(int[] values, int target, boolean isLowerBound, int low, int high) {
+    private static int binarySearch(int[] values, int target, boolean isLowerBound) {
+        int low = 0;
+        int high = values.length - 1;
         int result = -1;
 
         while (low <= high) {
@@ -79,22 +81,14 @@ public class Firefly {
                     low = middle + 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, true, low, middle - 1);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    high = middle - 1;
                 }
             } else {
                 if (values[middle] > target) {
                     high = middle - 1;
                 } else {
                     result = middle;
-                    int candidate = binarySearch(values, target, false, middle + 1, high);
-                    if (candidate != -1) {
-                        result = candidate;
-                    }
-                    break;
+                    low = middle + 1;
                 }
             }
         }

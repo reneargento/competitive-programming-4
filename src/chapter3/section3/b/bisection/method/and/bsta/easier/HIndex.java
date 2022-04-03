@@ -1,73 +1,82 @@
-package chapter3.section3.a.binary.search;
+package chapter3.section3.b.bisection.method.and.bsta.easier;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 17/03/22.
+ * Created by Rene Argento on 03/04/22.
  */
-public class NumberSequence {
+public class HIndex {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int tests = FastReader.nextInt();
-        List<Long> sequenceSums = computeSequenceSums();
+        int[] citations = new int[FastReader.nextInt()];
 
-        for (int t = 0; t < tests; t++) {
-            int number = FastReader.nextInt();
-            int digit = getDigit(sequenceSums, number);
-            outputWriter.printLine(digit);
+        for (int i = 0; i < citations.length; i++) {
+            citations[i] = FastReader.nextInt();
         }
+        int hIndex = computeHIndex(citations);
+        outputWriter.printLine(hIndex);
         outputWriter.flush();
     }
 
-    private static List<Long> computeSequenceSums() {
-        List<Long> sequenceSums = new ArrayList<>();
-        sequenceSums.add(0L);
-        long sum = 0;
-        int totalLength = 0;
-
-        for (int number = 1; sum < Integer.MAX_VALUE; number++) {
-            int length = String.valueOf(number).length();
-            totalLength += length;
-            sum = sequenceSums.get(number - 1) + totalLength;
-            sequenceSums.add(sum);
-        }
-        return sequenceSums;
-    }
-
-    private static int getDigit(List<Long> sequenceSums, int number) {
-        int previousSequenceIndex = binarySearchLowerBound(sequenceSums, number);
-        int nextSequenceDigits = (int) (number - sequenceSums.get(previousSequenceIndex));
-        StringBuilder digits = new StringBuilder();
-        int nextNumber = 0;
-
-        while (digits.length() < nextSequenceDigits) {
-            nextNumber++;
-            digits.append(nextNumber);
-        }
-        return Character.getNumericValue(digits.charAt(nextSequenceDigits - 1));
-    }
-
-    private static int binarySearchLowerBound(List<Long> sequenceSums, int number) {
-        int low = 0;
-        int high = sequenceSums.size() - 1;
-        int result = -1;
+    private static int computeHIndex(int[] citations) {
+        int low = 1;
+        int high = 1000000000;
+        int hIndex = 0;
+        Arrays.sort(citations);
 
         while (low <= high) {
             int middle = low + (high - low) / 2;
-            if (sequenceSums.get(middle) >= number) {
+
+            if (isIndex(citations, middle)) {
+                hIndex = middle;
+                low = middle + 1;
+            } else {
+                high = middle - 1;
+            }
+        }
+        return hIndex;
+    }
+
+    private static boolean isIndex(int[] citations, int index) {
+        int low = 0;
+        int high = citations.length - 1;
+        int firstValidIndex = -1;
+
+        while (low <= high) {
+            int middle = low + (high - low) / 2;
+            if (citations[middle] >= index) {
+                firstValidIndex = middle;
                 high = middle - 1;
             } else {
-                result = middle;
                 low = middle + 1;
             }
         }
-        return result;
+
+        if (firstValidIndex == -1) {
+            return false;
+        }
+        int totalPapers = citations.length - firstValidIndex;
+        return totalPapers >= index;
     }
+
+    // O(n) check
+//    private static boolean isIndex(int[] citations, int index) {
+//        int papersWithCitations = 0;
+//        for (int citation : citations) {
+//            if (citation >= index) {
+//                papersWithCitations++;
+//            }
+//
+//            if (papersWithCitations >= index) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     private static class FastReader {
         private static BufferedReader reader;

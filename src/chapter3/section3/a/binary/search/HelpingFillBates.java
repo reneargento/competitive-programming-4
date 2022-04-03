@@ -64,7 +64,7 @@ public class HelpingFillBates {
             int stateIndex = getStateIndex(state);
             List<Integer> locations = stateLocations[stateIndex];
 
-            int serial = binarySearchUpperBound(locations, previousIndex, 0, locations.size() - 1);
+            int serial = binarySearchUpperBound(locations, previousIndex);
             if (serial == -1) {
                 return null;
             }
@@ -85,21 +85,21 @@ public class HelpingFillBates {
         }
     }
 
-    private static int binarySearchUpperBound(List<Integer> locations, int target, int low, int high) {
+    private static int binarySearchUpperBound(List<Integer> locations, int target) {
+        int low = 0;
+        int high = locations.size() - 1;
+        int result = -1;
+
         while (low <= high) {
             int middle = low + (high - low) / 2;
             if (locations.get(middle) <= target) {
                 low = middle + 1;
             } else {
-                int result = locations.get(middle);
-                int candidate = binarySearchUpperBound(locations, target, low, middle - 1);
-                if (candidate != -1) {
-                    result = candidate;
-                }
-                return result;
+                result = locations.get(middle);
+                high = middle - 1;
             }
         }
-        return -1;
+        return result;
     }
 
     private static class FastReader {
