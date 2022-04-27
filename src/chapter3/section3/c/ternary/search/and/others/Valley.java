@@ -148,7 +148,20 @@ public class Valley {
             heightsIndex++;
         }
 
-        int target = random.nextInt(1000000001);
+        int target = generateTarget(random, heights);
         return new Input(heights, producedValues, target);
+    }
+
+    private static int generateTarget(Random random, int[] heights) {
+        int target;
+        boolean isInsideArray = random.nextBoolean();
+
+        if (isInsideArray) {
+            int index = random.nextInt(heights.length);
+            target = heights[index];
+        } else {
+            target = random.nextInt(1000000001);
+        }
+        return target;
     }
 }
