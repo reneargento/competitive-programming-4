@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 /**
  * Created by Rene Argento on 27/05/22.
  */
-public class Shopaholic {
+public class ShopaholicUVa {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
