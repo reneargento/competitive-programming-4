@@ -6,7 +6,6 @@ import java.util.*;
 /**
  * Created by Rene Argento on 11/05/22.
  */
-// Based on https://github.com/mpfeifer1/Kattis/blob/master/classrooms.cpp
 public class Classrooms {
 
     private static class Activity implements Comparable<Activity> {
@@ -27,24 +26,6 @@ public class Classrooms {
         }
     }
 
-    private static class Time implements Comparable<Time> {
-        int value;
-        int index;
-
-        public Time(int value, int index) {
-            this.value = value;
-            this.index = index; // Needed to have more than one node with the same time in the tree
-        }
-
-        @Override
-        public int compareTo(Time other) {
-            if (value != other.value) {
-                return Integer.compare(value, other.value);
-            }
-            return Integer.compare(index, other.index);
-        }
-    }
-
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
@@ -62,28 +43,55 @@ public class Classrooms {
 
     private static int computeMaximumActivitiesScheduled(Activity[] activities, int classrooms) {
         Arrays.sort(activities);
-        TreeSet<Time> scheduledActivities = new TreeSet<>();
+        Multiset<Integer> endingTimes = new Multiset<>();
+
+        for (int i = 0; i < classrooms; i++) {
+            endingTimes.add(0);
+        }
 
         int maximumActivitiesScheduled = 0;
-        for (int i = 0; i < activities.length; i++) {
-            Time startTime = new Time(-activities[i].start, 0);
-            Time earliestEndTime = scheduledActivities.ceiling(startTime);
-
-            // If it starts before all end times
-            if (earliestEndTime == null) {
-                if (scheduledActivities.size() < classrooms) {
-                    scheduledActivities.add(new Time(-activities[i].end - 1, i));
-                    maximumActivitiesScheduled++;
-                }
+        for (Activity activity : activities) {
+            Integer closestFinishTime = endingTimes.floorKey(activity.start);
+            if (closestFinishTime == null) {
                 continue;
             }
 
-            // Remove the activity that ends before the current activity and add it
-            scheduledActivities.remove(earliestEndTime);
-            scheduledActivities.add(new Time(-activities[i].end - 1, i));
+            // Add 1 so that floorKey() will not get intersecting activities
+            endingTimes.add(activity.end + 1);
+            endingTimes.delete(closestFinishTime);
             maximumActivitiesScheduled++;
         }
         return maximumActivitiesScheduled;
+    }
+
+    private static class Multiset<Key extends Comparable<Key>> {
+        private final TreeMap<Key, Integer> multiset;
+
+        Multiset() {
+            multiset = new TreeMap<>();
+        }
+
+        public void add(Key key) {
+            int keyFrequency = multiset.getOrDefault(key, 0);
+            multiset.put(key, keyFrequency + 1);
+        }
+
+        public void delete(Key key) {
+            int keyFrequency = multiset.get(key);
+            if (keyFrequency == 1) {
+                multiset.remove(key);
+            } else {
+                multiset.put(key, keyFrequency - 1);
+            }
+        }
+
+        public int size() {
+            return multiset.size();
+        }
+
+        public Key floorKey(Key key) {
+            return multiset.floorKey(key);
+        }
     }
 
     private static class FastReader {
