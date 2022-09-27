@@ -1,0 +1,6 @@
+3.5.1.2
+
+The state formulation dp(g, model), where g is the current garment and model is the current model, is not appropriate
+and exhaustive for the UVa 11450 problem.
+This is because we need to know how much money we have left at each sub-problem so that we can determine if we still
+have enough money to buy a certain model of the current garment.
