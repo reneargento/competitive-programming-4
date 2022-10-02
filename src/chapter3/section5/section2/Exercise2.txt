@@ -1,0 +1,8 @@
+3.5.2.2
+
+Using an iterative Complete Search that tries all possible subsets of n items to solve the 0-1 KNAPSACK problem can only
+be used when we have at most 20 elements.
+This is because generating all possible subsets of n items takes O(2^n) time, and checking the item values and weights
+takes n time. This has a total time complexity of O(2^n * n), which is feasible only for 20 or less elements.
+For a higher number of elements the dynamic programming solution has to be used, which has a total time complexity of
+O(n * S), where S is the maximum knapsack size. This is feasible as long as n * S < 10^6.
