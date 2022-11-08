@@ -54,7 +54,7 @@ public class Exercise3 {
                 endIndexes[length++] = i;
             } else {
                 // Case 3 - middle end element
-                int indexToReplace = floorIndex(array, endIndexes, 0, length - 1, array[i]);
+                int indexToReplace = previousElementIndex(array, endIndexes, 0, length - 1, array[i]);
                 previousIndices[i] = endIndexes[indexToReplace - 1];
                 endIndexes[indexToReplace] = i;
             }
@@ -64,11 +64,12 @@ public class Exercise3 {
         return sequence.size();
     }
 
-    private static int floorIndex(int[] array, int[] endIndexes, int low, int high, int key) {
+    // Search is reversed because the array is sorted in a non-increasing order
+    private static int previousElementIndex(int[] array, int[] endIndexes, int low, int high, int key) {
         while (high > low) {
             int middle = low + (high - low) / 2;
 
-            if (array[endIndexes[middle]] <= key) {
+            if (array[endIndexes[middle]] < key) {
                 high = middle;
             } else {
                 low = middle + 1;
