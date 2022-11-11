@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by Rene Argento on 09/11/22.
  */
-public class TrainSorting {
+public class TrainSortingKattis {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
