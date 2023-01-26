@@ -27,8 +27,8 @@ public class ExtremeDiscreteSummation {
     }
 
     private static long computeSum(int[] decimalValues) {
-        // dp[sum][numbersSelected]
-        long[][] dp = new long[73][9];
+        // dp[currentSum][numbersSelected] = totalSum
+        long[][] dp = new long[73][8];
         for (long[] dpValues : dp) {
             Arrays.fill(dpValues, -1);
         }
