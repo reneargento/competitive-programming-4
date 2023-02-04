@@ -1,0 +1,5 @@
+4.2.4.1
+
+In an undirected graph G with V vertices and E edges:
+The minimum number of CCs is 1. This happens when G is connected. The minimum number of edges in this case is E = V - 1.
+The maximum number of CCs is V. This happens when there are no edges (E = 0), where each vertex is a component.

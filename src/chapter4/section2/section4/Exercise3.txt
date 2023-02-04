@@ -1,0 +1,13 @@
+4.2.4.3
+
+It is not possible to draw a simple graph with exactly 7 vertices, 11 edges and 3 connected components.
+The closest simple graph possible has 7 vertices, 10 edges and 3 connected components:
+
+       ---------
+      |         |
+      | --A-----B
+      | | | \  /|
+      |-|-C---D |
+        | |  /  |
+         \E /   |    F    G
+          |____/
