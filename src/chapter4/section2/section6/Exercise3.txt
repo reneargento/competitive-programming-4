@@ -1,0 +1,14 @@
+4.2.6.3
+
+a) 840 unique topological orderings
+
+A -> B
+C -> D    F    G
+  \
+   v
+   E
+
+b) 21 unique topological orderings
+
+A -> B -> C -> D -> E
+    F -> G

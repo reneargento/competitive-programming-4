@@ -1,0 +1,7 @@
+4.2.6.2
+
+If we replace the priority queue with a queue / stack / vector / hash table / set, Kahn's algorithm remains correct.
+When using different data structures, the order in which the vertices will be processed will be different, generating
+possibly different topological sorts. But they will all be valid and Kahn's algorithm will remain correct.
+This is because we just need a container to store the vertices with zero in-degree, the actual order in which we process
+those vertices does not matter to generate a valid topological sort.
