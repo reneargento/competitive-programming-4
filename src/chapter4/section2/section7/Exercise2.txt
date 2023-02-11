@@ -1,0 +1,5 @@
+4.2.7.2
+
+The maximum possible number of edges that a Bipartite graph with V vertices has is V/2 * V/2 which is O(V^2) edges.
+This number is achieved when both partitions have the same number of vertices, V / 2, and the Bipartite graph is complete,
+K(V/2, V/2), with all vertices in one partition connected to all the vertices on the other partition.

@@ -1,0 +1,16 @@
+4.2.7.1
+
+Statement: "An undirected graph is Bipartite if and only if it has no odd-length cycle".
+
+Proof by contradiction:
+Assume that a Bipartite undirected graph G has an odd-length cycle of length 2k + 1, where k is an integer, and it has
+vertices in two partitions, A and B.
+Also assume that the cycle forms a path that starts from a first vertex (vertex 0) in A and ends in it.
+Notice that on each edge of the cycle we traverse to the other partition.
+So vertex 0 is in partition A, vertex 1 is in partition B, vertex 2 is in partition A, and so on.
+Notice that even-indexed vertices are in partition A and odd-indexed vertices are in partition B.
+Therefore, vertex 2k is in partition A.
+To complete the odd-length cycle, vertex 2k + 1 needs to be vertex 0, which is in partition A.
+That would connect two vertices on the same partition, which is a contradiction since the graph is Bipartite.
+Therefore, a Bipartite graph has no odd-length cycle.
+

@@ -1,0 +1,9 @@
+4.2.7.3
+
+Statement: "A tree is also a Bipartite graph".
+
+Proof: A tree has no cycles, therefore it is possible to divide its vertices in two partitions, A and B.
+This can be done based on the vertices' depth.
+We can assign the root (depth 0) and the vertices on even-depths (depth 2, depth 4, and so on) to partition A.
+And we can assign the vertices on odd-depths (depth 1, depth 3, and so on) to partition B.
+This will always generate a Bipartite graph. Therefore, a tree is also a Bipartite graph.
