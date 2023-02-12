@@ -1,0 +1,11 @@
+4.2.8.2
+
+With only two vertex states (UNVISITED and VISITED), the following graph would be incorrectly classified as having a
+non-trivial cycle:
+
+0 -> 1
+|   ^
+v  /
+ 2
+
+In this graph the edge 2 -> 1 would be accidentally classified as a back edge while it is actually a forward/cross edge.

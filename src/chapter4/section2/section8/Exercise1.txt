@@ -1,0 +1,9 @@
+4.2.8.1
+
+The time complexity of the cycleCheck routine is O(V + E).
+This is because it is a modification of DFS, which has time complexity of O(V + E), adding only some constant-time operations.
+If we only wanted to classify a graph as having a cycle or not, the time complexity could be improved to O(V).
+This can be done by classifying all graphs that have a number of edges E > (V - 1) as cyclic, and only processing graphs
+with a number of edges E <= (V - 1) in the cycleCheck routine.
+Note, however, that with this optimization we would consider graphs with both non-trivial and trivial cycles as cyclic.
+
