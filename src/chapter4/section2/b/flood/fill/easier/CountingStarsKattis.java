@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * Created by Rene Argento on 09/03/23.
  */
-public class CountingStars {
+public class CountingStarsKattis {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
