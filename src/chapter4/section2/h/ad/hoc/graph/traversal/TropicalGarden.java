@@ -79,30 +79,28 @@ public class TropicalGarden {
             }
 
             int trailsRequired = trailsNeeded[groupID];
-            int numberOfPossibleTrails = 0;
+            int numberOfPossibleTrails;
             if (trailsRequired < totalFountains) {
-                numberOfPossibleTrails += trailsPerDistanceRoute0[trailsRequired]
+                numberOfPossibleTrails = trailsPerDistanceRoute0[trailsRequired]
                         + trailsPerDistanceRoute1[trailsRequired];
             } else {
-                numberOfPossibleTrails += computeTrails(trailsRequired, trailsPerDistanceRoute0,
-                        cycleLengthRouteType0, totalFountains);
-                numberOfPossibleTrails += computeTrails(trailsRequired, trailsPerDistanceRoute1,
-                        cycleLengthRouteType1, totalFountains);
+                numberOfPossibleTrails = computeTrails(trailsRequired, trailsPerDistanceRoute0, cycleLengthRouteType0,
+                        totalFountains);
+                numberOfPossibleTrails += computeTrails(trailsRequired, trailsPerDistanceRoute1, cycleLengthRouteType1,
+                        totalFountains);
             }
             answer(numberOfPossibleTrails);
         }
     }
 
-    private static int computeTrails(int trailsRequired, int[] trailsPerDistanceRoute, int cycleLengthRouteType,
-                                     int totalFountains) {
+    private static int computeTrails(int trailsRequired, int[] trailsPerDistance, int cycleLength, int totalFountains) {
         int numberOfPossibleTrails = 0;
-        if (cycleLengthRouteType != -1) {
-            int distance = totalFountains / cycleLengthRouteType * cycleLengthRouteType
-                    + (trailsRequired % cycleLengthRouteType);
+        if (cycleLength != -1) {
+            int distance = totalFountains / cycleLength * cycleLength + (trailsRequired % cycleLength);
             if (distance >= totalFountains) {
-                distance -= cycleLengthRouteType;
+                distance -= cycleLength;
             }
-            numberOfPossibleTrails += trailsPerDistanceRoute[distance];
+            numberOfPossibleTrails += trailsPerDistance[distance];
         }
         return numberOfPossibleTrails;
     }
@@ -162,8 +160,8 @@ public class TropicalGarden {
                                            int[][][] distancesToRestaurant, int sourceFountainID, int sourceRouteType) {
         boolean[][] visited = new boolean[graph.length][2];
         Deque<Integer> stack = new ArrayDeque<>();
-        int fountainIDAndRoute = (sourceFountainID << 1) | sourceRouteType;
-        stack.add(fountainIDAndRoute);
+        int fountainIDAndRouteType = (sourceFountainID << 1) | sourceRouteType;
+        stack.add(fountainIDAndRouteType);
 
         while (!stack.isEmpty()) {
             int state = stack.pop();
@@ -231,17 +229,17 @@ public class TropicalGarden {
         }
 
         private int nextInt() throws IOException {
-            while(character < '-') {
+            while (character < '-') {
                 character = readByte();
             }
             if (isNegative = (character == '-')) {
                 character = readByte();
             }
-            int res = character -'0';
+            int value = character - '0';
             while ((character = readByte()) >= '0' && character <= '9') {
-                res = res * 10 + character - '0';
+                value = value * 10 + character - '0';
             }
-            return isNegative ? -res : res;
+            return isNegative ? -value : value;
         }
 
         private void fill() throws IOException {
