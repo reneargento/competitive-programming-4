@@ -220,19 +220,22 @@ public class TropicalGarden {
         byte[] buffer = new byte[bufferSize];
         int position = 0;
         int byteCount = bufferSize;
-
-        boolean isNegative;
         byte character;
 
         FastReader() throws IOException {
             fill();
         }
 
+        private void fill() throws IOException {
+            byteCount = in.read(buffer, 0, bufferSize);
+        }
+
         private int nextInt() throws IOException {
             while (character < '-') {
                 character = readByte();
             }
-            if (isNegative = (character == '-')) {
+            boolean isNegative = (character == '-');
+            if (isNegative) {
                 character = readByte();
             }
             int value = character - '0';
@@ -240,10 +243,6 @@ public class TropicalGarden {
                 value = value * 10 + character - '0';
             }
             return isNegative ? -value : value;
-        }
-
-        private void fill() throws IOException {
-            byteCount = in.read(buffer, 0, bufferSize);
         }
 
         private byte readByte() throws IOException {
