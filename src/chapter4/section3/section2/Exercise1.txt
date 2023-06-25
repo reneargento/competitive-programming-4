@@ -1,0 +1,9 @@
+4.3.2.1
+
+This early termination does not change the correctness of Kruskal's algorithm because the edges are sorted by weight.
+This means that any edge not yet processed will have an equal or higher weight than the edges already seen.
+Also, Kruskal's algorithm only takes edges that will be part of the final MST.
+Therefore, the total weight will never decrease and it is possible to terminate the algorithm as soon as we take
+V - 1 edges, since these edges will be part of the MST and the remaining edges will not replace any edges taken.
+The same optimization can be implemented using UFDS by terminating the algorithm once there is only 1 disjoint set
+remaining.
