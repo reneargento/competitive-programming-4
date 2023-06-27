@@ -1,0 +1,15 @@
+4.3.4.1
+
+Compute the MST using Kruskal's algorithm
+Set WD (weight difference) as infinite.
+Set Enew = -1 and Eold = -1. Enew is the new edge to be added, Eold is the edge to be removed.
+
+For every edge e that is not in the MST:
+1- Add the edge to the tree, creating a cycle.
+2- Find k, the maximum weight edge in the cycle, such that k is different from e.
+3- Remove k.
+4- Compute the change in the tree weight D = weight(e) - weight(k)
+5- If D is less than WD, then set WD = D and Enew = e and Eold = k.
+
+The second best MST is the one that results from replacing Eold with Enew.
+The complexity of this approach is O(E lg V).
