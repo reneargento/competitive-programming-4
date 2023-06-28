@@ -1,8 +1,12 @@
 4.3.4.1
 
-Compute the MST using Kruskal's algorithm
+Compute the MST using Kruskal's algorithm.
 Set WD (weight difference) as infinite.
 Set Enew = -1 and Eold = -1. Enew is the new edge to be added, Eold is the edge to be removed.
+
+Root the MST in one vertex and precompute all the vertices LCAs (lowest common ancestors).
+Also precompute the maximum weight edge for each vertex on the path to their ancestors. This can be done using Binary
+Lifting for LCA.
 
 For every edge e that is not in the MST:
 1- Add the edge to the tree, creating a cycle.
@@ -13,3 +17,7 @@ For every edge e that is not in the MST:
 
 The second best MST is the one that results from replacing Eold with Enew.
 The complexity of this approach is O(E lg V).
+
+Based on:
+http://web.mit.edu/6.263/www/quiz1-f05-sol.pdf
+https://cp-algorithms.com/graph/second_best_mst.html#modeling-into-a-lowest-common-ancestor-lca-problem
