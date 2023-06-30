@@ -1,0 +1,17 @@
+4.3.4.2
+
+The Second Best ST problem can be solved with Prim's algorithm in a similar way as it is done with Kruskal's algorithm:
+1- Run Prim's algorithm to compute the MST edges.
+2- For each edge in the MST:
+2.1 - Flag this edge.
+2.2 - Run Prim's algorithm on the original graph skipping the flagged edge.
+      Keep track of the best MST computed and the associated new edge added and edge removed.
+3- The Second Best ST will be the best ST computed on step 2.
+
+The best time complexity of this approach is:
+O(find the original MST + Prim's algorithm for each edge in the MST)
+O(E lg V + (E lg V) * V)
+O(V * E + V lg V)
+O(V * E)
+
+This running time is V times slower than the running time of O(E lg V) using LCA in Exercise 4.3.4.1.
