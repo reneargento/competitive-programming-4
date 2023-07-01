@@ -1,0 +1,15 @@
+4.3.4.3
+
+The MST problem can be solved in O(E) if the input graph is guaranteed to have edge weights that lie between the
+integer range of [0..100].
+
+This can be done by having an array of lists, where each index of the array stores a list of edges that have weight
+equal to that index.
+Array[0] would store edges of weight 0, Array[1] would store edges of weight 1, and so on.
+We could then iterate over these lists from index 0 to 100 and try to add each edge to the MST, as long as it does not
+create a cycle, until we have V - 1 edges added.
+The cycle check can be done using Union-Find, in the same way as Kruskal's algorithm.
+Having the array of lists is the equivalent as using counting sort for the sorting phase of Kruskal's algorithm.
+
+This is a significant speed-up from O(E lg V), as the lg V factor is removed, and this can be the difference on getting
+AC or not in problems with tighter time limits.
