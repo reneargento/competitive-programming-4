@@ -1,0 +1,51 @@
+4.3.4.4
+
+Both can be proved using an exchange argument.
+
+Kruskal's algorithm
+Theorem: Kruskal's algorithm always produces a MST.
+Proof of correctness:
+Let T be the tree produced by Kruskal's algorithm and T* be a MST.
+We will prove c(T) = c(T*). If T = T*, we are done.
+
+Otherwise, T != T*, so we have T - T* != 0. Let (u, v) be an edge in T - T*.
+Let S be the connected component containing u at the time (u, v) was added to T.
+We claim (u, v) is a least-cost edge crossing the cut (S, V - S).
+First, (u, v) crosses the cut, since u and v were not connected when Kruskal's algorithm selected (u, v).
+Next, if there were a lower-cost edge e crossing the cut, e would connect two nodes that were not connected.
+Thus, Kruskal's algorithm would have selected e instead of (u, v), a contradiction.
+
+Since T* is a MST, there is a path from u to v in T*.
+The path begins in S and ends in V - S, so it contains an edge (x, y) crossing the cut.
+Then T*' = T* U {(u, v)} - {(x, y)} is an ST of G and c(T*') = c(T*) + c(u, v) - c(x, y).
+Since c(x, y) >= c(u, v), we have c(T*') <= c(T*). Since T* is a MST, c(T*') = c(T*).
+
+Note that |T - T*'| = |T - T*| - 1.
+Therefore, if we repeat this process once for each edge in T - T*, we will have converted T* into T while preserving
+c(T*). Thus c(T) = c(T*).
+
+Prim's algorithm
+Theorem: If G is a connected, weighted graph, Prim's algorithm correctly finds a MST in G.
+Proof of correctness:
+Let T be the spanning tree found by Prim's algorithm and T* be any MST of G.
+We will prove c(T) = c(T*). If T = T*, then c(T) = c(T*) and we are done.
+
+Otherwise, T != T*, so we have T - T* != 0. Let (u, v) be any edge in T - T*.
+When (u, v) was added to T, it was a least-cost edge crossing some cut (S, V - S).
+Since T* is an MST, there must be a path from u to v in T*.
+This path begins in S and ends in V - S, so there must be some edge (x, y) along that path where x belongs to S and
+y belongs to V - S.
+Since (u, v) is a least-cost edge crossing (S, V - S), we have c(u, v) <= c(x, y).
+
+Let T*' = T* U {(u, v)} - {(x, y)}.
+Since (x, y) is on the cycle formed by adding (u, v), this means T*' is a spanning tree.
+Notice c(T*') = c(T*) + c(u, v) - c(x, y) <= c(T*).
+Since T* is a MST, this means c(T*') >= c(T*), so c(T*) = c(T*').
+
+Note that |T - T*'| = |T - T*| - 1.
+Therefore, if we repeat this process once for each edge in T - T*, we will have converted T* into T while preserving
+c(T*). Thus c(T) = c(T*).
+
+References
+https://web.stanford.edu/class/archive/cs/cs161/cs161.1138/lectures/14/Slides14.pdf
+https://web.stanford.edu/class/archive/cs/cs161/cs161.1138/lectures/15/Slides15.pdf
