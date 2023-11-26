@@ -1,0 +1,22 @@
+4.4.1.1
+
+Claim: The shortest path between two vertices u and v in a graph G that has no negative and no zero-weight weight cycle must be a simple path (acyclic).
+
+Proof by contradiction:
+Consider that the shortest path between two vertices u and v in a Graph G has a cycle C.
+Since G has no negative or zero-weight weight cycles, C has a positive weight. Let's call this weight X.
+
+The shortest path can then be described as u - a - C - b - v, where a represents zero or more vertices between vertex u and C, and b represents zero or more vertices between C and v.
+This means that there is one vertex inside C, z1, that connects a to C (or, if there are no intermediate vertices, u to C).
+Similarly, there is a vertex inside C, z2, that connects C to b (or, if there are no intermediate vertices, C to v).
+It is also possible for z1 and z2 to be the same vertex.
+
+This means that the shortest path between u and v visits at least z1 and z2 more than once, and possibly more vertices inside C between them.
+If we remove from the path the vertices between z2 and z1 (the path that completes cycle C, visits z1 a second time, and any other vertices in C after that), the path u - a - C - b - v would still exist.
+Since C has a positive weight, removing those vertices and edges from it would lead to a lower total weight, X'.
+And since X' is less than X, the path u - a - (vertices inside C that do not form a cycle) - b - v, is a path shorter than the proposed shortest path.
+This is a contradiction, and therefore, the path must be simple (acyclic).
+
+Corollary:
+The shortest path between any two vertices in a graph that has no negative and no zero-weight weight cycles is always a simple path (acyclic).
+
