@@ -1,0 +1,8 @@
+4.4.1.2
+
+Claim: Subpaths of shortest paths from u to v are shortest paths.
+
+Proof by contradiction:
+Consider that the shortest path P between vertices u and v has a subpath SP1 from w to z.
+If another subpath from w to z, shorter than SP1, exists (let's call it SP2), it could replace SP1, generating a shorter path P' from u to v.
+Since P is a shortest path, this is a contradiction, and therefore, the subpaths of the shortest path from u to v must also be shortest paths.
