@@ -1,0 +1,13 @@
+4.4.1.3
+
+Claim: If there is only one possible path from vertex u to vertex v in a general weighted graph and u is reachable from the source vertex s, then the shortest path from s to v must be s -> ... -> u -> ... -> v!
+
+Proof by contradiction:
+We know from the statement that the path P1 exists: s -> ... -> u -> ... -> v
+Consider a shortest path P2 that does not include vertex u: s -> ... -> v
+If P2 existed that would mean that a cycle exists and vertex u would be able to reach vertex v through the following path:
+u -> ... -> s -> ... -> v
+
+That is a contradiction since there is only one possible path from vertex u to vertex v (vertex u is an articulation point).
+Therefore the only possible path (and consequently, shortest path) from vertex s to vertex v is P1: s -> ... -> u -> ... -> v.
+
