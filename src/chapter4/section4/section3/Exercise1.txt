@@ -1,0 +1,6 @@
+4.4.3.1
+
+If there are two (or more) different vertices that have similar shortest path distance values from the source vertex s there is no problem.
+The vertex information pair of a vertex u is (dist[u], u), and the vertex numbers are unique.
+So even if different vertices have the same shortest path distance value from source vertex s, they will still be different keys on a set<ii>.
+
