@@ -1,0 +1,5 @@
+4.4.3.2
+
+We can get the same effect without defining a comparison operator for the priority queue by multiplying the sort keys by -1.
+This reverses the default order of C++ STL priority_queue, from a max heap, to a min heap.
+
