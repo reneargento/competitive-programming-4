@@ -1,0 +1,6 @@
+4.4.3.3
+
+If that line is removed, the modified Dijkstra's algorithm performance will degenerate.
+This is because it will process all inferior vertex information pairs (that should have been deleted earlier) instead of skipping them immediately.
+The modified Dijkstra's algorithm should still remain correct, as inferior vertex information pairs will not cause any successful edge relaxation.
+

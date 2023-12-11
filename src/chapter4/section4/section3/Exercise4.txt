@@ -1,0 +1,41 @@
+4.4.3.4
+
+Original Dijkstra's algorithm:
+Invariant hypothesis: For each visited node v, dist[v] is the shortest distance from source to v, and for each unvisited node u, dist[u] is the shortest distance from source to u when travelling via visited nodes only, or infinity if no such path exists.
+Note: we do not assume dist[u] is the actual shortest distance for unvisited nodes, while dist[v] is the actual shortest distance.
+
+The base case is when there is just one visited node, namely the initial source, in which case the hypotheses is trivial.
+
+Next, assume the hypothesis for k - 1 visited nodes. Then select u to be the next visited node according to the algorithm.
+We claim that dist[u] is the shortest distance from source to u.
+
+To prove that claim, we will proceed with a proof by contradiction.
+If there were a shorter path, then two cases would be possible: either that shortest path contains another unvisited node or not.
+
+In the first case, let w be the first unvisited node on the shortest path.
+By the induction hypothesis, the shortest path from source to u and w through visited nodes only has a cost of dist[u] and dist[w], respectively.
+That means the cost of going from source to u through w has the cost of at least dist[w] + the minimal cost of going from w to u.
+As the edge costs are non-negative, the minimal cost of going from w to u is a non-negative number.
+
+Also, dist[u] <= dist[w] because the algorithm picked u before w.
+
+Now we arrived at a contradiction, that dist[u] <= dist[w], yet dist[w] + a non-negative number < dist[u].
+
+In the second case, let w be the last but one node on the shortest path.
+That means dist[w] + edges(w, u) < dist[u].
+That is a contradiction because by the time w is visited, it should have set dist[u] to at most dist[w] + edges(w, u).
+
+For all other visited nodes v, the induction hypothesis told us dist[v] is the shortest distance from source already, and the algorithm step is not changing that.
+
+After processing vertex u it will still be true that for each unvisited node w, dist[w] will be the shortest distance from source to w using visited nodes only.
+This is because if there were a shorter path that doesn't go by u we would have found it previously, and if there were a shorter path using u we would have updated it when processing u.
+
+After all nodes are visited, the shortest path from source to any node v consists only of visited nodes, therefore dist[v] is the shortest distance.
+
+Modified Dijkstra's algorithm:
+Same as the proof above, with the addition that the same vertex v can appear more than once in the priority queue (due to the lazy deletion).
+If, when popped from the priority queue, vertex v's distance from source is higher than dist[v], it is skipped.
+All other vertex information pairs are processed as in the original Dijkstra's algorithm.
+Therefore, Modified Dijkstra's algorithm also finds the shortest path from the source to all other vertices.
+
+Reference: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
