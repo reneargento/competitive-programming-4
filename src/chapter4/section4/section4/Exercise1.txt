@@ -1,0 +1,30 @@
+4.4.4.1
+
+Claim: Relaxing all E edges (in any order) of our weighted graph V - 1 times, Bellman-Ford will get the correct SSSP information.
+
+Proof:
+Here we consider that the graph has no negative weight cycles.
+We want to prove that Dn-1(v) has the minimum weight of a path from source vertex s to all vertices v, using n - 1 edges or less.
+By induction on k, we will prove that Dk(v) is the minimum weight of a path from s to v that uses <= k edges.
+
+This will show that Dn-1(v) is the minimum weight of a path from s to v that uses <= n - 1 edges.
+This is just the weight of the shortest path, because the fact that the graph has no negative cycles means that there must always be a shortest path with no repeated vertices.
+(If the shortest path had a repeated vertex, we could splice out the cycle from the path and get a path that was equally short or shorter).
+
+Base case: If k = 0, then Dk(v) = 0 for v = s, and infinite otherwise.
+So the claim is satisfied because there is a path of length 0 from s to itself, and no path of length 0 from s to any other vertex.
+
+Inductive step: Suppose that for all vertices u, Dk-1(u) is the minimum weight of a path from s to u that uses <= k - 1 edges.
+
+If v != s, let P be the shortest simple path from s to v with <= k edges, and let u be the node just before v on P.
+Let Q be the path from s to u.
+Then path Q has <= k - 1 nodes and must be a shortest path from s to u on k - 1 edges (or else we could replace Q with a shorter path, contradicting the fact that P is a shortest simple path on <= k edges).
+By the inductive hypothesis, w(Q) (i.e. the weight of path Q) is Dk-1(u).
+
+In iteration k, we update Dk(v) = min(Dk-1(v), Dk-1(u) + w(u,v)).
+We know that Dk-1(u) + w(u,v) = w(Q) + w(u,v) = w(P), which shows that Dk(v) <= w(P).
+Furthermore, Dk-1(v) is the length of a shortest simple path from s to v on at most k - 1 edges, which must be at least as large as w(P), since P has more edges to work with.
+
+Therefore, Dk(v) = w(P) is the minimum weight of a path from s to v that uses <= k edges.
+
+Reference: https://web.stanford.edu/class/archive/cs/cs161/cs161.1168/lecture14.pdf

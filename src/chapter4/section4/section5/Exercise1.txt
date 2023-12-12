@@ -1,0 +1,5 @@
+4.4.5.1
+
+The fulltank problem cannot be solved with DP because the State-Space graph needed to solve the problem is not a DAG and may contain cycles.
+An example is to start from state (s, 0), add 1 unit of fuel at vertex s to reach state (s, 1), go to a neighbor vertex y - suppose it is just 1 unit distance away - to reach state (y, 0), add 1 unit of fuel again at vertex y to reach state (y, 1), and then return to state (s, 0) (a cycle).
+This is a shortest path problem on general weighted graphs, and requires Dijkstra's algorithm to be solved.
