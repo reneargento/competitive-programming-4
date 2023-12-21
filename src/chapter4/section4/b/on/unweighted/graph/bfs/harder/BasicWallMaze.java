@@ -156,7 +156,7 @@ public class BasicWallMaze {
         } else if (currentCell.row < nextCell.row) {
             // Moving south
             return maze[nextCell.row][nextCell.column] != WALL_HORIZONTAL
-                    && maze[nextCell.row][nextCell.column] != WALL_BOTH ;
+                    && maze[nextCell.row][nextCell.column] != WALL_BOTH;
         } else if (currentCell.column < nextCell.column) {
             // Moving east
             return maze[nextCell.row][nextCell.column] != WALL_VERTICAL
@@ -164,7 +164,7 @@ public class BasicWallMaze {
         } else {
             // Moving west
             return maze[currentCell.row][currentCell.column] != WALL_VERTICAL
-                    && maze[currentCell.row][currentCell.column] != WALL_BOTH ;
+                    && maze[currentCell.row][currentCell.column] != WALL_BOTH;
         }
     }
 
