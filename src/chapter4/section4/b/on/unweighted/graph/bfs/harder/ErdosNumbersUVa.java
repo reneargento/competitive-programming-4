@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by Rene Argento on 18/12/23.
  */
-public class ErdosNumbers {
+public class ErdosNumbersUVa {
 
     private static final String ERDOS_NAME = "Erdos, P.";
     private static final int INFINITE = Integer.MAX_VALUE;
