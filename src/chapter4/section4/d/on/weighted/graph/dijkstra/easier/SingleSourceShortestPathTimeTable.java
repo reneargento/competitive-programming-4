@@ -4,10 +4,10 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Created by Rene Argento on 25/12/23.
+ * Created by Rene Argento on 06/01/24.
  */
 @SuppressWarnings("unchecked")
-public class SingleSourceShortestPathNonNegativeWeights {
+public class SingleSourceShortestPathTimeTable {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
@@ -15,26 +15,32 @@ public class SingleSourceShortestPathNonNegativeWeights {
         int nodes = FastReader.nextInt();
         int edges = FastReader.nextInt();
         int queries = FastReader.nextInt();
-        int sourceNode = FastReader.nextInt();
+        int startNode = FastReader.nextInt();
 
-        while (nodes != 0 || edges != 0 || queries != 0 || sourceNode != 0) {
+        while (nodes != 0 || edges != 0 || queries != 0 || startNode != 0) {
             List<Edge>[] adjacencyList = new List[nodes];
             for (int i = 0; i < adjacencyList.length; i++) {
                 adjacencyList[i] = new ArrayList<>();
             }
 
-            for (int i = 0; i < edges; i++) {
+            for (int m = 0; m < edges; m++) {
                 int nodeID1 = FastReader.nextInt();
                 int nodeID2 = FastReader.nextInt();
-                int weight = FastReader.nextInt();
-                adjacencyList[nodeID1].add(new Edge(nodeID1, nodeID2, weight));
+                int startTime = FastReader.nextInt();
+                int increment = FastReader.nextInt();
+                int distance = FastReader.nextInt();
+                Edge edge1 = new Edge(nodeID1, nodeID2, startTime, increment, distance);
+                Edge edge2 = new Edge(nodeID1, nodeID2, startTime, increment, distance);
+                adjacencyList[nodeID1].add(edge1);
+                adjacencyList[nodeID2].add(edge2);
             }
+            Dijkstra dijkstra = new Dijkstra(adjacencyList, startNode);
+            long[] shortestDistances = dijkstra.distTo;
 
-            Dijkstra dijkstra = new Dijkstra(adjacencyList, sourceNode);
             for (int q = 0; q < queries; q++) {
-                int nodeID = FastReader.nextInt();
-                if (dijkstra.hasPathTo(nodeID)) {
-                    outputWriter.printLine(dijkstra.distTo[nodeID]);
+                int targetNodeID = FastReader.nextInt();
+                if (shortestDistances[targetNodeID] != Dijkstra.MAX_VALUE) {
+                    outputWriter.printLine(shortestDistances[targetNodeID]);
                 } else {
                     outputWriter.printLine("Impossible");
                 }
@@ -43,7 +49,7 @@ public class SingleSourceShortestPathNonNegativeWeights {
             nodes = FastReader.nextInt();
             edges = FastReader.nextInt();
             queries = FastReader.nextInt();
-            sourceNode = FastReader.nextInt();
+            startNode = FastReader.nextInt();
         }
         outputWriter.flush();
     }
@@ -51,11 +57,15 @@ public class SingleSourceShortestPathNonNegativeWeights {
     private static class Edge {
         private final int vertex1;
         private final int vertex2;
-        private final long distance;
+        private final int startTime;
+        private final double increment;
+        private final int distance;
 
-        public Edge(int vertex1, int vertex2, long distance) {
+        public Edge(int vertex1, int vertex2, int startTime, double increment, int distance) {
             this.vertex1 = vertex1;
             this.vertex2 = vertex2;
+            this.startTime = startTime;
+            this.increment = increment;
             this.distance = distance;
         }
     }
@@ -77,9 +87,9 @@ public class SingleSourceShortestPathNonNegativeWeights {
             }
         }
 
-        private final long[] distTo;  // length of path to vertex
+        private final long[] distTo;
         private final PriorityQueue<Vertex> priorityQueue;
-        private final long MAX_VALUE = 10000000000000000L;
+        public static long MAX_VALUE = 10000000000000000L;
 
         public Dijkstra(List<Edge>[] adjacencyList, int source) {
             distTo = new long[adjacencyList.length];
@@ -95,22 +105,27 @@ public class SingleSourceShortestPathNonNegativeWeights {
         }
 
         private void relax(List<Edge>[] adjacencyList, Vertex vertex) {
-            if (distTo[vertex.id] < vertex.distance) {
-                return;
-            }
-
             for (Edge edge : adjacencyList[vertex.id]) {
                 int neighbor = edge.vertex2;
 
-                if (distTo[neighbor] > distTo[vertex.id] + edge.distance) {
-                    distTo[neighbor] = distTo[vertex.id] + edge.distance;
+                long nextTimeToMove;
+                if (edge.increment == 0) {
+                    if (edge.startTime < distTo[vertex.id]) {
+                        continue;
+                    }
+                    nextTimeToMove = edge.startTime;
+                } else {
+                    long multiplier = (long) Math.ceil((distTo[vertex.id] - edge.startTime) / edge.increment);
+                    nextTimeToMove = edge.startTime + multiplier * (long) edge.increment;
+                }
+                long timeToStart = Math.max(edge.startTime, nextTimeToMove);
+                long distance = timeToStart + edge.distance;
+
+                if (distTo[neighbor] > distance) {
+                    distTo[neighbor] = distance;
                     priorityQueue.offer(new Vertex(neighbor, distTo[neighbor]));
                 }
             }
-        }
-
-        public boolean hasPathTo(int vertex) {
-            return distTo[vertex] != MAX_VALUE;
         }
     }
 

@@ -4,59 +4,48 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Created by Rene Argento on 25/12/23.
+ * Created by Rene Argento on 07/01/24.
  */
 @SuppressWarnings("unchecked")
-public class SingleSourceShortestPathNonNegativeWeights {
+public class GetShorty {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int nodes = FastReader.nextInt();
-        int edges = FastReader.nextInt();
-        int queries = FastReader.nextInt();
-        int sourceNode = FastReader.nextInt();
+        int intersections = FastReader.nextInt();
+        int corridors = FastReader.nextInt();
 
-        while (nodes != 0 || edges != 0 || queries != 0 || sourceNode != 0) {
-            List<Edge>[] adjacencyList = new List[nodes];
+        while (intersections != 0 || corridors != 0) {
+            List<Edge>[] adjacencyList = new List[intersections];
             for (int i = 0; i < adjacencyList.length; i++) {
                 adjacencyList[i] = new ArrayList<>();
             }
 
-            for (int i = 0; i < edges; i++) {
-                int nodeID1 = FastReader.nextInt();
-                int nodeID2 = FastReader.nextInt();
-                int weight = FastReader.nextInt();
-                adjacencyList[nodeID1].add(new Edge(nodeID1, nodeID2, weight));
+            for (int m = 0; m < corridors; m++) {
+                int intersectionID1 = FastReader.nextInt();
+                int intersectionID2 = FastReader.nextInt();
+                double factor = FastReader.nextDouble();
+                adjacencyList[intersectionID1].add(new Edge(intersectionID2, factor));
+                adjacencyList[intersectionID2].add(new Edge(intersectionID1, factor));
             }
 
-            Dijkstra dijkstra = new Dijkstra(adjacencyList, sourceNode);
-            for (int q = 0; q < queries; q++) {
-                int nodeID = FastReader.nextInt();
-                if (dijkstra.hasPathTo(nodeID)) {
-                    outputWriter.printLine(dijkstra.distTo[nodeID]);
-                } else {
-                    outputWriter.printLine("Impossible");
-                }
-            }
+            Dijkstra dijkstra = new Dijkstra(adjacencyList, 0);
+            double finalFraction = dijkstra.distTo[adjacencyList.length - 1];
+            outputWriter.printLine(String.format("%.4f", finalFraction));
 
-            nodes = FastReader.nextInt();
-            edges = FastReader.nextInt();
-            queries = FastReader.nextInt();
-            sourceNode = FastReader.nextInt();
+            intersections = FastReader.nextInt();
+            corridors = FastReader.nextInt();
         }
         outputWriter.flush();
     }
 
     private static class Edge {
-        private final int vertex1;
         private final int vertex2;
-        private final long distance;
+        private final double factor;
 
-        public Edge(int vertex1, int vertex2, long distance) {
-            this.vertex1 = vertex1;
+        public Edge(int vertex2, double factor) {
             this.vertex2 = vertex2;
-            this.distance = distance;
+            this.factor = factor;
         }
     }
 
@@ -64,29 +53,28 @@ public class SingleSourceShortestPathNonNegativeWeights {
 
         private static class Vertex implements Comparable<Vertex> {
             int id;
-            long distance;
+            double fraction;
 
-            public Vertex(int id, long distance) {
+            public Vertex(int id, double fraction) {
                 this.id = id;
-                this.distance = distance;
+                this.fraction = fraction;
             }
 
             @Override
             public int compareTo(Vertex other) {
-                return Long.compare(distance, other.distance);
+                return Double.compare(other.fraction, fraction);
             }
         }
 
-        private final long[] distTo;  // length of path to vertex
+        private final double[] distTo;
         private final PriorityQueue<Vertex> priorityQueue;
-        private final long MAX_VALUE = 10000000000000000L;
 
         public Dijkstra(List<Edge>[] adjacencyList, int source) {
-            distTo = new long[adjacencyList.length];
+            distTo = new double[adjacencyList.length];
             priorityQueue = new PriorityQueue<>(adjacencyList.length);
 
-            Arrays.fill(distTo, MAX_VALUE);
-            distTo[source] = 0;
+            Arrays.fill(distTo, 0);
+            distTo[source] = 1;
             priorityQueue.offer(new Vertex(source, 0));
 
             while (!priorityQueue.isEmpty()) {
@@ -95,22 +83,14 @@ public class SingleSourceShortestPathNonNegativeWeights {
         }
 
         private void relax(List<Edge>[] adjacencyList, Vertex vertex) {
-            if (distTo[vertex.id] < vertex.distance) {
-                return;
-            }
-
             for (Edge edge : adjacencyList[vertex.id]) {
                 int neighbor = edge.vertex2;
 
-                if (distTo[neighbor] > distTo[vertex.id] + edge.distance) {
-                    distTo[neighbor] = distTo[vertex.id] + edge.distance;
+                if (distTo[neighbor] < distTo[vertex.id] * edge.factor) {
+                    distTo[neighbor] = distTo[vertex.id] * edge.factor;
                     priorityQueue.offer(new Vertex(neighbor, distTo[neighbor]));
                 }
             }
-        }
-
-        public boolean hasPathTo(int vertex) {
-            return distTo[vertex] != MAX_VALUE;
         }
     }
 
@@ -132,6 +112,10 @@ public class SingleSourceShortestPathNonNegativeWeights {
 
         private static int nextInt() throws IOException {
             return Integer.parseInt(next());
+        }
+
+        private static double nextDouble() throws IOException {
+            return Double.parseDouble(next());
         }
     }
 
