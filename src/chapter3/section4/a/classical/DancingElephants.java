@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
  */
 // Based on https://github.com/CharlyGaleana/Problemas-Entrenamiento-Marzo/blob/master/Dancing%20Elephants%20(IOI%202011).cpp
 // Problem located at https://ioinformatics.org/files/ioi2011problem5.pdf
+// Submitted at https://dmoj.ca/problem/ioi11p5io
 public class DancingElephants {
 
     private static class Bucket {

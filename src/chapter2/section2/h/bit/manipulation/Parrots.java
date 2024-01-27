@@ -9,6 +9,7 @@ import java.util.List;
  */
 // Based on https://github.com/neungkl/parrots-IOI-solution and
 // https://github.com/neungkl/parrots-IOI-solution/blob/master/solution/student-group-4.cpp
+// Problem located at https://ioinformatics.org/files/ioi2011problem6.pdf
 public class Parrots {
     private static final List<Integer> encodedValuesList = new ArrayList<>();
 
