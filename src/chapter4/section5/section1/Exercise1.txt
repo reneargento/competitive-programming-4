@@ -1,0 +1,5 @@
+4.5.1.1
+
+The reason why AM[i][j] must be set to 1B (10^9) to indicate that there is no edge between i to j is to avoid an integer overflow in the operation AM[i][k] + AM[k][j].
+This overflow will happen if both AM[i][k] and AM[k][j] values are near MAX_INT value, leading to a difficult-to-debug wrong answer.
+
