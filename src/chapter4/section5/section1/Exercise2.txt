@@ -1,0 +1,4 @@
+4.5.1.2
+
+The Floyd-Warshall algorithm works on graphs with negative edge weights and can be used to detect negative cycles through the use of the adjacency matrix's main diagonal.
+
