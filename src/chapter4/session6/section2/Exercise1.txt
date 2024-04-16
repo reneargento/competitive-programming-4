@@ -1,0 +1,23 @@
+4.6.2.1
+
+Consider a list Preorder and a list Inorder, with the nodes from the preorder and inorder tree traversals, respectively.
+Create variables preorderStartIndex (start it with value 0), inorderStartIndex (start it with value 0) and endIndex
+(start it with value N, the number of nodes in the tree).
+
+Call method generatePostorder(Preorder, Inorder, preorderStartIndex, inorderStartIndex, endIndex).
+In this method, consider the first node in Preorder to be FN.
+Iterate over Inorder (from indices inorderStartIndex to endIndex) and return the value of the index of FN.
+Let's call it FN_IND.
+
+Consider the variable leftSubtreeSize to be equal to FN_IND - inorderStartIndex.
+Recurse over the left subtree calling the method
+generatePostorder(Preorder, Inorder, preorderStartIndex + 1, inorderStartIndex, FN_IND)
+
+Recurse over the right subtree calling the method
+generatePostorder(Preorder, Inorder, Postorder, preorderStartIndex + leftSubtreeSize + 1, FN_IND + 1, endIndex)
+
+Output FN.
+
+Once all recursive calls are finished, the Postorder will have been printed.
+
+Time complexity: O(N)
