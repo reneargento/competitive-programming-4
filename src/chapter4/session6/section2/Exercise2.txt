@@ -1,0 +1,20 @@
+4.6.2.2
+
+DFS traversal on a tree without using the Boolean visited flag of size N vertices can be done by using a recursive
+method that receives as parameters the adjacency lists, the node to visit and its parent.
+Then traverse to all adjacent nodes that are not equal to the node's parent.
+
+For example:
+
+void traversal(List<Integer>[] adjacent, int node, int parent) {
+    for (int neighbor : adjacent[node]) {
+        if (neighbor != parent) {
+            traversal(adjacent, neighbor, node)
+        }
+    }
+}
+
+For BFS traversal, since it is done iteratively with a queue, either an array with the visited flag information or an
+array with each vertex parent information is needed.
+
+Reference: https://stackoverflow.com/questions/21509031/bfs-dfs-searches-required-to-mark-as-visited-for-trees
