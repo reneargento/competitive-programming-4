@@ -1,0 +1,25 @@
+4.6.2.4
+
+Statement: The two BFS/DFS algorithm for finding the diameter of a weighted tree computes the correct value.
+
+Proof:
+Suppose vertices x and y are the vertices on both ends of the longest path of the tree (the diameter which has length D).
+Now consider the midpoint C of this path.
+If there is no vertex on that position we can add one, since it will not change any of the other distances or the structure of the graph.
+The distances from the diameter endpoints to C are then d(x, C) = d(y, C) = D / 2.
+
+Claim 1: For any vertex z, d(z, C) <= D / 2.
+Proof: Consider the paths from y to z, and then from z to x.
+Concatenating them, we have a (possibly degenerate) path from y to x.
+Since paths are unique in a tree, this concatenation must pass through C, i.e. one of the paths passes through C.
+Thus, without loss of generality, suppose the path from z to x passes through C.
+Now D >= d(z, x) = d(z, C) + d(C, x) = d(z, C) + D / 2, which rearranges to d(z, C) <= D / 2.
+
+Claim 2: For any vertex s, and a vertex u farthest from s, d(u, C) = D / 2.
+Proof: Have d(s, u) >= max(d(s, x), d(s, y)) >= d(s, C) + D / 2, where the second inequality comes from the previous proof.
+By triangle inequality, d(s, C) + d(u, C) >= d(s, u), so d(u, C) >= D / 2.
+Combined with claim 1, d(u, C) = D / 2.
+
+Finally, by our observations above, max(d(u, x), d(u, y)) >= d(u, C) + D / 2 = D.
+
+Based on https://codeforces.com/blog/entry/60440
