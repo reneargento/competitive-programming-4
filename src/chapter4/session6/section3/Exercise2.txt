@@ -1,0 +1,9 @@
+4.6.3.2
+
+Randomizing the vertex order in Adjacency List instead of keeping it ordered based on increasing vertex number is good for the MCBM algorithm.
+This is because in the worst case, with a Complete Bipartite Graph K(N/2,N/2), MCBM will run in O(V^3).
+With randomization many trivial (one-edge) Augmenting Paths that consist of a free vertex u, and unmatched edge (u, v)
+and a free vertex v are eliminated, which avoids the algorithms' worst case of O(V^3).
+
+Reference:
+https://visualgo.net/en/matching?slide=4-15

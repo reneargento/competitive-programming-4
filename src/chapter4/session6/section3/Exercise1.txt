@@ -1,0 +1,8 @@
+4.6.3.1
+
+Common keywords to spot a Bipartite Graph  |  Programming Contest problem
+decide for each pair                          Elementary Math - Northwestern Europe Regional Contest (NWERC) 2015
+The are n gophers and m gopher holes          Gopher II - Waterloo Programming Contest 2001-01-27
+pairs of players                              Paintball - KTH Challenge 2011
+greatest number of pairs that can be matched  MATCHING - SPOJ
+each taxi can only take one passenger         TAXI - SPOJ
