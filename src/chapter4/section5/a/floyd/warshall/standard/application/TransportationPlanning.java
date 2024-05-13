@@ -33,14 +33,14 @@ public class TransportationPlanning {
     }
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int intersections = FastReader.nextInt();
+        int intersections = inputReader.nextInt();
 
         while (intersections != 0) {
             Location[] locations = new Location[intersections];
             for (int i = 0; i < locations.length; i++) {
-                locations[i] = new Location(FastReader.nextInt(), FastReader.nextInt());
+                locations[i] = new Location(inputReader.nextInt(), inputReader.nextInt());
             }
             double[][] edgeWeightedDigraph = new double[intersections][intersections];
             for (double[] values : edgeWeightedDigraph) {
@@ -50,10 +50,10 @@ public class TransportationPlanning {
                 edgeWeightedDigraph[locationID][locationID] = 0;
             }
 
-            int roads = FastReader.nextInt();
+            int roads = inputReader.nextInt();
             for (int i = 0; i < roads; i++) {
-                int locationID1 = FastReader.nextInt();
-                int locationID2 = FastReader.nextInt();
+                int locationID1 = inputReader.nextInt();
+                int locationID2 = inputReader.nextInt();
                 double commuteTime = distanceBetweenPoints(locations[locationID1], locations[locationID2]);
                 edgeWeightedDigraph[locationID1][locationID2] = commuteTime;
                 edgeWeightedDigraph[locationID2][locationID1] = commuteTime;
@@ -69,7 +69,7 @@ public class TransportationPlanning {
                         result.originalTime,
                         result.improvedTime));
             }
-            intersections = FastReader.nextInt();
+            intersections = inputReader.nextInt();
         }
         outputWriter.flush();
     }
@@ -219,24 +219,48 @@ public class TransportationPlanning {
         }
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        public InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        public int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        public int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 
