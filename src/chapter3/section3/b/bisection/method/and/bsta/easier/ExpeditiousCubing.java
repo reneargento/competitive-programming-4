@@ -2,7 +2,7 @@ package chapter3.section3.b.bisection.method.and.bsta.easier;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.InputMismatchException;
 
 /**
  * Created by Rene Argento on 01/04/22.
@@ -12,14 +12,14 @@ public class ExpeditiousCubing {
     private static final double EPSILON = 0.000000000001;
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
         double[] scores = new double[4];
 
         for (int i = 0; i < scores.length; i++) {
-            scores[i] = FastReader.nextDouble();
+            scores[i] = inputReader.nextDouble();
         }
-        double targetScore = FastReader.nextDouble();
+        double targetScore = inputReader.nextDouble();
 
         double time = computeTime(scores, targetScore);
         if (time == Double.POSITIVE_INFINITY) {
@@ -80,24 +80,79 @@ public class ExpeditiousCubing {
         return total / 3;
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        public InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        public int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static double nextDouble() throws IOException {
-            return Double.parseDouble(next());
+        public int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public double nextDouble() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            double res = 0;
+            while (!isSpaceChar(c) && c != '.') {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            }
+            if (c == '.') {
+                c = snext();
+                double m = 1;
+                while (!isSpaceChar(c)) {
+                    if (c == 'e' || c == 'E') {
+                        return res * Math.pow(10, nextInt());
+                    }
+                    m /= 10;
+                    res += (c - '0') * m;
+                    c = snext();
+                }
+            }
+            return res * sgn;
+        }
+
+        public boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 

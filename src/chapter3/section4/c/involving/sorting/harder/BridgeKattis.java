@@ -1,10 +1,7 @@
 package chapter3.section4.c.involving.sorting.harder;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * Created by Rene Argento on 08/07/22.
@@ -32,12 +29,12 @@ public class BridgeKattis {
     }
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
 
-        int[] crossingTimes = new int[FastReader.nextInt()];
+        int[] crossingTimes = new int[inputReader.nextInt()];
         for (int i = 0; i < crossingTimes.length; i++) {
-            crossingTimes[i] = FastReader.nextInt();
+            crossingTimes[i] = inputReader.nextInt();
         }
         Solution solution = crossBridge(crossingTimes);
 
@@ -160,24 +157,48 @@ public class BridgeKattis {
         return new Solution(strategy2Time, groups);
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        public InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        public int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        public int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 
