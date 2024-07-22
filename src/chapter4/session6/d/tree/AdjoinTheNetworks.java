@@ -84,12 +84,14 @@ public class AdjoinTheNetworks {
         return furthestVertexFromFurthest.distance;
     }
 
-    private static VertexData getFurthestVertex(List<Integer>[] adjacencyList, int sourceVertexID) {
+    private static VertexData getFurthestVertex(List<Integer>[] adjacencyList, int sourceVertexId) {
         Queue<VertexData> queue = new LinkedList<>();
         Set<Integer> visited = new HashSet<>();
-        VertexData source = new VertexData(sourceVertexID, 0);
+        VertexData source = new VertexData(sourceVertexId, 0);
         queue.offer(source);
-        visited.add(sourceVertexID);
+        visited.add(sourceVertexId);
+
+        VertexData furthestVertex = source;
 
         while (!queue.isEmpty()) {
             VertexData vertexData = queue.poll();
@@ -97,15 +99,16 @@ public class AdjoinTheNetworks {
             for (int neighbor : adjacencyList[vertexData.vertexId]) {
                 if (!visited.contains(neighbor)) {
                     visited.add(neighbor);
-                    queue.offer(new VertexData(neighbor, vertexData.distance + 1));
+                    int newDistance = vertexData.distance + 1;
+                    queue.offer(new VertexData(neighbor, newDistance));
+
+                    if (newDistance > furthestVertex.distance) {
+                        furthestVertex = new VertexData(neighbor, newDistance);
+                    }
                 }
             }
-
-            if (queue.isEmpty()) {
-                return vertexData;
-            }
         }
-        return source;
+        return furthestVertex;
     }
 
     private static class UnionFind {

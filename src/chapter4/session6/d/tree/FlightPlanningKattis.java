@@ -144,34 +144,35 @@ public class FlightPlanningKattis {
     }
 
     private static int getFurthestVertex(List<Integer>[] adjacencyList, int[] parent, int[] distances,
-                                         boolean[] visited, Edge removedEdge, Edge edgeToAdd, int sourceVertexID) {
+                                         boolean[] visited, Edge removedEdge, Edge edgeToAdd, int sourceVertexId) {
         Queue<Integer> queue = new LinkedList<>();
-        queue.offer(sourceVertexID);
-        visited[sourceVertexID] = true;
+        queue.offer(sourceVertexId);
+        visited[sourceVertexId] = true;
 
         Arrays.fill(distances, -1);
-        distances[sourceVertexID] = 0;
-        parent[sourceVertexID] = -1;
+        distances[sourceVertexId] = 0;
+        parent[sourceVertexId] = -1;
+
+        int furthestVertex = sourceVertexId;
 
         while (!queue.isEmpty()) {
             int vertexId = queue.poll();
 
             for (int neighbor : adjacencyList[vertexId]) {
                 processEdge(queue, parent, distances, visited, removedEdge, vertexId, neighbor);
+                furthestVertex = getUpdatedFurthestVertex(distances, furthestVertex, neighbor);
             }
             if (edgeToAdd != null) {
                 if (edgeToAdd.vertexId1 == vertexId) {
                     processEdge(queue, parent, distances, visited, removedEdge, vertexId, edgeToAdd.vertexId2);
+                    furthestVertex = getUpdatedFurthestVertex(distances, furthestVertex, edgeToAdd.vertexId2);
                 } else if (edgeToAdd.vertexId2 == vertexId) {
                     processEdge(queue, parent, distances, visited, removedEdge, vertexId, edgeToAdd.vertexId1);
+                    furthestVertex = getUpdatedFurthestVertex(distances, furthestVertex, edgeToAdd.vertexId1);
                 }
             }
-
-            if (queue.isEmpty()) {
-                return vertexId;
-            }
         }
-        return sourceVertexID;
+        return furthestVertex;
     }
 
     private static void processEdge(Queue<Integer> queue, int[] parent, int[] distances, boolean[] visited,
@@ -188,6 +189,14 @@ public class FlightPlanningKattis {
             distances[neighbor] = distances[vertexId] + 1;
             parent[neighbor] = vertexId;
             queue.offer(neighbor);
+        }
+    }
+
+    private static int getUpdatedFurthestVertex(int[] distances, int currentFurthestVertex, int candidateVertexId) {
+        if (distances[candidateVertexId] > distances[currentFurthestVertex]) {
+            return candidateVertexId;
+        } else {
+            return currentFurthestVertex;
         }
     }
 
