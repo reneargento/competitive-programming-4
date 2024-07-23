@@ -9,8 +9,6 @@ import java.util.Map;
 /**
  * Created by Rene Argento on 15/07/24.
  */
-// Note that even though the problem description mentions that nodes have only one parent, there is a test case
-// where a node has more than one parent! This makes most solutions that would solve a one-parent-only problem get WA.
 // Based on https://www.cnblogs.com/devymex/archive/2010/08/12/1798351.html
 public class ClimbingTrees {
 
