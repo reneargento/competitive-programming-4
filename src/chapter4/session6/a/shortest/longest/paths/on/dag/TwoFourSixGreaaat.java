@@ -8,8 +8,6 @@ import java.util.*;
  */
 // This is the Java version of TwoFourSixGreaaat.cpp.
 // While TwoFourSixGreaaat.cpp gets AC in Kattis, this Java code (despite all optimizations) gets TLE on test case 14.
-// There are currently no ACs in Java for this problem, making me wonder if it is even possible to do it with the
-// time limit of 1 second.
 public class TwoFourSixGreaaat {
 
     private static class Cheer {
