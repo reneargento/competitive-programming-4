@@ -1,0 +1,23 @@
+5.2.1
+
+Sequence 1:
+1, 2, 4, 8, 16
+This may be the sequence of powers of 2 (or geometric progression with ratio 2).
+Next three numbers: 32, 64, 128
+
+Sequence 2:
+1, 2, 4, 8, 16, 31
+This can only be the sequence of maximal number of regions obtained by joining n points around a circle by straight lines.
+Next three numbers: 57, 99, 163
+Reference: https://oeis.org/A000127
+
+Sequence 3:
+2, 3, 5, 7, 11, 13
+This may be the sequence of prime numbers.
+Next three numbers: 17, 19, 23
+
+Sequence 4:
+2, 3, 5, 7, 11, 13, 19
+This may be the sequence of primes that are the difference of two Fibonacci numbers.
+Next three numbers: 29, 31, 47
+Reference: https://oeis.org/A113188
