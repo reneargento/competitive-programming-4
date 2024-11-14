@@ -1,0 +1,24 @@
+5.2.2
+
+Ruffini-Horner's method for finding the roots of a polynomial equation f(x) = 0 is based on a combination of Newton's method and polynomial long division (using Horner's method).
+With that combination, it is possible to approximate the real roots of a polynomial.
+
+Newton's method is a root-finding algorithm which produces successively better approximations to the roots (zeros) of a real-valued function.
+Polynomial long division is an algorithm for diving a polynomial by another polynomial of the same or lower degree.
+Horner's method rearranges a polynomial to evaluate it using fewer operations.
+
+The algorithm works as follows:
+Given a polynomial pn(x) of degree n with zeros zn < zn-1 < ... < z1, make some initial guess x0 such that z1 < x0.
+Now iterate the following two steps:
+1- Using Newton's method, find the largest zero z1 of pn(x) using the guess x0.
+2- Using Horner's method, divide out (x - z1) to obtain pn-1.
+   Return to step 1 but use the polynomial pn-1 and the initial guess z1.
+These two steps are repeated until all real zeros are found for the polynomial.
+If the approximated zeros are not precise enough, the obtained values can be used as initial guesses for Newton's method, but using the full polynomial instead of the reduced polynomial.
+
+References:
+Polynomial long division: https://en.wikipedia.org/wiki/Polynomial_long_division
+Horner's method: https://en.wikipedia.org/wiki/Horner%27s_method
+Horner's method: https://www.youtube.com/watch?v=zEvfkSuPqWk
+Newton's method: https://en.wikipedia.org/wiki/Newton%27s_method
+Newton's method: https://www.youtube.com/watch?v=E24zUEKqgwQ
