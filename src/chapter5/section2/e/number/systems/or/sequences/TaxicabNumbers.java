@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * Created by Rene Argento on 27/02/25.
- */g
+ */
 public class TaxicabNumbers {
 
     public static void main(String[] args) throws IOException {
