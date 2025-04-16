@@ -25,6 +25,9 @@ public class BeeMaja {
         }
     }
 
+    private static final int SOUTH_INDEX = 4;
+    private static final int SOUTHWEST_INDEX = 5;
+
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
@@ -47,46 +50,20 @@ public class BeeMaja {
         WilliNumber williNumber = new WilliNumber(3);
         int steps = 1;
 
+        // northwest -> north -> northeast -> southeast -> south -> southwest
+        int[] neighborRows = { 0, -1, -1, 0, 1, 1 };
+        int[] neighborColumns = { -1, 0, 1, 1, 0, -1 };
+
         while (williNumber.value < majaCoordinates.length) {
-            walkNorthwest(majaCoordinates, steps, currentCoordinate, williNumber);
-            walkNorth(majaCoordinates, steps, currentCoordinate, williNumber);
-            walkNortheast(majaCoordinates, steps, currentCoordinate, williNumber);
-            walkSoutheast(majaCoordinates, steps, currentCoordinate, williNumber);
-            steps++;
-            walkSouth(majaCoordinates, steps, currentCoordinate, williNumber);
-            walkSouthwest(majaCoordinates, steps - 1, currentCoordinate, williNumber);
+            for (int i = 0; i < neighborRows.length; i++) {
+                if (i == SOUTH_INDEX) {
+                    steps++;
+                }
+                int stepsToUse = i != SOUTHWEST_INDEX ? steps : steps - 1;
+                walk(majaCoordinates, stepsToUse, currentCoordinate, williNumber, neighborColumns[i], neighborRows[i]);
+            }
         }
         return majaCoordinates;
-    }
-
-    private static void walkNorthwest(Coordinate[] majaCoordinates, int steps, Coordinate currentCoordinate,
-                                      WilliNumber williNumber) {
-        walk(majaCoordinates, steps, currentCoordinate, williNumber, -1, 0);
-    }
-
-    private static void walkNorth(Coordinate[] majaCoordinates, int steps, Coordinate currentCoordinate,
-                                  WilliNumber williNumber) {
-        walk(majaCoordinates, steps, currentCoordinate, williNumber, 0, -1);
-    }
-
-    private static void walkNortheast(Coordinate[] majaCoordinates, int steps, Coordinate currentCoordinate,
-                                      WilliNumber williNumber) {
-        walk(majaCoordinates, steps, currentCoordinate, williNumber, 1, -1);
-    }
-
-    private static void walkSoutheast(Coordinate[] majaCoordinates, int steps, Coordinate currentCoordinate,
-                                      WilliNumber williNumber) {
-        walk(majaCoordinates, steps, currentCoordinate, williNumber, 1, 0);
-    }
-
-    private static void walkSouth(Coordinate[] majaCoordinates, int steps, Coordinate currentCoordinate,
-                                  WilliNumber williNumber) {
-        walk(majaCoordinates, steps, currentCoordinate, williNumber, 0, 1);
-    }
-
-    private static void walkSouthwest(Coordinate[] majaCoordinates, int steps, Coordinate currentCoordinate,
-                                      WilliNumber williNumber) {
-        walk(majaCoordinates, steps, currentCoordinate, williNumber, -1, 1);
     }
 
     private static void walk(Coordinate[] majaCoordinates, int steps, Coordinate currentCoordinate,

@@ -30,6 +30,9 @@ public class BeeBreeding {
         }
     }
 
+    private static final int SOUTH_INDEX = 4;
+    private static final int SOUTHWEST_INDEX = 5;
+
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
@@ -68,35 +71,23 @@ public class BeeBreeding {
         int value = 1;
         int iterations = 1;
 
+        // northwest -> north -> northeast -> southeast -> south -> southwest
+        int[] neighborRows = { 0, -1, -1, 0, 1, 1 };
+        int[] neighborColumns = { -1, 0, 1, 1, 0, -1 };
+
         MoveResult moveResult = move(dimension, idToCellMap, row, column, value, iterations, 0, 0);
         moveResult = move(dimension, idToCellMap, row, column, moveResult.newValue, iterations, 1, 0);
 
         while (moveResult.newValue < 11000) {
-            // Move northwest
-            moveResult = move(dimension, idToCellMap, moveResult.newRow, moveResult.newColumn, moveResult.newValue,
-                    iterations, 0, -1);
+            for (int i = 0; i < neighborRows.length; i++) {
+                if (i == SOUTH_INDEX) {
+                    iterations++;
+                }
+                int iterationsToUse = i != SOUTHWEST_INDEX ? iterations : iterations - 1;
 
-            // Move north
-            moveResult = move(dimension, idToCellMap, moveResult.newRow, moveResult.newColumn, moveResult.newValue,
-                    iterations, -1, 0);
-
-            // Move northeast
-            moveResult = move(dimension, idToCellMap, moveResult.newRow, moveResult.newColumn, moveResult.newValue,
-                    iterations, -1, 1);
-
-            // Move southeast
-            moveResult = move(dimension, idToCellMap, moveResult.newRow, moveResult.newColumn, moveResult.newValue,
-                    iterations, 0, 1);
-
-            iterations++;
-
-            // Move south
-            moveResult = move(dimension, idToCellMap, moveResult.newRow, moveResult.newColumn, moveResult.newValue,
-                    iterations, 1, 0);
-
-            // Move southwest
-            moveResult = move(dimension, idToCellMap, moveResult.newRow, moveResult.newColumn, moveResult.newValue,
-                    iterations - 1, 1, -1);
+                moveResult = move(dimension, idToCellMap, moveResult.newRow, moveResult.newColumn, moveResult.newValue,
+                        iterationsToUse, neighborRows[i], neighborColumns[i]);
+            }
         }
         return idToCellMap;
     }
