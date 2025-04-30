@@ -37,7 +37,7 @@ public class RationalNumbersFromRepeatingFractions {
     }
 
     private static Fraction computeRationalNumber(int j, String decimalExpansionString) {
-        long numerator;
+        long nominator;
         long denominator;
         int k = decimalExpansionString.length() - 2 - j;
         double decimalExpansion = Double.parseDouble(decimalExpansionString);
@@ -49,13 +49,13 @@ public class RationalNumbersFromRepeatingFractions {
         long tenToKJSumTimesDecExp = Math.round(tenToKJSum * decimalExpansion);
 
         if (j == 0) {
-            numerator = tenToKJSumTimesDecExp;
+            nominator = tenToKJSumTimesDecExp;
             denominator = tenToKJSum;
         } else {
-            numerator = (tenToKJSumTimesDecExp - tenToKJSumTimesDecExp / tenToJ);
+            nominator = (tenToKJSumTimesDecExp - tenToKJSumTimesDecExp / tenToJ);
             denominator = (tenToKJSum - tenToK);
         }
-        return reduceFraction(numerator, denominator);
+        return reduceFraction(nominator, denominator);
     }
 
     private static long gcd(long number1, long number2) {
@@ -67,9 +67,9 @@ public class RationalNumbersFromRepeatingFractions {
         return number1;
     }
 
-    private static Fraction reduceFraction(long numerator, long denominator) {
-        long gcd = gcd(numerator, denominator);
-        long newNumerator = numerator / gcd;
+    private static Fraction reduceFraction(long nominator, long denominator) {
+        long gcd = gcd(nominator, denominator);
+        long newNumerator = nominator / gcd;
         long newDenominator = denominator / gcd;
         return new Fraction(newNumerator, newDenominator);
     }

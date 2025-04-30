@@ -89,13 +89,8 @@ public class ContinuedFraction {
 
         for (int i = partialQuotients.length - 2; i >= 0; i--) {
             result = sumFraction(partialQuotients[i], 1, nominator, denominator);
-            if (i == 0) {
-                break;
-            }
-            result = multiplyFraction(result.denominator, result.nominator, 1, 1);
-
-            nominator = result.nominator;
-            denominator = result.denominator;
+            nominator = result.denominator;
+            denominator = result.nominator;
         }
         return result;
     }
