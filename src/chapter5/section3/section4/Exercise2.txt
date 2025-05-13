@@ -1,0 +1,10 @@
+5.3.4.2
+
+When N is prime:
+
+numPF(N): Will be 1.
+numDiffPF(N): Will be 1.
+sumPF(N): Will be N.
+numDiv(N): Will be 2.
+sumDiv(N): Will be N + 1.
+EulerPhi(N): Will be N - 1.
