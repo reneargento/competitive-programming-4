@@ -1,0 +1,4 @@
+5.3.6.1
+
+We use a / gcd(a,b) * b to avoid possible overflows in case we did the a * b multiplication.
+This overflow with a * b would happen on the example given, with a = 2 * 10^9 and b = 8 using 32-bit signed integers.
