@@ -1,0 +1,10 @@
+5.3.8.1
+
+A: 2^6 * 3^3 * 97^1
+B: 2^5 * 5^2 * 11^2
+
+GCD is the lower power of the common prime factors of A and B.
+GCD = 2^5 = 32
+
+LCM is the greater power of all the prime factors of A and B.
+LCM = 2^6 * 3^3 * 5^2 * 11^2 * 97^1 = 507.038.400
