@@ -1,22 +1,68 @@
-package chapter5.section3.a.prime.numbers;
+package chapter5.section3.b.probabilistic.prime.testing;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * Created by Rene Argento on 01/06/25.
+ * Created by Rene Argento on 02/06/25.
  */
 public class SumOfConsecutivePrimeNumbers {
 
     public static void main(String[] args) throws IOException {
         FastReader.init();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int tests = FastReader.nextInt();
 
-        for (int t = 0; t < tests; t++) {
+        Integer[] primeNumbers = eratosthenesSieve();
 
+        int number = FastReader.nextInt();
+        while (number != 0) {
+            int representations = countRepresentations(primeNumbers, number);
+            outputWriter.printLine(representations);
+            number = FastReader.nextInt();
         }
         outputWriter.flush();
+    }
+
+    private static int countRepresentations(Integer[] primeNumbers, int number) {
+        int representations = 0;
+
+        for (int i = 0; i < primeNumbers.length; i++) {
+            int sum = 0;
+
+            for (int j = i; j < primeNumbers.length; j++) {
+                sum += primeNumbers[j];
+                if (sum > 10000) {
+                    break;
+                }
+                if (sum == number) {
+                    representations++;
+                    break;
+                }
+            }
+        }
+        return representations;
+    }
+
+    private static Integer[] eratosthenesSieve() {
+        List<Integer> primeNumbers = new ArrayList<>();
+        int maxNumber = 10001;
+        boolean[] isPrime = new boolean[(int) maxNumber];
+
+        for (int i = 2; i < isPrime.length; i++) {
+            isPrime[i] = true;
+        }
+
+        for (long i = 2; i < isPrime.length; i++) {
+            if (isPrime[(int) i]) {
+                for (long j = i * i; j < isPrime.length; j += i) {
+                    isPrime[(int) j] = false;
+                }
+                primeNumbers.add((int) i);
+            }
+        }
+        return primeNumbers.toArray(new Integer[0]);
     }
 
     private static class FastReader {
@@ -37,10 +83,6 @@ public class SumOfConsecutivePrimeNumbers {
 
         private static int nextInt() throws IOException {
             return Integer.parseInt(next());
-        }
-
-        private static String getLine() throws IOException {
-            return reader.readLine();
         }
     }
 
