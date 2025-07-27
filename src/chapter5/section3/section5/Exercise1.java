@@ -74,8 +74,8 @@ public class Exercise1 {
         return divNumbersCount;
     }
 
-    private static int[] sumDivArr() {
-        int[] divNumbersSum = new int[MAX_N + 10];
+    private static long[] sumDivArr() {
+        long[] divNumbersSum = new long[MAX_N + 10];
         Arrays.fill(divNumbersSum, 1);
         int[] currentNumber = new int[MAX_N + 10];
         for (int i = 0; i < currentNumber.length; i++) {
@@ -112,7 +112,7 @@ public class Exercise1 {
         System.out.println("\nnumDivArr(60) = " + divNumbersCount[60]);
         System.out.println("Expected: 12");
 
-        int[] divNumbersSum = sumDivArr();
+        long[] divNumbersSum = sumDivArr();
         System.out.println("\nsumDivArr(60) = " + divNumbersSum[60]);
         System.out.println("Expected: 168");
     }
