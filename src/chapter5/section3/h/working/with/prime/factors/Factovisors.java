@@ -46,10 +46,9 @@ public class Factovisors {
                 m /= prime;
             }
 
-            if (mPrimeDivisorsCount > 0) {
-                if (!checkDivisorsWithPrime(mPrimeDivisorsCount, prime, n)) {
-                    return false;
-                }
+            if (mPrimeDivisorsCount > 0 &&
+                    !checkDivisorsWithPrime(mPrimeDivisorsCount, prime, n)) {
+                return false;
             }
         }
 
