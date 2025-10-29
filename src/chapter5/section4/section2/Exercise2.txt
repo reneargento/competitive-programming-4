@@ -1,0 +1,6 @@
+5.4.2.2
+
+The code only works when p > MAX_N because when p is smaller or equals to n, it will be a divisor of n!, and n! % p will always be 0.
+Then, the output of C(n, k) % p when p <= n will always be 0.
+C(100000, 50000) % 997 = 0
+The solution to this is not to use the Extended Euclidean algorithm or Fermat's little theorem to compute the modular multiplicative inverse, but to use Lucas' theorem.
