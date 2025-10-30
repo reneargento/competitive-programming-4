@@ -1,0 +1,9 @@
+5.4.3.1
+
+Assuming that n is an arbitrary large integer, fib(n) is the hardest to factorize.
+This is because fib(n) tends to behave more randomly in terms of prime distribution.
+Some fib(n) are prime and others have large prime factors that are not easy to predict.
+Due to that, large Fibonacci numbers are even used in primality testing benchmarks.
+Both C(n, k), with k = n / 2, and Cat(n) are highly composite, dominated by small primes with large multiplicities.
+Their prime structure is very smooth, with few large prime factors.
+With C(n, k), prime factorization can also be determined efficiently using Legendre's formula.
