@@ -1,0 +1,5 @@
+5.4.4.1
+
+Number of possible different outcomes:
+6 * 6 * 2 * 2 * 2 = 288
+The answer will be the same doing this one by one in some order or in one go.
