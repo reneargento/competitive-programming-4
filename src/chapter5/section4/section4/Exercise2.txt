@@ -1,0 +1,8 @@
+5.4.4.2
+
+Number of ways:
+7 as leading digit: 1 * 9 * 8 = 72
+7 as the second digit: 8 * 1 * 8 = 64
+7 as the third digit: 8 * 8 * 1 = 64
+
+Total: 72 + 64 + 64 = 200
