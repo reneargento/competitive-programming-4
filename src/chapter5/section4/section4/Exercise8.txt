@@ -1,0 +1,9 @@
+5.4.4.8
+
+The number of ways to select a group of people such that the number of boys is equal to the number of girls in the chosen group is:
+
+Consider B to be the total number of boys and G to be the total number of girls.
+Consider M to be the minimum of (B, G).
+
+Number of ways = B1 * G1 + B2 * G2 + ... + BM * GM
+Where Bx means from a total of B, choose x people.

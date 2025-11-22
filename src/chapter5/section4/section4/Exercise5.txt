@@ -1,0 +1,7 @@
+5.4.4.5
+
+Different permutations possible:
+P = n! / frequencyB! * frequencyO! * frequencyY!
+P = 5! / 3! * 1! * 1!
+P = 120 / 6
+P = 20

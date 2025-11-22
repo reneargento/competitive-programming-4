@@ -1,0 +1,8 @@
+5.4.4.6
+
+Integers in [1..1M] multiples of 5 and 7:
+Multiples of 5: 1M / 5 = 200.000
+Multiples of 7: 1M / 7 = 142.857
+Multiples of 7 * 5 (35) = 28.571
+
+Total: 200.000 + 142.857 - 28.571 = 314.286
