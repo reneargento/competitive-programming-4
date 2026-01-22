@@ -1,0 +1,11 @@
+5.5.1
+
+Labeling the people with p1, p2, ..., pn and the hats with h1, h2, ..., hn, consider the first person p1:
+This person has n - 1 choices of taking someone else's hat (any hat other than h1).
+Now consider the follow-up action of the original owner of hi, which is pi.
+There are two possibilities for pi:
+1- Not taking h1. The problem then reduces to the derangement problem with n - 1 people and n - 1 hats.
+This is because each of the other n - 1 people has 1 forbidden choice from among the remaining n - 1 hats (pi is forbidden to take h1).
+2- Taking h1. The problem then reduces to the derangement problem with n - 2 people and n - 2 hats.
+
+Hence, An = (n - 1) * (A(n-1) + A(n-2))
