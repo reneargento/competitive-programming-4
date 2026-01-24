@@ -1,0 +1,8 @@
+5.5.2
+
+15 students in class, 8 boys, 7 girls.
+Probability of randomly forming a group of 5 girls:
+
+7/15 * 6/14 * 5/13 * 4/12 * 3/11 = 0.00069
+
+The same probability can be computed with the binomial coefficient division C(7,5) / C(15,5)
