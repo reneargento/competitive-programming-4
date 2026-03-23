@@ -9,15 +9,15 @@ import java.util.StringTokenizer;
 public class ThermostatTrouble {
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
 
             if (denominator < 0) {
-                this.nominator *= -1;
+                this.numerator *= -1;
                 this.denominator *= -1;
             }
         }
@@ -51,7 +51,7 @@ public class ThermostatTrouble {
 
             Fraction convertedTemperature = convertTemperature(unitSystems, unitSystemId1, unitSystemId2,
                     targetTemperature);
-            outputWriter.printLine(convertedTemperature.nominator + "/" + convertedTemperature.denominator);
+            outputWriter.printLine(convertedTemperature.numerator + "/" + convertedTemperature.denominator);
         }
         outputWriter.flush();
     }
@@ -71,11 +71,11 @@ public class ThermostatTrouble {
         Fraction fraction = new Fraction(targetTemperature, temperature1Delta);
         reduceFraction(fraction);
 
-        fraction = multiplyFraction(fraction.nominator, fraction.denominator, temperature2Delta, 1);
+        fraction = multiplyFraction(fraction.numerator, fraction.denominator, temperature2Delta, 1);
         reduceFraction(fraction);
-        fraction = sumFraction(fraction.nominator, fraction.denominator, minTemperature2, 1);
+        fraction = sumFraction(fraction.numerator, fraction.denominator, minTemperature2, 1);
 
-        if (fraction.nominator == 0) {
+        if (fraction.numerator == 0) {
             return new Fraction(0, 1);
         }
         return fraction;
@@ -97,22 +97,22 @@ public class ThermostatTrouble {
         return number1 * (number2 / gcd(number1, number2));
     }
 
-    private static Fraction sumFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
+    private static Fraction sumFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
         long lcm = lcm(denominator1, denominator2);
         long multiplier1 = lcm / denominator1;
         long multiplier2 = lcm / denominator2;
 
-        long nominator = (nominator1 * multiplier1) + (nominator2 * multiplier2);
-        return new Fraction(nominator, lcm);
+        long numerator = (numerator1 * multiplier1) + (numerator2 * multiplier2);
+        return new Fraction(numerator, lcm);
     }
 
-    private static Fraction multiplyFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
-        return new Fraction(nominator1 * nominator2, denominator1 * denominator2);
+    private static Fraction multiplyFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
+        return new Fraction(numerator1 * numerator2, denominator1 * denominator2);
     }
 
     private static void reduceFraction(Fraction fraction) {
-        long gcd = gcd(fraction.nominator, fraction.denominator);
-        fraction.nominator /= gcd;
+        long gcd = gcd(fraction.numerator, fraction.denominator);
+        fraction.numerator /= gcd;
         fraction.denominator /= gcd;
     }
 

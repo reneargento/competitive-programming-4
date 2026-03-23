@@ -19,9 +19,9 @@ public class Prsteni {
             int ring = FastReader.nextInt();
             int gcd = gcd(firstRing, ring);
 
-            int nominator = firstRing / gcd;
+            int numerator = firstRing / gcd;
             int denominator = ring / gcd;
-            outputWriter.printLine(nominator + "/" + denominator);
+            outputWriter.printLine(numerator + "/" + denominator);
         }
         outputWriter.flush();
     }

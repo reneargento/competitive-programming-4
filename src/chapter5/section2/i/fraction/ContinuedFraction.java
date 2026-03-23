@@ -19,11 +19,11 @@ public class ContinuedFraction {
     }
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -65,14 +65,14 @@ public class ContinuedFraction {
         Fraction fraction1 = getFractionFromPartialQuotients(partialQuotients1);
         Fraction fraction2 = getFractionFromPartialQuotients(partialQuotients2);
 
-        Fraction sum = sumFraction(fraction1.nominator, fraction1.denominator, fraction2.nominator,
+        Fraction sum = sumFraction(fraction1.numerator, fraction1.denominator, fraction2.numerator,
                 fraction2.denominator);
-        Fraction subtraction = sumFraction(fraction1.nominator, fraction1.denominator, -fraction2.nominator,
+        Fraction subtraction = sumFraction(fraction1.numerator, fraction1.denominator, -fraction2.numerator,
                 fraction2.denominator);
-        Fraction multiplication = multiplyFraction(fraction1.nominator, fraction1.denominator, fraction2.nominator,
+        Fraction multiplication = multiplyFraction(fraction1.numerator, fraction1.denominator, fraction2.numerator,
                 fraction2.denominator);
-        Fraction division = multiplyFraction(fraction1.nominator, fraction1.denominator, fraction2.denominator,
-                fraction2.nominator);
+        Fraction division = multiplyFraction(fraction1.numerator, fraction1.denominator, fraction2.denominator,
+                fraction2.numerator);
 
         List<PartialQuotients> partialQuotients = new ArrayList<>();
         partialQuotients.add(getPartialQuotientsFromFraction(sum));
@@ -83,21 +83,21 @@ public class ContinuedFraction {
     }
 
     private static Fraction getFractionFromPartialQuotients(int[] partialQuotients) {
-        long nominator = 1;
+        long numerator = 1;
         long denominator = partialQuotients[partialQuotients.length - 1];
         Fraction result = new Fraction(denominator,1);
 
         for (int i = partialQuotients.length - 2; i >= 0; i--) {
-            result = sumFraction(partialQuotients[i], 1, nominator, denominator);
-            nominator = result.denominator;
-            denominator = result.nominator;
+            result = sumFraction(partialQuotients[i], 1, numerator, denominator);
+            numerator = result.denominator;
+            denominator = result.numerator;
         }
         return result;
     }
 
     private static PartialQuotients getPartialQuotientsFromFraction(Fraction fraction) {
         List<Long> values = new ArrayList<>();
-        long number1 = fraction.nominator;
+        long number1 = fraction.numerator;
         long number2 = fraction.denominator;
 
         while (number2 > 0) {
@@ -111,17 +111,17 @@ public class ContinuedFraction {
         return new PartialQuotients(values);
     }
 
-    private static Fraction sumFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
+    private static Fraction sumFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
         long lcm = lcm(denominator1, denominator2);
         long multiplier1 = lcm / denominator1;
         long multiplier2 = lcm / denominator2;
 
-        long resultDenominator = (nominator1 * multiplier1) + (nominator2 * multiplier2);
+        long resultDenominator = (numerator1 * multiplier1) + (numerator2 * multiplier2);
         return new Fraction(resultDenominator, lcm);
     }
 
-    private static Fraction multiplyFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
-        return new Fraction(nominator1 * nominator2, denominator1 * denominator2);
+    private static Fraction multiplyFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
+        return new Fraction(numerator1 * numerator2, denominator1 * denominator2);
     }
 
     private static long lcm(long number1, long number2) {

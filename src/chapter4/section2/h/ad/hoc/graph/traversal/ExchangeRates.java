@@ -104,29 +104,29 @@ public class ExchangeRates {
         }
 
         // The lower fraction is 0/1
-        int lowerNominator = 0;
+        int lowerNumerator = 0;
         int lowerDenominator = 1;
         // The upper fraction is 1/1
-        int upperNominator = 1;
+        int upperNumerator = 1;
         int upperDenominator = 1;
 
         while (true) {
-            // The middle fraction is (lowerNominator + upperNominator) / (lowerDenominator + upperDenominator)
-            int middleNominator = lowerNominator + upperNominator;
+            // The middle fraction is (lowerNumerator + upperNumerator) / (lowerDenominator + upperDenominator)
+            int middleNumerator = lowerNumerator + upperNumerator;
             int middleDenominator = lowerDenominator + upperDenominator;
-            if (middleDenominator * (decimal + error) < middleNominator) {
+            if (middleDenominator * (decimal + error) < middleNumerator) {
                 // If decimal + error < middle
                 // middle is our new upper
-                upperNominator = middleNominator;
+                upperNumerator = middleNumerator;
                 upperDenominator = middleDenominator;
-            } else if (middleNominator < middleDenominator * (decimal - error)) {
+            } else if (middleNumerator < middleDenominator * (decimal - error)) {
                 // Else If middle < decimal - error
                 // middle is our new lower
-                lowerNominator = middleNominator;
+                lowerNumerator = middleNumerator;
                 lowerDenominator = middleDenominator;
             } else {
                 // Else middle is our best fraction
-                return new Rate(numberFloor * middleDenominator + middleNominator, middleDenominator);
+                return new Rate(numberFloor * middleDenominator + middleNumerator, middleDenominator);
             }
         }
     }

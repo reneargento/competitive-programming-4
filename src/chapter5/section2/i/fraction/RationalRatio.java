@@ -9,11 +9,11 @@ import java.util.StringTokenizer;
 public class RationalRatio {
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -26,12 +26,12 @@ public class RationalRatio {
         int repeatingNumbers = FastReader.nextInt();
 
         Fraction fraction = computeRationalNumber(numberString, repeatingNumbers);
-        outputWriter.printLine(fraction.nominator + "/" + fraction.denominator);
+        outputWriter.printLine(fraction.numerator + "/" + fraction.denominator);
         outputWriter.flush();
     }
 
     private static Fraction computeRationalNumber(String numberString, int j) {
-        long nominator;
+        long numerator;
         long denominator;
         int decimalPointIndex = numberString.indexOf('.');
         int k = numberString.length() - (decimalPointIndex + 1) - j;
@@ -44,18 +44,18 @@ public class RationalRatio {
         long tenToKJSumTimesDecExp = Math.round(tenToKJSum * decimalExpansion);
 
         if (j == 0) {
-            nominator = tenToKJSumTimesDecExp;
+            numerator = tenToKJSumTimesDecExp;
             denominator = tenToKJSum;
         } else {
-            nominator = (tenToKJSumTimesDecExp - tenToKJSumTimesDecExp / tenToJ);
+            numerator = (tenToKJSumTimesDecExp - tenToKJSumTimesDecExp / tenToJ);
             denominator = (tenToKJSum - tenToK);
         }
-        return reduceFraction(nominator, denominator);
+        return reduceFraction(numerator, denominator);
     }
 
-    private static Fraction reduceFraction(long nominator, long denominator) {
-        long gcd = gcd(nominator, denominator);
-        return new Fraction(nominator / gcd, denominator / gcd);
+    private static Fraction reduceFraction(long numerator, long denominator) {
+        long gcd = gcd(numerator, denominator);
+        return new Fraction(numerator / gcd, denominator / gcd);
     }
 
     private static long gcd(long number1, long number2) {

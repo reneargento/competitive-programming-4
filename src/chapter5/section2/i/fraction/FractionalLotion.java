@@ -27,10 +27,10 @@ public class FractionalLotion {
         int count = 0;
 
         for (int y = n + 1; y <= 2 * n; y++) {
-            int nominator = n * y;
+            int numerator = n * y;
             int denominator = y - n;
 
-            if (denominator > 0 && nominator % denominator == 0) {
+            if (denominator > 0 && numerator % denominator == 0) {
                 count++;
             }
         }

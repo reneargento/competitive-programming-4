@@ -9,11 +9,11 @@ import java.util.StringTokenizer;
 public class RationalNeighbor {
 
     private static class Rational {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Rational(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Rational(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -33,7 +33,7 @@ public class RationalNeighbor {
             double maxDistance = FastReader.nextDouble();
 
             Rational closestRational = getClosestRational(rational, maxDistance);
-            outputWriter.printLine(closestRational.nominator + " " + closestRational.denominator);
+            outputWriter.printLine(closestRational.numerator + " " + closestRational.denominator);
 
             line = FastReader.getLine();
         }
@@ -41,20 +41,20 @@ public class RationalNeighbor {
     }
 
     private static Rational getClosestRational(Rational rational, double maxDistance) {
-        double originalResult = rational.nominator / (double) rational.denominator;
+        double originalResult = rational.numerator / (double) rational.denominator;
 
         for (int denominator = 1; true; denominator++) {
-            long nominator = (long) (originalResult * denominator);
+            long numerator = (long) (originalResult * denominator);
 
-            while (rational.nominator * denominator >= rational.denominator * nominator) {
-                nominator++;
+            while (rational.numerator * denominator >= rational.denominator * numerator) {
+                numerator++;
             }
 
-            double result = nominator / (double) denominator;
+            double result = numerator / (double) denominator;
             double distance = result - originalResult;
 
             if (distance - EPSILON <= maxDistance) {
-                return new Rational(nominator, denominator);
+                return new Rational(numerator, denominator);
             }
         }
     }

@@ -10,12 +10,12 @@ public class InPuzzlelandIV {
 
     private static class Result {
         int number;
-        int fractionNominator;
+        int fractionNumerator;
         int fractionDenominator;
 
-        public Result(int number, int fractionNominator, int fractionDenominator) {
+        public Result(int number, int fractionNumerator, int fractionDenominator) {
             this.number = number;
-            this.fractionNominator = fractionNominator;
+            this.fractionNumerator = fractionNumerator;
             this.fractionDenominator = fractionDenominator;
         }
     }
@@ -34,15 +34,15 @@ public class InPuzzlelandIV {
             outputWriter.print(String.format("Case %d: ", t));
             if (result.number != -1) {
                 outputWriter.print(result.number);
-                if (result.fractionNominator != 0) {
+                if (result.fractionNumerator != 0) {
                     outputWriter.print(" ");
                 }
             }
-            if (result.fractionNominator != 0) {
+            if (result.fractionNumerator != 0) {
                 if (result.fractionDenominator == 1) {
-                    outputWriter.print(result.fractionNominator);
+                    outputWriter.print(result.fractionNumerator);
                 } else {
-                    outputWriter.print(result.fractionNominator + "/" + result.fractionDenominator);
+                    outputWriter.print(result.fractionNumerator + "/" + result.fractionDenominator);
                 }
             }
             outputWriter.printLine();
@@ -51,19 +51,19 @@ public class InPuzzlelandIV {
     }
 
     private static Result computeTime(int hour1, int timeHour1, int hour2) {
-        int nominator = timeHour1 * (hour2 - 1);
+        int numerator = timeHour1 * (hour2 - 1);
         int denominator = hour1 - 1;
         int number = -1;
 
-        if (nominator > denominator) {
-            number = nominator / denominator;
-            nominator -= number * denominator;
+        if (numerator > denominator) {
+            number = numerator / denominator;
+            numerator -= number * denominator;
         }
 
-        int gcd = gcd(nominator, denominator);
-        nominator /= gcd;
+        int gcd = gcd(numerator, denominator);
+        numerator /= gcd;
         denominator /= gcd;
-        return new Result(number, nominator, denominator);
+        return new Result(number, numerator, denominator);
     }
 
     private static int gcd(int number1, int number2) {

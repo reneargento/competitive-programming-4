@@ -8,11 +8,11 @@ import java.io.*;
 public class Ratio {
 
     private static class Result {
-        int nominator;
+        int numerator;
         double approximation;
 
-        public Result(int nominator, double approximation) {
-            this.nominator = nominator;
+        public Result(int numerator, double approximation) {
+            this.numerator = numerator;
             this.approximation = approximation;
         }
     }
@@ -52,29 +52,29 @@ public class Ratio {
 
             if (result != null) {
                 bestDistance = result.approximation;
-                outputWriter.printLine(String.format("%d/%d", result.nominator, denominator));
+                outputWriter.printLine(String.format("%d/%d", result.numerator, denominator));
             }
         }
     }
 
     private static Result computeNominatorAndApproximation(double denominator, double bestDistance,
-                                                           double exactAnswer, int maxNominator) {
+                                                           double exactAnswer, int maxNumerator) {
         boolean foundImprovement = false;
-        int bestNominator = 1;
+        int bestNumerator = 1;
 
-        for (int nominator = 1; nominator <= maxNominator; nominator++) {
-            double approximation = nominator / denominator;
+        for (int numerator = 1; numerator <= maxNumerator; numerator++) {
+            double approximation = numerator / denominator;
             double distance = Math.abs(approximation - exactAnswer);
 
             if (distance < bestDistance) {
                 foundImprovement = true;
                 bestDistance = distance;
-                bestNominator = nominator;
+                bestNumerator = numerator;
             }
         }
 
         if (foundImprovement) {
-            return new Result(bestNominator, bestDistance);
+            return new Result(bestNumerator, bestDistance);
         } else {
             return null;
         }

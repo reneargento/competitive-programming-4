@@ -40,16 +40,16 @@ public class OddsOfMia {
         long totalOutcomes = results.wins + results.otherOutcomes;
 
         long gcd = gcd(results.wins, totalOutcomes);
-        long nominatorReduced = results.wins / gcd;
+        long numeratorReduced = results.wins / gcd;
         long denominatorReduced = totalOutcomes / gcd;
 
-        if (nominatorReduced == 0) {
+        if (numeratorReduced == 0) {
             return "0";
         }
-        if (nominatorReduced == denominatorReduced) {
+        if (numeratorReduced == denominatorReduced) {
             return "1";
         }
-        return nominatorReduced + "/" + denominatorReduced;
+        return numeratorReduced + "/" + denominatorReduced;
     }
 
     private static void computeWinProbability(char symbol1, char symbol2, char symbol3, char symbol4, Results results) {

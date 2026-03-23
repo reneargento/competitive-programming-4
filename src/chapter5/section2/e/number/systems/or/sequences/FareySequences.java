@@ -9,14 +9,14 @@ import java.util.*;
 public class FareySequences {
 
     private static class Fraction implements Comparable<Fraction> {
-        int nominator;
+        int numerator;
         int denominator;
         double value;
 
-        public Fraction(int nominator, int denominator) {
-            this.nominator = nominator;
+        public Fraction(int numerator, int denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
-            value = nominator / (double) denominator;
+            value = numerator / (double) denominator;
         }
 
         @Override
@@ -36,7 +36,7 @@ public class FareySequences {
             int k = Integer.parseInt(data[1]);
 
             Fraction kThElement = computeKthElement(n, k);
-            outputWriter.printLine(kThElement.nominator + "/" + kThElement.denominator);
+            outputWriter.printLine(kThElement.numerator + "/" + kThElement.denominator);
 
             line = FastReader.getLine();
         }
@@ -46,11 +46,11 @@ public class FareySequences {
     private static Fraction computeKthElement(int n, int k) {
         List<Fraction> fractionList = new ArrayList<>();
 
-        for (int nominator = 1; nominator <= n; nominator++) {
+        for (int numerator = 1; numerator <= n; numerator++) {
             for (int denominator = 1; denominator <= n; denominator++) {
-                int gcd = gcd(nominator, denominator);
+                int gcd = gcd(numerator, denominator);
                 if (gcd == 1) {
-                    Fraction fraction = new Fraction(nominator, denominator);
+                    Fraction fraction = new Fraction(numerator, denominator);
                     fractionList.add(fraction);
                 }
             }

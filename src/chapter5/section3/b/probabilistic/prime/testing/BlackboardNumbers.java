@@ -10,11 +10,11 @@ import java.util.StringTokenizer;
 public class BlackboardNumbers {
 
     private static class Probability {
-        int nominator;
+        int numerator;
         int denominator;
 
-        public Probability(int nominator, int denominator) {
-            this.nominator = nominator;
+        public Probability(int numerator, int denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -31,7 +31,7 @@ public class BlackboardNumbers {
         for (int t = 0; t < tests; t++) {
             String number = FastReader.getLine();
             Probability probability = computePrimeProbability(number);
-            outputWriter.printLine(probability.nominator + "/" + probability.denominator);
+            outputWriter.printLine(probability.numerator + "/" + probability.denominator);
         }
         outputWriter.flush();
     }
@@ -87,10 +87,10 @@ public class BlackboardNumbers {
 
     private static Probability reduceFraction(int dividend, int divisor) {
         int gcd = gcd(dividend, divisor);
-        int newNominator = dividend / gcd;
+        int newNumerator = dividend / gcd;
         int newDenominator = divisor / gcd;
 
-        return new Probability(newNominator, newDenominator);
+        return new Probability(newNumerator, newDenominator);
     }
 
     private static class FastReader {

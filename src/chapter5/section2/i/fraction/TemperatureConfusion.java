@@ -8,11 +8,11 @@ import java.io.*;
 public class TemperatureConfusion {
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -22,45 +22,45 @@ public class TemperatureConfusion {
         OutputWriter outputWriter = new OutputWriter(System.out);
 
         String[] data = FastReader.getLine().split("/");
-        int nominator = Integer.parseInt(data[0]);
+        int numerator = Integer.parseInt(data[0]);
         int denominator = Integer.parseInt(data[1]);
 
-        Fraction fraction = convertToCelsius(nominator, denominator);
-        outputWriter.printLine(fraction.nominator + "/" + fraction.denominator);
+        Fraction fraction = convertToCelsius(numerator, denominator);
+        outputWriter.printLine(fraction.numerator + "/" + fraction.denominator);
         outputWriter.flush();
     }
 
     // C = ((F - 32) * 5) / 9
-    private static Fraction convertToCelsius(long nominator, long denominator) {
-        Fraction fractionMinus32 = subtractFraction(nominator, denominator, 32, 1);
-        Fraction fractionTimes5 = multiplyFraction(fractionMinus32.nominator, fractionMinus32.denominator,
+    private static Fraction convertToCelsius(long numerator, long denominator) {
+        Fraction fractionMinus32 = subtractFraction(numerator, denominator, 32, 1);
+        Fraction fractionTimes5 = multiplyFraction(fractionMinus32.numerator, fractionMinus32.denominator,
                 5, 1);
-        Fraction celsiusFraction = divideFraction(fractionTimes5.nominator, fractionTimes5.denominator,
+        Fraction celsiusFraction = divideFraction(fractionTimes5.numerator, fractionTimes5.denominator,
                 9, 1);
 
-        long gcd = gcd(celsiusFraction.nominator, celsiusFraction.denominator);
-        return new Fraction(celsiusFraction.nominator / gcd, celsiusFraction.denominator / gcd);
+        long gcd = gcd(celsiusFraction.numerator, celsiusFraction.denominator);
+        return new Fraction(celsiusFraction.numerator / gcd, celsiusFraction.denominator / gcd);
     }
 
-    private static Fraction sumFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
+    private static Fraction sumFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
         long lcm = lcm(denominator1, denominator2);
         long multiplier1 = lcm / denominator1;
         long multiplier2 = lcm / denominator2;
 
-        long nominator = (nominator1 * multiplier1) + (nominator2 * multiplier2);
-        return new Fraction(nominator, lcm);
+        long numerator = (numerator1 * multiplier1) + (numerator2 * multiplier2);
+        return new Fraction(numerator, lcm);
     }
 
-    private static Fraction subtractFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
-        return sumFraction(nominator1, denominator1, -nominator2, denominator2);
+    private static Fraction subtractFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
+        return sumFraction(numerator1, denominator1, -numerator2, denominator2);
     }
 
-    private static Fraction multiplyFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
-        return new Fraction(nominator1 * nominator2, denominator1 * denominator2);
+    private static Fraction multiplyFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
+        return new Fraction(numerator1 * numerator2, denominator1 * denominator2);
     }
 
-    private static Fraction divideFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
-        return multiplyFraction(nominator1, denominator1, denominator2, nominator2);
+    private static Fraction divideFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
+        return multiplyFraction(numerator1, denominator1, denominator2, numerator2);
     }
 
     private static long gcd(long number1, long number2) {

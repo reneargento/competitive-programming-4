@@ -15,12 +15,12 @@ public class SimplifyingFractions {
         int tests = FastReader.nextInt();
 
         for (int t = 0; t < tests; t++) {
-            BigInteger nominator = new BigInteger(FastReader.next());
+            BigInteger numerator = new BigInteger(FastReader.next());
             FastReader.next();
             BigInteger denominator = new BigInteger(FastReader.next());
 
-            BigInteger gcd = gcd(nominator, denominator);
-            BigInteger simplifiedNominator = nominator.divide(gcd);
+            BigInteger gcd = gcd(numerator, denominator);
+            BigInteger simplifiedNominator = numerator.divide(gcd);
             BigInteger simplifiedDenominator = denominator.divide(gcd);
             outputWriter.printLine(simplifiedNominator + " / " + simplifiedDenominator);
         }

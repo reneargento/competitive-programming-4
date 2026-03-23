@@ -8,11 +8,11 @@ import java.io.*;
 public class CountOnCantor {
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -28,7 +28,7 @@ public class CountOnCantor {
             int position = Integer.parseInt(line);
             Fraction fraction = computeTerm(diagonals, position);
 
-            outputWriter.printLine(String.format("TERM %d IS %d/%d", position, fraction.nominator, fraction.denominator));
+            outputWriter.printLine(String.format("TERM %d IS %d/%d", position, fraction.numerator, fraction.denominator));
             line = FastReader.getLine();
         }
         outputWriter.flush();
@@ -45,7 +45,7 @@ public class CountOnCantor {
     }
 
     private static Fraction computeTerm(long[] diagonals, int position) {
-        long nominator;
+        long numerator;
         long denominator;
         int diagonal;
 
@@ -56,13 +56,13 @@ public class CountOnCantor {
         }
 
         if (diagonal % 2 == 0) {
-            nominator = position - diagonals[diagonal - 1];
+            numerator = position - diagonals[diagonal - 1];
             denominator = diagonals[diagonal] - position + 1;
         } else {
-            nominator = diagonals[diagonal] - position + 1;
+            numerator = diagonals[diagonal] - position + 1;
             denominator = position - diagonals[diagonal - 1];
         }
-        return new Fraction(nominator, denominator);
+        return new Fraction(numerator, denominator);
     }
 
     private static class FastReader {

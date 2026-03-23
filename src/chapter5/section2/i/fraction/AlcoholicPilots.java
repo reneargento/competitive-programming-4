@@ -21,11 +21,11 @@ public class AlcoholicPilots {
     }
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -67,12 +67,12 @@ public class AlcoholicPilots {
         boolean oweBeer = distance1 * velocity2 < distance2 * velocity1;
 
         Fraction averageArrivalTime = sumFraction(distance1, velocity1, distance2, velocity2);
-        averageArrivalTime = multiplyFraction(averageArrivalTime.nominator, averageArrivalTime.denominator, 1, 2);
+        averageArrivalTime = multiplyFraction(averageArrivalTime.numerator, averageArrivalTime.denominator, 1, 2);
 
-        long gcd = gcd(averageArrivalTime.nominator, averageArrivalTime.denominator);
-        averageArrivalTime.nominator /= gcd;
+        long gcd = gcd(averageArrivalTime.numerator, averageArrivalTime.denominator);
+        averageArrivalTime.numerator /= gcd;
         averageArrivalTime.denominator /= gcd;
-        return new Result(oweBeer, averageArrivalTime.nominator, averageArrivalTime.denominator);
+        return new Result(oweBeer, averageArrivalTime.numerator, averageArrivalTime.denominator);
     }
 
     private static long gcd(long number1, long number2) {
@@ -88,17 +88,17 @@ public class AlcoholicPilots {
         return number1 * (number2 / gcd(number1, number2));
     }
 
-    private static Fraction sumFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
+    private static Fraction sumFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
         long lcm = lcm(denominator1, denominator2);
         long multiplier1 = lcm / denominator1;
         long multiplier2 = lcm / denominator2;
 
-        long nominator = (nominator1 * multiplier1) + (nominator2 * multiplier2);
-        return new Fraction(nominator, lcm);
+        long numerator = (numerator1 * multiplier1) + (numerator2 * multiplier2);
+        return new Fraction(numerator, lcm);
     }
 
-    private static Fraction multiplyFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
-        return new Fraction(nominator1 * nominator2, denominator1 * denominator2);
+    private static Fraction multiplyFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
+        return new Fraction(numerator1 * numerator2, denominator1 * denominator2);
     }
 
     private static class FastReader {

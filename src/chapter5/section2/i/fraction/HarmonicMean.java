@@ -9,11 +9,11 @@ import java.util.StringTokenizer;
 public class HarmonicMean {
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -30,13 +30,13 @@ public class HarmonicMean {
             }
 
             Fraction harmonicMean = computeHarmonicMean(numbers);
-            outputWriter.printLine(String.format("Case %d: %d/%d", t, harmonicMean.nominator, harmonicMean.denominator));
+            outputWriter.printLine(String.format("Case %d: %d/%d", t, harmonicMean.numerator, harmonicMean.denominator));
         }
         outputWriter.flush();
     }
 
     private static Fraction computeHarmonicMean(int[] numbers) {
-        long nominator = 1;
+        long numerator = 1;
         long denominator = numbers[0];
 
         for (int i = 1; i < numbers.length; i++) {
@@ -44,13 +44,13 @@ public class HarmonicMean {
             long multiplier1 = lcm / denominator;
             long multiplier2 = lcm / numbers[i];
 
-            nominator = nominator * multiplier1 + multiplier2;
+            numerator = numerator * multiplier1 + multiplier2;
             denominator = lcm;
         }
 
         long newNominator = denominator * numbers.length;
-        long gcd = gcd(newNominator, nominator);
-        return new Fraction(newNominator / gcd, nominator / gcd);
+        long gcd = gcd(newNominator, numerator);
+        return new Fraction(newNominator / gcd, numerator / gcd);
     }
 
     private static long gcd(long number1, long number2) {

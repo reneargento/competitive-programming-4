@@ -10,11 +10,11 @@ import java.util.StringTokenizer;
 public class ARationalSequence {
 
     private static class Fraction {
-        int nominator;
+        int numerator;
         int denominator;
 
-        public Fraction(int nominator, int denominator) {
-            this.nominator = nominator;
+        public Fraction(int numerator, int denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -27,40 +27,40 @@ public class ARationalSequence {
         for (int t = 0; t < tests; t++) {
             int dataSetNumber = FastReader.nextInt();
             String[] data = FastReader.next().split("/");
-            int nominator = Integer.parseInt(data[0]);
+            int numerator = Integer.parseInt(data[0]);
             int denominator = Integer.parseInt(data[1]);
-            Fraction fraction = new Fraction(nominator, denominator);
+            Fraction fraction = new Fraction(numerator, denominator);
 
             Fraction nextNumber = computeNextNumber(fraction);
-            outputWriter.printLine(String.format("%d %d/%d", dataSetNumber, nextNumber.nominator, nextNumber.denominator));
+            outputWriter.printLine(String.format("%d %d/%d", dataSetNumber, nextNumber.numerator, nextNumber.denominator));
         }
         outputWriter.flush();
     }
 
     private static Fraction computeNextNumber(Fraction fraction) {
         if (fraction.denominator == 1) {
-            return new Fraction(1, fraction.nominator + 1);
+            return new Fraction(1, fraction.numerator + 1);
         }
-        int parentNominator = fraction.nominator;
+        int parentNumerator = fraction.numerator;
         int parentDenominator = fraction.denominator;
-        int levelsAbove = (int) Math.ceil(fraction.nominator / (double) fraction.denominator - 1);
+        int levelsAbove = (int) Math.ceil(fraction.numerator / (double) fraction.denominator - 1);
 
-        parentNominator -= fraction.denominator * levelsAbove;
+        parentNumerator -= fraction.denominator * levelsAbove;
 
-        Fraction parent = getParentFromRight(parentNominator, parentDenominator);
-        Fraction rightChild = getRightChild(parent.nominator, parent.denominator);
+        Fraction parent = getParentFromRight(parentNumerator, parentDenominator);
+        Fraction rightChild = getRightChild(parent.numerator, parent.denominator);
 
-        rightChild.denominator += rightChild.nominator * levelsAbove;
+        rightChild.denominator += rightChild.numerator * levelsAbove;
         return rightChild;
     }
 
-    private static Fraction getParentFromRight(int nominator, int denominator) {
-        int parentDenominator = denominator - nominator;
-        return new Fraction(nominator, parentDenominator);
+    private static Fraction getParentFromRight(int numerator, int denominator) {
+        int parentDenominator = denominator - numerator;
+        return new Fraction(numerator, parentDenominator);
     }
 
-    private static Fraction getRightChild(int nominator, int denominator) {
-        int childNominator = nominator + denominator;
+    private static Fraction getRightChild(int numerator, int denominator) {
+        int childNominator = numerator + denominator;
         return new Fraction(childNominator, denominator);
     }
 

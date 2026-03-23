@@ -42,17 +42,17 @@ public class ARationalSequenceTake3 {
     }
 
     private static String getElement(LinkedList<Integer> sequence) {
-        long nominator = 1;
+        long numerator = 1;
         long denominator = 1;
 
         for (int move : sequence) {
             if (move == 0) {
-                denominator = nominator + denominator;
+                denominator = numerator + denominator;
             } else {
-                nominator = nominator + denominator;
+                numerator = numerator + denominator;
             }
         }
-        return nominator + "/" + denominator;
+        return numerator + "/" + denominator;
     }
 
     private static class FastReader {

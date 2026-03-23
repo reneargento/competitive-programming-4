@@ -9,11 +9,11 @@ import java.util.StringTokenizer;
 public class EnumeratingRationalNumbers {
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -26,14 +26,14 @@ public class EnumeratingRationalNumbers {
         long k = FastReader.nextLong();
         while (k != 0) {
             Fraction fraction = computeFraction(eulerPhiPrefixSum, k);
-            outputWriter.printLine(String.format("%d/%d", fraction.nominator, fraction.denominator));
+            outputWriter.printLine(String.format("%d/%d", fraction.numerator, fraction.denominator));
             k = FastReader.nextLong();
         }
         outputWriter.flush();
     }
 
     private static Fraction computeFraction(long[] eulerPhiPrefixSum, long k) {
-        long nominator;
+        long numerator;
         long denominator = binarySearch(eulerPhiPrefixSum, k);
 
         if (denominator == 0) {
@@ -44,8 +44,8 @@ public class EnumeratingRationalNumbers {
             long coPrimes = k - eulerPhiPrefixSum[(int) denominator - 1];
             int coPrimesCount = 0;
 
-            for (nominator = 0; coPrimesCount < coPrimes; nominator++) {
-                if (gcd(nominator, denominator) == 1) {
+            for (numerator = 0; coPrimesCount < coPrimes; numerator++) {
+                if (gcd(numerator, denominator) == 1) {
                     coPrimesCount++;
                 }
 
@@ -53,7 +53,7 @@ public class EnumeratingRationalNumbers {
                     break;
                 }
             }
-            return new Fraction(nominator, denominator);
+            return new Fraction(numerator, denominator);
         }
     }
 

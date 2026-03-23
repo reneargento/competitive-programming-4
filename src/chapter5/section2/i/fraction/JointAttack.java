@@ -9,11 +9,11 @@ import java.util.StringTokenizer;
 public class JointAttack {
 
     public static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -27,34 +27,34 @@ public class JointAttack {
             quotients[i] = FastReader.nextInt();
         }
         Fraction fraction = getFractionFromPartialQuotients(quotients);
-        outputWriter.printLine(fraction.nominator + "/" + fraction.denominator);
+        outputWriter.printLine(fraction.numerator + "/" + fraction.denominator);
         outputWriter.flush();
     }
 
     private static Fraction getFractionFromPartialQuotients(int[] partialQuotients) {
-        long nominator = 1;
+        long numerator = 1;
         long denominator = partialQuotients[partialQuotients.length - 1];
         Fraction result = new Fraction(denominator,1);
 
         for (int i = partialQuotients.length - 2; i >= 0; i--) {
-            result = sumFraction(partialQuotients[i], 1, nominator, denominator);
-            nominator = result.denominator;
-            denominator = result.nominator;
+            result = sumFraction(partialQuotients[i], 1, numerator, denominator);
+            numerator = result.denominator;
+            denominator = result.numerator;
         }
 
-        long gcd = gcd(nominator, denominator);
-        result.nominator /= gcd;
+        long gcd = gcd(numerator, denominator);
+        result.numerator /= gcd;
         result.denominator /= gcd;
         return result;
     }
 
-    private static Fraction sumFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
+    private static Fraction sumFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
         long lcm = lcm(denominator1, denominator2);
         long multiplier1 = lcm / denominator1;
         long multiplier2 = lcm / denominator2;
 
-        long nominator = (nominator1 * multiplier1) + (nominator2 * multiplier2);
-        return new Fraction(nominator, lcm);
+        long numerator = (numerator1 * multiplier1) + (numerator2 * multiplier2);
+        return new Fraction(numerator, lcm);
     }
 
     private static long gcd(long number1, long number2) {

@@ -20,11 +20,11 @@ public class FractionsAgain {
     }
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -52,28 +52,28 @@ public class FractionsAgain {
 
         for (int y = k + 1; y <= 2 * k; y++) {
             Fraction x = subtractFraction(1, k, 1, y);
-            long gcd = gcd(x.nominator, x.denominator);
-            x.nominator /= gcd;
+            long gcd = gcd(x.numerator, x.denominator);
+            x.numerator /= gcd;
             x.denominator /= gcd;
 
-            if (x.nominator == 1) {
+            if (x.numerator == 1) {
                 pairs.add(new FractionPair(x.denominator, y));
             }
         }
         return pairs;
     }
 
-    private static Fraction sumFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
+    private static Fraction sumFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
         long lcm = lcm(denominator1, denominator2);
         long multiplier1 = lcm / denominator1;
         long multiplier2 = lcm / denominator2;
 
-        long nominator = (nominator1 * multiplier1) + (nominator2 * multiplier2);
-        return new Fraction(nominator, lcm);
+        long numerator = (numerator1 * multiplier1) + (numerator2 * multiplier2);
+        return new Fraction(numerator, lcm);
     }
 
-    private static Fraction subtractFraction(long nominator1, long denominator1, long nominator2, long denominator2) {
-        return sumFraction(nominator1, denominator1, -nominator2, denominator2);
+    private static Fraction subtractFraction(long numerator1, long denominator1, long numerator2, long denominator2) {
+        return sumFraction(numerator1, denominator1, -numerator2, denominator2);
     }
 
     private static long gcd(long number1, long number2) {

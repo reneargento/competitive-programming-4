@@ -9,11 +9,11 @@ import java.util.StringTokenizer;
 public class DeadFraction {
 
     private static class Fraction {
-        long nominator;
+        long numerator;
         long denominator;
 
-        public Fraction(long nominator, long denominator) {
-            this.nominator = nominator;
+        public Fraction(long numerator, long denominator) {
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -25,7 +25,7 @@ public class DeadFraction {
         String numberString = FastReader.next();
         while (!numberString.equals("0")) {
             Fraction fraction = computeFraction(numberString);
-            outputWriter.printLine(fraction.nominator + "/" + fraction.denominator);
+            outputWriter.printLine(fraction.numerator + "/" + fraction.denominator);
             numberString = FastReader.next();
         }
         outputWriter.flush();
@@ -38,15 +38,15 @@ public class DeadFraction {
         long length = trimmedNumberString.length();
 
         for (int lastDigitsRepeating = 1; lastDigitsRepeating <= length; lastDigitsRepeating++) {
-            long nominator = number - number / (long) Math.pow(10, lastDigitsRepeating);
+            long numerator = number - number / (long) Math.pow(10, lastDigitsRepeating);
             long denominator = (long) (Math.pow(10, length) - Math.pow(10, length - lastDigitsRepeating));
 
-            long gcd = gcd(nominator, denominator);
-            nominator /= gcd;
+            long gcd = gcd(numerator, denominator);
+            numerator /= gcd;
             denominator /= gcd;
 
             if (bestFraction == null || denominator < bestFraction.denominator) {
-                bestFraction = new Fraction(nominator, denominator);
+                bestFraction = new Fraction(numerator, denominator);
             }
         }
         return bestFraction;
