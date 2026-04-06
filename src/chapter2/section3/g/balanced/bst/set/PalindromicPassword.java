@@ -1,7 +1,7 @@
 package chapter2.section3.g.balanced.bst.set;
 
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.InputMismatchException;
 import java.util.TreeSet;
 
 /**
@@ -10,14 +10,14 @@ import java.util.TreeSet;
 public class PalindromicPassword {
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
 
-        int numbers = FastReader.nextInt();
+        int numbers = inputReader.nextInt();
         TreeSet<Integer> palindromes = generatePalindromes();
 
         for (int n = 0; n < numbers; n++) {
-            int number = FastReader.nextInt();
+            int number = inputReader.nextInt();
             Integer floor = palindromes.floor(number);
             Integer ceiling = palindromes.ceiling(number);
 
@@ -51,24 +51,48 @@ public class PalindromicPassword {
         return palindromes;
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 

@@ -21,17 +21,17 @@ public class Errands {
     }
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        Location[] locations = new Location[FastReader.nextInt()];
+        Location[] locations = new Location[inputReader.nextInt()];
         Map<String, Integer> nameToIdMap = new HashMap<>();
 
         for (int i = 0; i < locations.length; i++) {
-            locations[i] = new Location(FastReader.next(), FastReader.nextDouble(), FastReader.nextDouble());
+            locations[i] = new Location(inputReader.next(), inputReader.nextDouble(), inputReader.nextDouble());
             nameToIdMap.put(locations[i].name, i);
         }
 
-        String line = FastReader.getLine();
+        String line = inputReader.nextLine();
         while (line != null) {
             String[] names = line.split(" ");
             int[] visitIds = getLocationVisitIds(names, nameToIdMap);
@@ -47,7 +47,7 @@ public class Errands {
                 outputWriter.print(" " + name);
             }
             outputWriter.printLine();
-            line = FastReader.getLine();
+            line = inputReader.nextLine();
         }
         outputWriter.flush();
     }
@@ -151,35 +151,115 @@ public class Errands {
     }
 
     private static double computeDistance(Location location1, Location location2) {
-        return Math.sqrt(Math.pow(location1.x - location2.x, 2) + Math.pow(location1.y - location2.y, 2));
+        return Math.sqrt((location1.x - location2.x) * (location1.x - location2.x)
+                + (location1.y - location2.y) * (location1.y - location2.y));
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
-        private static double nextDouble() throws IOException {
-            return Double.parseDouble(next());
+        private double nextDouble() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            double res = 0;
+            while (!isSpaceChar(c) && c != '.') {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            }
+            if (c == '.') {
+                c = snext();
+                double m = 1;
+                while (!isSpaceChar(c)) {
+                    if (c == 'e' || c == 'E') {
+                        return res * Math.pow(10, nextInt());
+                    }
+                    m /= 10;
+                    res += (c - '0') * m;
+                    c = snext();
+                }
+            }
+            return res * sgn;
         }
 
-        private static String getLine() throws IOException {
-            return reader.readLine();
+        private String next() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                res.appendCodePoint(c);
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
+        private String nextLine() throws IOException {
+            int c = snext();
+            if (c == -1) {
+                return null;
+            }
+            while (isSpaceChar(c))
+                c = snext();
+            StringBuilder res = new StringBuilder();
+            do {
+                res.appendCodePoint(c);
+                c = snext();
+            } while (!isEndOfLine(c));
+            return res.toString();
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
+        }
+
+        private boolean isEndOfLine(int c) {
+            return c == '\n' || c == '\r' || c == -1;
         }
     }
 

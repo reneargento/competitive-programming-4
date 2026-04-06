@@ -1,7 +1,7 @@
 package chapter3.section2.h.mathematical.simulation.easier;
 
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.InputMismatchException;
 
 /**
  * Created by Rene Argento on 20/12/21.
@@ -9,18 +9,18 @@ import java.util.StringTokenizer;
 public class VideoSpeedup {
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int events = FastReader.nextInt();
-        int speedUp = FastReader.nextInt();
-        int videoLength = FastReader.nextInt();
+        int events = inputReader.nextInt();
+        int speedUp = inputReader.nextInt();
+        int videoLength = inputReader.nextInt();
 
         int lastTimestamp = 0;
         double currentSpeed = 1;
         double originalVideoTime = 0;
 
         for (int e = 1; e <= events; e++) {
-            int timestamp = FastReader.nextInt();
+            int timestamp = inputReader.nextInt();
             originalVideoTime += (timestamp - lastTimestamp) * currentSpeed;
             currentSpeed = (100 + (speedUp * e)) / 100.0;
             lastTimestamp = timestamp;
@@ -31,24 +31,48 @@ public class VideoSpeedup {
         outputWriter.flush();
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 

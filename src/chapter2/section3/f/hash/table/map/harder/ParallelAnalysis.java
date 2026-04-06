@@ -9,25 +9,25 @@ import java.util.*;
 public class ParallelAnalysis {
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int traces = FastReader.nextInt();
+        int traces = inputReader.nextInt();
 
         for (int t = 1; t <= traces; t++) {
-            int traceLength = FastReader.nextInt();
+            int traceLength = inputReader.nextInt();
             int totalTime = 0;
             Map<Integer, Integer> memoryWrittenToTimeMap = new HashMap<>();
 
             for (int i = 0; i < traceLength; i++) {
-                int memoryReferences = FastReader.nextInt();
+                int memoryReferences = inputReader.nextInt();
                 int highestCurrentTime = 0;
 
                 for (int m = 0; m < memoryReferences - 1; m++) {
-                    int memoryRead = FastReader.nextInt();
+                    int memoryRead = inputReader.nextInt();
                     int highestTimeToWriteMemory = memoryWrittenToTimeMap.getOrDefault(memoryRead, 0);
                     highestCurrentTime = Math.max(highestCurrentTime, highestTimeToWriteMemory);
                 }
-                int memoryWritten = FastReader.nextInt();
+                int memoryWritten = inputReader.nextInt();
                 highestCurrentTime++;
                 memoryWrittenToTimeMap.put(memoryWritten, highestCurrentTime);
 
@@ -38,24 +38,48 @@ public class ParallelAnalysis {
         outputWriter.flush();
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 

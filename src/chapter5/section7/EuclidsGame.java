@@ -1,7 +1,6 @@
 package chapter5.section7;
 
 import java.io.*;
-import java.util.StringTokenizer;
 
 /**
  * Created by Rene Argento on 01/04/26.
@@ -9,17 +8,17 @@ import java.util.StringTokenizer;
 public class EuclidsGame {
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        FastReaderInteger fastReaderInteger = new FastReaderInteger();
         OutputWriter outputWriter = new OutputWriter(System.out);
 
-        int number1 = FastReader.nextInt();
-        int number2 = FastReader.nextInt();
+        int number1 = fastReaderInteger.nextInt();
+        int number2 = fastReaderInteger.nextInt();
         while (number1 != 0 || number2 != 0) {
             String winner = computeWinner(0, number1, number2);
             outputWriter.printLine(winner + " wins");
 
-            number1 = FastReader.nextInt();
-            number2 = FastReader.nextInt();
+            number1 = fastReaderInteger.nextInt();
+            number2 = fastReaderInteger.nextInt();
         }
         outputWriter.flush();
     }
@@ -44,24 +43,43 @@ public class EuclidsGame {
         return "Stan";
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class FastReaderInteger {
+        private static final InputStream in = System.in;
+        private static final int bufferSize = 30000;
+        private static final byte[] buffer = new byte[bufferSize];
+        private static int position = 0;
+        private static int byteCount = bufferSize;
+        private static byte character;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        FastReaderInteger() throws IOException {
+            fill();
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private void fill() throws IOException {
+            byteCount = in.read(buffer, 0, bufferSize);
+        }
+
+        private int nextInt() throws IOException {
+            while (character < '-') {
+                character = readByte();
             }
-            return tokenizer.nextToken();
+            boolean isNegative = (character == '-');
+            if (isNegative) {
+                character = readByte();
+            }
+            int value = character - '0';
+            while ((character = readByte()) >= '0' && character <= '9') {
+                value = value * 10 + character - '0';
+            }
+            return isNegative ? -value : value;
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private byte readByte() throws IOException {
+            if (position == byteCount) {
+                fill();
+                position = 0;
+            }
+            return buffer[position++];
         }
     }
 

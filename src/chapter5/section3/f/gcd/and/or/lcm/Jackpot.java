@@ -1,7 +1,6 @@
 package chapter5.section3.f.gcd.and.or.lcm;
 
 import java.io.*;
-import java.util.StringTokenizer;
 
 /**
  * Created by Rene Argento on 07/08/25.
@@ -11,16 +10,16 @@ public class Jackpot {
     private static final int MAX_PERIODICITY = 1000000000;
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        FastReaderInteger fastReaderInteger = new FastReaderInteger();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int machines = FastReader.nextInt();
+        int machines = fastReaderInteger.nextInt();
 
         for (int m = 0; m < machines; m++) {
-            int wheels = FastReader.nextInt();
+            int wheels = fastReaderInteger.nextInt();
             long lcm = 1;
 
             for (int w = 0; w < wheels; w++) {
-                int periodicity = FastReader.nextInt();
+                int periodicity = fastReaderInteger.nextInt();
                 lcm = lcm(lcm, periodicity);
             }
 
@@ -46,24 +45,43 @@ public class Jackpot {
         return number1 * (number2 / gcd(number1, number2));
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class FastReaderInteger {
+        private static final InputStream in = System.in;
+        private static final int bufferSize = 30000;
+        private static final byte[] buffer = new byte[bufferSize];
+        private static int position = 0;
+        private static int byteCount = bufferSize;
+        private static byte character;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        FastReaderInteger() throws IOException {
+            fill();
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private void fill() throws IOException {
+            byteCount = in.read(buffer, 0, bufferSize);
+        }
+
+        private int nextInt() throws IOException {
+            while (character < '-') {
+                character = readByte();
             }
-            return tokenizer.nextToken();
+            boolean isNegative = (character == '-');
+            if (isNegative) {
+                character = readByte();
+            }
+            int value = character - '0';
+            while ((character = readByte()) >= '0' && character <= '9') {
+                value = value * 10 + character - '0';
+            }
+            return isNegative ? -value : value;
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private byte readByte() throws IOException {
+            if (position == byteCount) {
+                fill();
+                position = 0;
+            }
+            return buffer[position++];
         }
     }
 

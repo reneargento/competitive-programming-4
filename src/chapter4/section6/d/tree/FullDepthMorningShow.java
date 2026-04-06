@@ -36,13 +36,13 @@ public class FullDepthMorningShow {
     }
 
     public static void main(String[] args) throws IOException {
-        InputReader inputReader = new InputReader(System.in);
+        FastReaderInteger fastReaderInteger = new FastReaderInteger();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int cities = inputReader.nextInt();
+        int cities = fastReaderInteger.nextInt();
         int[] taxes = new int[cities];
 
         for (int i = 0; i < taxes.length; i++) {
-            taxes[i] = inputReader.nextInt();
+            taxes[i] = fastReaderInteger.nextInt();
         }
 
         List<Edge>[] adjacencyList = new List[cities];
@@ -51,9 +51,9 @@ public class FullDepthMorningShow {
         }
 
         for (int i = 0; i < cities - 1; i++) {
-            int cityId1 = inputReader.nextInt() - 1;
-            int cityId2 = inputReader.nextInt() - 1;
-            int toll = inputReader.nextInt();
+            int cityId1 = fastReaderInteger.nextInt() - 1;
+            int cityId2 = fastReaderInteger.nextInt() - 1;
+            int toll = fastReaderInteger.nextInt();
             adjacencyList[cityId1].add(new Edge(cityId2, toll));
             adjacencyList[cityId2].add(new Edge(cityId1, toll));
         }
@@ -122,77 +122,43 @@ public class FullDepthMorningShow {
         }
     }
 
-    private static class InputReader {
-        private final InputStream stream;
-        private final byte[] buf = new byte[8192];
-        private int curChar, snumChars;
+    private static class FastReaderInteger {
+        private static final InputStream in = System.in;
+        private static final int bufferSize = 30000;
+        private static final byte[] buffer = new byte[bufferSize];
+        private static int position = 0;
+        private static int byteCount = bufferSize;
+        private static byte character;
 
-        public InputReader(InputStream stream) {
-            this.stream = stream;
+        FastReaderInteger() throws IOException {
+            fill();
         }
 
-        public int snext() throws IOException {
-            if (snumChars == -1)
-                throw new InputMismatchException();
-            if (curChar >= snumChars) {
-                curChar = 0;
-                snumChars = stream.read(buf);
-                if (snumChars <= 0)
-                    return -1;
+        private void fill() throws IOException {
+            byteCount = in.read(buffer, 0, bufferSize);
+        }
+
+        private int nextInt() throws IOException {
+            while (character < '-') {
+                character = readByte();
             }
-            return buf[curChar++];
-        }
-
-        public int nextInt() throws IOException {
-            int c = snext();
-            while (isSpaceChar(c)) {
-                c = snext();
+            boolean isNegative = (character == '-');
+            if (isNegative) {
+                character = readByte();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = snext();
+            int value = character - '0';
+            while ((character = readByte()) >= '0' && character <= '9') {
+                value = value * 10 + character - '0';
             }
-            int res = 0;
-            do {
-                res *= 10;
-                res += c - '0';
-                c = snext();
-            } while (!isSpaceChar(c));
-            return res * sgn;
+            return isNegative ? -value : value;
         }
 
-        public String next() throws IOException {
-            int c = snext();
-            while (isSpaceChar(c)) {
-                c = snext();
+        private byte readByte() throws IOException {
+            if (position == byteCount) {
+                fill();
+                position = 0;
             }
-            StringBuilder res = new StringBuilder();
-            do {
-                res.appendCodePoint(c);
-                c = snext();
-            } while (!isSpaceChar(c));
-            return res.toString();
-        }
-
-        public String nextLine() throws IOException {
-            int c = snext();
-            while (isSpaceChar(c))
-                c = snext();
-            StringBuilder res = new StringBuilder();
-            do {
-                res.appendCodePoint(c);
-                c = snext();
-            } while (!isEndOfLine(c));
-            return res.toString();
-        }
-
-        public boolean isSpaceChar(int c) {
-            return c == ' ' || c == '\n' || c == '\r' || c == -1;
-        }
-
-        private boolean isEndOfLine(int c) {
-            return c == '\n' || c == '\r' || c == -1;
+            return buffer[position++];
         }
     }
 

@@ -19,12 +19,12 @@ public class Iks {
     }
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        FastReaderInteger fastReaderInteger = new FastReaderInteger();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int[] numbers = new int[FastReader.nextInt()];
+        int[] numbers = new int[fastReaderInteger.nextInt()];
 
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = FastReader.nextInt();
+            numbers[i] = fastReaderInteger.nextInt();
         }
 
         Result result = computeMaxScore(numbers);
@@ -100,24 +100,43 @@ public class Iks {
         map.put(key, newFrequency);
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class FastReaderInteger {
+        private static final InputStream in = System.in;
+        private static final int bufferSize = 30000;
+        private static final byte[] buffer = new byte[bufferSize];
+        private static int position = 0;
+        private static int byteCount = bufferSize;
+        private static byte character;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        FastReaderInteger() throws IOException {
+            fill();
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private void fill() throws IOException {
+            byteCount = in.read(buffer, 0, bufferSize);
+        }
+
+        private int nextInt() throws IOException {
+            while (character < '-') {
+                character = readByte();
             }
-            return tokenizer.nextToken();
+            boolean isNegative = (character == '-');
+            if (isNegative) {
+                character = readByte();
+            }
+            int value = character - '0';
+            while ((character = readByte()) >= '0' && character <= '9') {
+                value = value * 10 + character - '0';
+            }
+            return isNegative ? -value : value;
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private byte readByte() throws IOException {
+            if (position == byteCount) {
+                fill();
+                position = 0;
+            }
+            return buffer[position++];
         }
     }
 

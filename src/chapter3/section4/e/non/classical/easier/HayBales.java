@@ -1,6 +1,7 @@
 package chapter3.section4.e.non.classical.easier;
 
 import java.io.*;
+import java.util.InputMismatchException;
 
 /**
  * Created by Rene Argento on 26/07/22.
@@ -8,9 +9,9 @@ import java.io.*;
 public class HayBales {
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        String hayBales = FastReader.getLine();
+        String hayBales = inputReader.nextLine();
         int minimumSteps = computeMinimumSteps(hayBales.toCharArray());
         outputWriter.printLine(minimumSteps);
         outputWriter.flush();
@@ -56,15 +57,45 @@ public class HayBales {
         return true;
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String getLine() throws IOException {
-            return reader.readLine();
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
+            }
+            return buf[curChar++];
+        }
+
+        private String nextLine() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c))
+                c = snext();
+            StringBuilder res = new StringBuilder();
+            do {
+                res.appendCodePoint(c);
+                c = snext();
+            } while (!isEndOfLine(c));
+            return res.toString();
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
+        }
+
+        private boolean isEndOfLine(int c) {
+            return c == '\n' || c == '\r' || c == -1;
         }
     }
 

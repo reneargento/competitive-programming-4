@@ -31,10 +31,10 @@ public class SimonTheSpider {
     private static final long INFINITE = Long.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
 
-        String line = FastReader.getLine();
+        String line = inputReader.nextLine();
         while (line != null) {
             String[] data = line.split(" ");
             int nodes = Integer.parseInt(data[0]);
@@ -46,9 +46,9 @@ public class SimonTheSpider {
             }
 
             for (int i = 0; i < links; i++) {
-                int nodeID1 = FastReader.nextInt() - 1;
-                int nodeID2 = FastReader.nextInt() - 1;
-                int length = FastReader.nextInt();
+                int nodeID1 = inputReader.nextInt() - 1;
+                int nodeID2 = inputReader.nextInt() - 1;
+                int length = inputReader.nextInt();
                 Edge edge = new Edge(i, nodeID1, nodeID2, length);
                 originalAdjacencyList[nodeID1].add(edge);
             }
@@ -60,7 +60,7 @@ public class SimonTheSpider {
             } else {
                 outputWriter.printLine("disconnected");
             }
-            line = FastReader.getLine();
+            line = inputReader.nextLine();
         }
         outputWriter.flush();
     }
@@ -267,28 +267,67 @@ public class SimonTheSpider {
         }
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
-        private static String getLine() throws IOException {
-            return reader.readLine();
+        private String nextLine() throws IOException {
+            int c = snext();
+            if (c == -1) {
+                return null;
+            }
+            while (isSpaceChar(c))
+                c = snext();
+            StringBuilder res = new StringBuilder();
+            do {
+                res.appendCodePoint(c);
+                c = snext();
+            } while (!isEndOfLine(c));
+            return res.toString();
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
+        }
+
+        private boolean isEndOfLine(int c) {
+            return c == '\n' || c == '\r' || c == -1;
         }
     }
 

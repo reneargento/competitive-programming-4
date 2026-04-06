@@ -1,7 +1,6 @@
 package chapter5.section6;
 
 import java.io.*;
-import java.util.InputMismatchException;
 
 /**
  * Created by Rene Argento on 21/03/26.
@@ -9,10 +8,10 @@ import java.util.InputMismatchException;
 public class DragonDropped {
 
     public static void main(String[] args) throws IOException {
-        InputReader inputReader = new InputReader(System.in);
+        FastReaderInteger fastReaderInteger = new FastReaderInteger();
         OutputWriter outputWriter = new OutputWriter(System.out);
 
-        int locations = inputReader.nextInt();
+        int locations = fastReaderInteger.nextInt();
         int sameLocation = 0;
         int stepsTaken = 0;
 
@@ -29,16 +28,16 @@ public class DragonDropped {
         while (sameLocation == 0) {
             outputWriter.printLine("NEXT GABBY");
             outputWriter.flush();
-            readAndDiscardInput(inputReader);
+            readAndDiscardInput(fastReaderInteger);
 
             outputWriter.printLine("NEXT SPIKE");
             outputWriter.flush();
-            readAndDiscardInput(inputReader);
+            readAndDiscardInput(fastReaderInteger);
 
             outputWriter.printLine("NEXT SPIKE");
             outputWriter.flush();
-            inputReader.nextInt();
-            sameLocation = inputReader.nextInt();
+            fastReaderInteger.nextInt();
+            sameLocation = fastReaderInteger.nextInt();
 
             stepsTaken++;
         }
@@ -49,8 +48,8 @@ public class DragonDropped {
             outputWriter.printLine("NEXT SPIKE");
             outputWriter.flush();
 
-            inputReader.nextInt();
-            sameLocation = inputReader.nextInt();
+            fastReaderInteger.nextInt();
+            sameLocation = fastReaderInteger.nextInt();
             lambda++;
         }
 
@@ -63,53 +62,48 @@ public class DragonDropped {
         outputWriter.flush();
     }
 
-    private static void readAndDiscardInput(InputReader inputReader) throws IOException {
-        inputReader.nextInt();
-        inputReader.nextInt();
+    private static void readAndDiscardInput(FastReaderInteger fastReaderInteger) throws IOException {
+        fastReaderInteger.nextInt();
+        fastReaderInteger.nextInt();
     }
 
-    private static class InputReader {
-        private final InputStream stream;
-        private final byte[] buf = new byte[8192];
-        private int curChar, snumChars;
+    private static class FastReaderInteger {
+        private static final InputStream in = System.in;
+        private static final int bufferSize = 30000;
+        private static final byte[] buffer = new byte[bufferSize];
+        private static int position = 0;
+        private static int byteCount = bufferSize;
+        private static byte character;
 
-        public InputReader(InputStream stream) {
-            this.stream = stream;
+        FastReaderInteger() throws IOException {
+            fill();
         }
 
-        public int snext() throws IOException {
-            if (snumChars == -1)
-                throw new InputMismatchException();
-            if (curChar >= snumChars) {
-                curChar = 0;
-                snumChars = stream.read(buf);
-                if (snumChars <= 0)
-                    return -1;
-            }
-            return buf[curChar++];
+        private void fill() throws IOException {
+            byteCount = in.read(buffer, 0, bufferSize);
         }
 
-        public int nextInt() throws IOException {
-            int c = snext();
-            while (isSpaceChar(c)) {
-                c = snext();
+        private int nextInt() throws IOException {
+            while (character < '-') {
+                character = readByte();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = snext();
+            boolean isNegative = (character == '-');
+            if (isNegative) {
+                character = readByte();
             }
-            int res = 0;
-            do {
-                res *= 10;
-                res += c - '0';
-                c = snext();
-            } while (!isSpaceChar(c));
-            return res * sgn;
+            int value = character - '0';
+            while ((character = readByte()) >= '0' && character <= '9') {
+                value = value * 10 + character - '0';
+            }
+            return isNegative ? -value : value;
         }
 
-        public boolean isSpaceChar(int c) {
-            return c == ' ' || c == '\n' || c == '\r' || c == -1;
+        private byte readByte() throws IOException {
+            if (position == byteCount) {
+                fill();
+                position = 0;
+            }
+            return buffer[position++];
         }
     }
 

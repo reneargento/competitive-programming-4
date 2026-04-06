@@ -1,10 +1,7 @@
 package chapter4.section2.h.ad.hoc.graph.traversal;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * Created by Rene Argento on 20/05/23.
@@ -16,11 +13,11 @@ public class Hogwarts {
     private static final String RESULT_NO = "No";
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int rooms = FastReader.nextInt();
-        int[][] adjacencyListSenior = computeRooms(rooms);
-        int[][] adjacencyListStudent = computeRooms(rooms);
+        int rooms = inputReader.nextInt();
+        int[][] adjacencyListSenior = computeRooms(inputReader, rooms);
+        int[][] adjacencyListStudent = computeRooms(inputReader, rooms);
 
         String result = arePathsEquivalent(adjacencyListSenior, adjacencyListStudent);
         outputWriter.printLine(result);
@@ -77,35 +74,59 @@ public class Hogwarts {
         return currentRoomID == adjacencyListStudent.length - 1;
     }
 
-    private static int[][] computeRooms(int rooms) throws IOException {
+    private static int[][] computeRooms(InputReader inputReader, int rooms) throws IOException {
         int[][] adjacencyList = new int[rooms][4];
 
         for (int roomID = 0; roomID < adjacencyList.length; roomID++) {
             for (int i = 0; i < 4; i++) {
-                adjacencyList[roomID][i] = FastReader.nextInt() - 1;
+                adjacencyList[roomID][i] = inputReader.nextInt() - 1;
             }
         }
         return adjacencyList;
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 

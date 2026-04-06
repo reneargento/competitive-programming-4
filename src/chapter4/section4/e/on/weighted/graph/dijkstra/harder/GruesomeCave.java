@@ -2,8 +2,8 @@ package chapter4.section4.e.on.weighted.graph.dijkstra.harder;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.PriorityQueue;
-import java.util.StringTokenizer;
 
 /**
  * Created by Rene Argento on 21/01/24.
@@ -31,14 +31,14 @@ public class GruesomeCave {
     private static final int[] neighborColumns = { 0, -1, 1, 0 };
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        char[][] map = new char[FastReader.nextInt()][FastReader.nextInt()];
+        char[][] map = new char[inputReader.nextInt()][inputReader.nextInt()];
         Cell entrance = null;
         Cell diamond = null;
 
         for (int row = 0; row < map.length; row++) {
-            String columns = FastReader.getLine();
+            String columns = inputReader.nextLine();
             for (int column = 0; column < columns.length(); column++) {
                 char symbol = columns.charAt(column);
                 if (symbol == 'E') {
@@ -122,28 +122,67 @@ public class GruesomeCave {
         return row >= 0 && row < map.length && column >= 0 && column < map[0].length;
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
-        private static String getLine() throws IOException {
-            return reader.readLine();
+        private String nextLine() throws IOException {
+            int c = snext();
+            if (c == -1) {
+                return null;
+            }
+            while (isSpaceChar(c))
+                c = snext();
+            StringBuilder res = new StringBuilder();
+            do {
+                res.appendCodePoint(c);
+                c = snext();
+            } while (!isEndOfLine(c));
+            return res.toString();
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
+        }
+
+        private boolean isEndOfLine(int c) {
+            return c == '\n' || c == '\r' || c == -1;
         }
     }
 

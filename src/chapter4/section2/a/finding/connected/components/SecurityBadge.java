@@ -22,23 +22,23 @@ public class SecurityBadge {
     }
 
     public static void main(String[] args) throws IOException {
-        FastReader.init();
+        InputReader inputReader = new InputReader(System.in);
         OutputWriter outputWriter = new OutputWriter(System.out);
-        List<Edge>[] rooms = new List[FastReader.nextInt()];
-        int locks = FastReader.nextInt();
-        int badges = FastReader.nextInt(); // Not used
-        int sourceRoom = FastReader.nextInt() - 1;
-        int destinationRoom = FastReader.nextInt() - 1;
+        List<Edge>[] rooms = new List[inputReader.nextInt()];
+        int locks = inputReader.nextInt();
+        int badges = inputReader.nextInt(); // Not used
+        int sourceRoom = inputReader.nextInt() - 1;
+        int destinationRoom = inputReader.nextInt() - 1;
         Set<Integer> lockEndpoints = new HashSet<>();
 
         for (int i = 0; i < rooms.length; i++) {
             rooms[i] = new ArrayList<>();
         }
         for (int i = 0; i < locks; i++) {
-            int roomID1 = FastReader.nextInt() - 1;
-            int roomID2 = FastReader.nextInt() - 1;
-            int badgeLow = FastReader.nextInt();
-            int badgeHigh = FastReader.nextInt();
+            int roomID1 = inputReader.nextInt() - 1;
+            int roomID2 = inputReader.nextInt() - 1;
+            int badgeLow = inputReader.nextInt();
+            int badgeHigh = inputReader.nextInt();
             rooms[roomID1].add(new Edge(roomID2, badgeLow, badgeHigh));
             lockEndpoints.add(badgeLow);
             lockEndpoints.add(badgeHigh + 1);
@@ -84,24 +84,48 @@ public class SecurityBadge {
         }
     }
 
-    private static class FastReader {
-        private static BufferedReader reader;
-        private static StringTokenizer tokenizer;
+    private static class InputReader {
+        private final InputStream stream;
+        private final byte[] buf = new byte[8192];
+        private int curChar, snumChars;
 
-        static void init() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = new StringTokenizer("");
+        private InputReader(InputStream stream) {
+            this.stream = stream;
         }
 
-        private static String next() throws IOException {
-            while (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+        private int snext() throws IOException {
+            if (snumChars == -1)
+                throw new InputMismatchException();
+            if (curChar >= snumChars) {
+                curChar = 0;
+                snumChars = stream.read(buf);
+                if (snumChars <= 0)
+                    return -1;
             }
-            return tokenizer.nextToken();
+            return buf[curChar++];
         }
 
-        private static int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        private int nextInt() throws IOException {
+            int c = snext();
+            while (isSpaceChar(c)) {
+                c = snext();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = snext();
+            }
+            int res = 0;
+            do {
+                res *= 10;
+                res += c - '0';
+                c = snext();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        private boolean isSpaceChar(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == -1;
         }
     }
 

@@ -33,14 +33,14 @@ public class TransportationPlanning {
     }
 
     public static void main(String[] args) throws IOException {
-        InputReader inputReader = new InputReader(System.in);
+        FastReaderInteger fastReaderInteger = new FastReaderInteger();
         OutputWriter outputWriter = new OutputWriter(System.out);
-        int intersections = inputReader.nextInt();
+        int intersections = fastReaderInteger.nextInt();
 
         while (intersections != 0) {
             Location[] locations = new Location[intersections];
             for (int i = 0; i < locations.length; i++) {
-                locations[i] = new Location(inputReader.nextInt(), inputReader.nextInt());
+                locations[i] = new Location(fastReaderInteger.nextInt(), fastReaderInteger.nextInt());
             }
             double[][] edgeWeightedDigraph = new double[intersections][intersections];
             for (double[] values : edgeWeightedDigraph) {
@@ -50,10 +50,10 @@ public class TransportationPlanning {
                 edgeWeightedDigraph[locationID][locationID] = 0;
             }
 
-            int roads = inputReader.nextInt();
+            int roads = fastReaderInteger.nextInt();
             for (int i = 0; i < roads; i++) {
-                int locationID1 = inputReader.nextInt();
-                int locationID2 = inputReader.nextInt();
+                int locationID1 = fastReaderInteger.nextInt();
+                int locationID2 = fastReaderInteger.nextInt();
                 double commuteTime = distanceBetweenPoints(locations[locationID1], locations[locationID2]);
                 edgeWeightedDigraph[locationID1][locationID2] = commuteTime;
                 edgeWeightedDigraph[locationID2][locationID1] = commuteTime;
@@ -69,7 +69,7 @@ public class TransportationPlanning {
                         result.originalTime,
                         result.improvedTime));
             }
-            intersections = inputReader.nextInt();
+            intersections = fastReaderInteger.nextInt();
         }
         outputWriter.flush();
     }
@@ -130,7 +130,8 @@ public class TransportationPlanning {
     }
 
     private static double distanceBetweenPoints(Location point1, Location point2) {
-        return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
+        return Math.sqrt((point1.x - point2.x) * (point1.x - point2.x)
+                + (point1.y - point2.y) * (point1.y - point2.y));
     }
 
     private static class DirectedEdge {
@@ -219,48 +220,43 @@ public class TransportationPlanning {
         }
     }
 
-    private static class InputReader {
-        private final InputStream stream;
-        private final byte[] buf = new byte[8192];
-        private int curChar, snumChars;
+    private static class FastReaderInteger {
+        private static final InputStream in = System.in;
+        private static final int bufferSize = 30000;
+        private static final byte[] buffer = new byte[bufferSize];
+        private static int position = 0;
+        private static int byteCount = bufferSize;
+        private static byte character;
 
-        public InputReader(InputStream stream) {
-            this.stream = stream;
+        FastReaderInteger() throws IOException {
+            fill();
         }
 
-        public int snext() throws IOException {
-            if (snumChars == -1)
-                throw new InputMismatchException();
-            if (curChar >= snumChars) {
-                curChar = 0;
-                snumChars = stream.read(buf);
-                if (snumChars <= 0)
-                    return -1;
-            }
-            return buf[curChar++];
+        private void fill() throws IOException {
+            byteCount = in.read(buffer, 0, bufferSize);
         }
 
-        public int nextInt() throws IOException {
-            int c = snext();
-            while (isSpaceChar(c)) {
-                c = snext();
+        private int nextInt() throws IOException {
+            while (character < '-') {
+                character = readByte();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = snext();
+            boolean isNegative = (character == '-');
+            if (isNegative) {
+                character = readByte();
             }
-            int res = 0;
-            do {
-                res *= 10;
-                res += c - '0';
-                c = snext();
-            } while (!isSpaceChar(c));
-            return res * sgn;
+            int value = character - '0';
+            while ((character = readByte()) >= '0' && character <= '9') {
+                value = value * 10 + character - '0';
+            }
+            return isNegative ? -value : value;
         }
 
-        public boolean isSpaceChar(int c) {
-            return c == ' ' || c == '\n' || c == '\r' || c == -1;
+        private byte readByte() throws IOException {
+            if (position == byteCount) {
+                fill();
+                position = 0;
+            }
+            return buffer[position++];
         }
     }
 
