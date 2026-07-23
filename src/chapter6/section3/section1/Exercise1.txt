@@ -1,0 +1,6 @@
+6.3.1.1
+
+The cost of a match is +2 and the costs of replace, insert and delete are all -1 for the algorithm to prioritize the matches due to their higher weight.
+They are not magic numbers and the costs for replace, insert and delete can be different, as different scoring schemes lead to different global alignments.
+A +1 score for match would also work for string alignment, the only difference is that the algorithm becomes less eager to align characters.
+This means that sometimes several different alignments may end up with the same optimal score, whereas under +2 one of them would be preferred.
