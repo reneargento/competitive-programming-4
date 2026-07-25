@@ -1,0 +1,7 @@
+6.3.2.2
+
+To use the Needleman-Wunsch algorithm to solve the Hamming distance problem, we can assign the following scores:
+match: 0
+mismatch: 1
+insert: -INFINITE
+delete: -INFINITE
