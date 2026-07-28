@@ -36,11 +36,25 @@ public class Exercise2 {
         StringBuilder optimalAlignmentA = new StringBuilder();
         StringBuilder optimalAlignmentB = new StringBuilder();
 
+        int row = dp.length - 1;
         int column = dp[0].length - 1;
-        for (int row = dp.length - 1; row > 0; row--) {
+        while (row > 0 || column > 0) {
+            if (row == 0) {
+                optimalAlignmentA.append("_");
+                optimalAlignmentB.append(string2.charAt(column - 1));
+                column--;
+                continue;
+            }
+            if (column == 0) {
+                optimalAlignmentA.append(string1.charAt(row - 1));
+                optimalAlignmentB.append("_");
+                row--;
+                continue;
+            }
+
             Cell previousCell = previous[row][column];
             if (previousCell.row == row - 1 && previousCell.column == column - 1) {
-                boolean isMismatch = dp[row - 1][column - 1] - 1 == dp[row][column];
+                boolean isMismatch = string1.charAt(row - 1) != string2.charAt(column - 1);
                 if (isMismatch) {
                     optimalAlignmentA.append("]");
                     optimalAlignmentB.append("]");
@@ -51,15 +65,16 @@ public class Exercise2 {
                     optimalAlignmentA.append("[");
                     optimalAlignmentB.append("[");
                 }
+                row--;
                 column--;
             } else if (previousCell.row == row - 1) {
                 optimalAlignmentA.append(string1.charAt(row - 1));
                 optimalAlignmentB.append("_");
+                row--;
             } else {
                 optimalAlignmentA.append("_");
                 optimalAlignmentB.append(string2.charAt(column - 1));
                 column--;
-                row++;
             }
         }
         return new Result(optimalAlignmentA.reverse().toString(), optimalAlignmentB.reverse().toString(), alignmentScore);
