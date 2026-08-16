@@ -1,0 +1,7 @@
+6.4.1
+
+Reset table after running kmpPreprocess() on P = "ABABA":
+
+     0 1 2 3 4 5
+P =  A B A B A
+b = -1 0 0 1 2 3

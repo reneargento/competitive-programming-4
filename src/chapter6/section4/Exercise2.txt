@@ -1,0 +1,37 @@
+6.4.2
+
+With pattern P = "ABABA" and text T = "ACABAABABDABABA", the KMP search looks like this:
+
+                         1
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+T =  A C A B A A B A B D A B A B A
+P =  A B A B A
+The first character of P matches with T[0] but there is a mismatch at i = 1 (j = 1).
+KMP resumes from i = 2.
+
+                         1
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+T =  A C A B A A B A B D A B A B A
+P =      A B A B A
+There are 3 matches from index i = 2 to 4, but one mismatch at i = 5 (j = 3).
+KMP resumes from i = 5.
+
+                         1
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+T =  A C A B A A B A B D A B A B A
+P =            A B A B A
+There are 4 matches from index i = 5 to 8, but one mismatch at i = 9 (j = 4).
+KMP resumes from i = 9.
+
+                         1
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+T =  A C A B A A B A B D A B A B A
+P =                    A B A B A
+There is a mismatch at index i = 9 (j = 0).
+KMP resumes from i = 10.
+
+                         1
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+T =  A C A B A A B A B D A B A B A
+P =                      A B A B A
+This is a match, so P = "ABABA" is found at index i = 10.
