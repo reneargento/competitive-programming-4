@@ -1,0 +1,44 @@
+6.5.2.2
+
+T = BANANA$
+
+i | Suffix
+_________
+0   BANANA$
+1   ANANA$
+2   NANA$
+3   ANA$
+4   NA$
+5   A$
+6   $
+
+Suffix Trie (O = internal vertex)
+
+                  $(6)
+          A/       B|    \N
+          O         O     O
+        $/  \N     A|      \A
+        5    O      O       O
+             |A    N|     $/ \N
+             O      O     4   O
+          $/  \N   A|         |A
+          3    O    O         O
+               |A  N|         |$
+               O    O         2
+               |$  A|
+               1    O
+                   $|
+                    O
+
+Suffix Tree (O = internal vertex)
+
+                     $(6)
+          A/          B|    \N
+          O           A|     \A
+        $/  \N        N|      O
+        5    \A       A|    $/ \N
+              O       N|    4   \A
+            $/ \N     A|         \$
+           3    \A    $|         2
+                 \$    0
+                  1

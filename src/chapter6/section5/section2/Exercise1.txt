@@ -1,0 +1,4 @@
+6.5.2.1
+
+The Longest Common Prefix (LCP) between two vertices that represent two different suffixes is their Lowest Common Ancestor (LCA).
+This LCP between two suffixes means that they will share the LCA's path label, which will also be the longest path label shared between them.
