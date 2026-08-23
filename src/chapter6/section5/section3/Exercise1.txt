@@ -1,0 +1,9 @@
+6.5.3.1
+
+T = "GATAGACA$"
+
+P1 = "C"
+Follow the edge label "CA$", "C" is found at index 6.
+
+P2 = "CAT"
+There is no path label containing "CAT", result is "not found"

@@ -1,0 +1,43 @@
+6.5.3.2
+
+T = "CGACATTACATTA$"
+
+i | Suffix
+_________
+0   CGACATTACATTA$
+1   GACATTACATTA$
+2   ACATTACATTA$
+3   CATTACATTA$
+4   ATTACATTA$
+5   TTACATTA$
+6   TACATTA$
+7   ACATTA$
+8   CATTA$
+9   ATTA$
+10  TTA$
+11  TA$
+12  A$
+13  $
+
+Suffix tree (O = internal vertex)
+
+                            $(13)
+        A/               C/      \G       \T
+        O                O        |A          O
+    $/  |C    \T       A/ \G      |C     A/      \T
+   12   |A     |T     T|   \A     |A     O       |A
+        |T     |A     T|    \C    |T   $/ \C     O
+        |T     O      A|     \A   |T   11  |A  $/ \C
+        |A   /$ \C     O      |T  |A       |T  10  |A
+        O   9   |A   $/ \C    |T  |C       |T      |T
+      $/ \C     |T   8   |A   |A  |A       |A      |T
+      7  |A     |T       |T   |C  |T       |$      |A
+         |T     |A       |T   |A  |T       6       |$
+         |T     |$       |A   |T  |A               5
+         |A     4        |$   |T  |$
+         |$              3    |A  1
+         2                    |$
+                              0
+
+LRS
+ACATTA
