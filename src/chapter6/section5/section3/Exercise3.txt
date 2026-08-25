@@ -1,0 +1,42 @@
+6.5.3.3
+
+T1 = "STEVEN$"
+T2 = "SEVEN#"
+
+T1
+i | Suffix
+_________
+0   STEVEN$
+1   TEVEN$
+2   EVEN$
+3   VEN$
+4   EN$
+5   N$
+6   $
+
+T2
+i | Suffix
+_________
+0   SEVEN#
+1   EVEN#
+2   VEN#
+3   EN#
+4   N#
+5   #
+
+Generalized suffix tree (O = internal vertex)
+* = marked internal vertex
+
+                         O*
+    #/  $/    E/         |N    \S    \T    \V
+    5   6     O*         O*     O*    |E    |E
+           N/   \V     #/ \$  E/ \T   |V    |N
+           O*    \E    4   5  V|  |E  |E    O*
+         #/  \$   \N          E|  |V  |N  #/ \$
+         3    4    O*         N|  |E  |$  2   3
+                 #/ \$        #|  |N  1
+                 1    2        0  |$
+                                  0
+
+LCS
+EVEN
