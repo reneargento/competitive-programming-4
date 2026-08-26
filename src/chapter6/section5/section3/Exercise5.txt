@@ -1,0 +1,12 @@
+6.5.3.5
+
+To compute the Longest Repeated Substring (LRS) without overlap, add two variables to each node in the Suffix tree:
+minI - the minimum suffix index of all leaves contained in the node's subtree
+maxI - the maximum suffix index of all leaves contained in the node's subtree
+
+Traverse the tree and for each internal node with path label P, check if P's length is less or equal to (maxI - minI).
+If that is true, the path label is a non-overlapping repeated substring.
+The Longest Repeated Substring (LRS) without overlap will be the longest path label found with that check in the tree traversal.
+
+Reference:
+https://stackoverflow.com/questions/12658494/longest-non-overlapping-repeated-substring-using-suffix-tree-array-algorithm-on

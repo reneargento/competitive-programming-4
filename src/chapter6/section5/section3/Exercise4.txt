@@ -1,0 +1,7 @@
+6.5.3.4
+
+To find the repeated substring that occurs the most (and between possible candidates, the longest one), the following strategy can be used:
+Add a variable leafCount to each node x in the Suffix tree with the number of leaves that the subtree rooted in x has.
+This variable describes the number of occurrences in the string of the path label from the root to each vertex.
+Select the path label of the vertex with the highest leafCount.
+If there is more than one candidate with highest leafCount value, select the path label of the vertex with longest path label length, which will be the longest substring that occurs the most.
