@@ -1,0 +1,9 @@
+6.5.3.6
+
+To generalize and compute the Longest Common Substring (LCS) of more than two strings, the following approach can be used:
+For each vertex in the Suffix tree, add the following variable:
+stringCount - number of distinct strings that have as suffix the path label to the vertex
+The stringCount value can be computed by keeping track of how many different terminating characters exist in the leaves of the subtree rooted in each vertex.
+This answer assumes that each string has a different terminating character.
+
+The path label of the deepest internal vertex with stringCount equals to n, where n is the number of strings, will be the LCS.

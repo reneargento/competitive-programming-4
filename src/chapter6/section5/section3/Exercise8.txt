@@ -1,0 +1,7 @@
+6.5.3.8
+
+The Longest Common Extension (LCE) problem can be solved using the following strategy:
+Compute the Lowest Common Ancestor (LCA) of both leaves containing the indexes.
+Traverse the suffix tree from root to the LCA, following the edges based on the substring starting on any of the two indexes.
+Since the LCA vertex is an ancestor of both leaves containing the indexes, it is guaranteed that it will be in both paths.
+The path label from the root to the LCA is the LCE.
