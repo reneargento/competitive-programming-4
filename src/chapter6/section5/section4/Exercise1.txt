@@ -1,0 +1,6 @@
+6.5.4.1
+
+In the SA construction code, the line will not cause an index out of bounds exception.
+This is because when the first equality check holds, we guarantee that both suffixes do not have the terminating character $ among their initial k characters.
+So checking k more characters from their starting index would still not exceed the string length of T.
+Otherwise, the first equality check doesn't hold and the second equality check will be skipped.

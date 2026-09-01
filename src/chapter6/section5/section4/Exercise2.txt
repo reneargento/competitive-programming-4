@@ -1,0 +1,5 @@
+6.5.4.2
+
+If the input string T contains a space (ASCII value = 32), the SA construction code will not work.
+This is because the code relies on the terminating character $ (ASCII value = 36) being the smallest of all characters, and a character smaller than it would cause the initial ranks and sorting to have wrong ordering.
+The solution would be to change the terminating character $ to one with ASCII value lower than 32, or to replace (with a character of ASCII value higher than 36)/remove the spaces in T.
