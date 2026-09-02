@@ -1,0 +1,51 @@
+6.5.4.4
+
+To compute the suffix array, 3 sorting iterations are needed.
+
+T = BANANA$
+
+* Iteration k = 1
+
+Before
+i  | SA[i] | Suffix   | RA[SA[i]] | RA[SA[i] + k]
+0      0     BANANA$        66           65
+1      1     ANANA$         65           78
+2      2     NANA$          78           65
+3      3     ANA$           65           78
+4      4     NA$            78           65
+5      5     A$             65           36
+6      6     $              36           0
+
+After
+i  | SA[i] | Suffix   | RA[SA[i]] | RA[SA[i] + k]
+0      6     $              36           0
+1      5     A$             65           36
+2      3     ANA$           65           78
+3      1     ANANA$         65           78
+4      0     BANANA$        66           65
+5      4     NA$            78           65
+6      2     NANA$          78           65
+
+* Iteration k = 2
+
+Before/After
+i  | SA[i] | Suffix   | RA[SA[i]] | RA[SA[i] + k]
+0      6     $              0            0
+1      5     A$             1            0
+2      3     ANA$           2            1
+3      1     ANANA$         2            2
+4      0     BANANA$        3            4
+5      4     NA$            4            0
+6      2     NANA$          4            4
+
+* Iteration k = 4
+
+Before/After
+i  | SA[i] | Suffix   | RA[SA[i]] | RA[SA[i] + k]
+0      6     $              0            0
+1      5     A$             1            0
+2      3     ANA$           2            0
+3      1     ANANA$         3            1
+4      0     BANANA$        4            5
+5      4     NA$            5            0
+6      2     NANA$          6            0
