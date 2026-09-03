@@ -1,0 +1,17 @@
+6.5.5.2
+
+The best approach to use for each situation is:
+KMP:
+The best general-purpose solution for long strings and long patterns because it has time complexity of O(n + m), where n is the length of the text and m is the length of the pattern.
+
+Suffix Array:
+A good solution in cases where a suffix array has already been constructed for other use cases.
+Does the string matching in O(m lg n) time (after the suffix array creation in O(n lg n) time).
+
+Rabin-Karp:
+A good solution when hashing makes the problem easier to solve than the KMP algorithm, particularly for problems involving substring comparisons or substring equality.
+Examples include counting palindromic substrings or counting tuples (i, j, k, l) such that T(i, j) = P(k, l).
+With a rolling hash it has a time complexity of O(1) for string comparisons and usually an overall time complexity of O(n + m).
+
+Standard string libraries:
+A good solution for small strings because they are simpler to use, with just a call to the API, although slower, with a time complexity of O(n * m).

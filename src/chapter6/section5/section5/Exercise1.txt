@@ -1,0 +1,7 @@
+6.5.5.1
+
+To improve the complexity of stringMatching() to O(m + lg n), the following approach should be used:
+When comparing the strings during the binary search for the lower and upper bound, do not compare them starting from the index 0 of the pattern.
+Instead, use the LCP information.
+Create two variables, lcpLow and lcpHigh, which represent the LCP length of the pattern and the prefixes at the current low and high boundaries.
+At every string comparison, instead of starting from index 0, start from index min(lcpLow, lcpHigh).
