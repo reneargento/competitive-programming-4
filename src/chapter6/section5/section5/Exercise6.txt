@@ -1,0 +1,12 @@
+6.5.5.6
+
+To compute the Longest Common Substring (LCS) of two or more strings, the following approach can be used:
+Add a different terminator character to each of the n strings.
+These terminator characters must have ASCII values lower than all characters contained in the strings.
+Concatenate all strings into a merged string and compute its SA and LCP arrays.
+
+Iterate over the LCP values, maintaining a sliding window of suffixes in the suffix array that includes the most recent suffix of each of the n strings.
+The string to which each suffix belongs to can be checked based on their SA[i] value and the location of each terminating character in the merged string.
+For each valid window, compute the minimum LCP value minLCP between the consecutive suffixes in the window.
+Keep track of the highest minLCP value found and the index associated, j.
+The LCS of all strings will be in T[SA[j] .. SA[j] + minLCP).

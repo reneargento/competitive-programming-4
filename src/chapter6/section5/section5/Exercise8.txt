@@ -1,0 +1,5 @@
+6.5.5.8
+
+The Longest Common Extension (LCE) problem can be solved using the following strategy:
+Given indexes i and j, find their positions in the suffix array.
+Their LCE is the minimum LCP value among the consecutive suffixes between those two positions in suffix array order.
