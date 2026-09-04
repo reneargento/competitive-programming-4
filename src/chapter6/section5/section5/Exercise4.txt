@@ -1,0 +1,8 @@
+6.5.5.4
+
+To find the repeated substring that occurs the most (and between possible candidates, the longest one), the following strategy can be used:
+Find the largest consecutive range of k suffixes whose minimum LCP value is as large as possible.
+
+For LCP[i..j], the common prefix of the suffixes SA[i..j + 1] has length:
+min(LCP[i..j])
+The longest repeated substring that occurs the most will be in T[SA[i] .. SA[i] + minLCP]

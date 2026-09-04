@@ -1,0 +1,6 @@
+6.5.5.5
+
+To compute the Longest Repeated Substring (LRS) without overlap, the following strategy can be used:
+For each LCP[i] value in the LCP array:
+Check from j = i - 1 to 0, or until LCP[j] is 0, keeping track of the minimum LCP value between [j + 1..i], and compute the maximum LCP value where SA[j] + minLCP <= SA[i].
+The longest repeated substring without overlap will be in T[SA[j] .. SA[j] + minLCP)
