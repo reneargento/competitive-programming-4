@@ -3,6 +3,9 @@ package chapter4.section6.a.shortest.longest.paths.on.dag;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Created by Rene Argento on 21/04/24.
+ */
 public class TwoFourSixGreaaat {
 
     private static final int INFINITE = 100000000;
@@ -116,8 +119,7 @@ public class TwoFourSixGreaaat {
 
             // Store the shortest distance to this enthusiasm value as the other half of the solution.
             if (targetEnthusiasm > currentNode) {
-                distanceFromEnd[targetEnthusiasm - currentNode] =
-                        distance[currentNode];
+                distanceFromEnd[targetEnthusiasm - currentNode] = distance[currentNode];
             }
 
             // We already have a path from 0 to the complementary enthusiasm, so combine the two paths.
