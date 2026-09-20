@@ -6,6 +6,7 @@ import java.util.Arrays;
 /**
  * Created by Rene Argento on 16/09/2026.
  */
+// This is a highly optimized Suffix Array class, required to get 100% AC in SPOJ with Java under its extremely tight time limit
 public class SARRAYSuffixArray {
 
     private static final int MAX_TEXT = 100_000;
