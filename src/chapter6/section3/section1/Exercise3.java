@@ -1,5 +1,8 @@
 package chapter6.section3.section1;
 
+/**
+ * Created by Rene Argento on 24/07/26.
+ */
 // Time complexity: O(n * m), where n is the length of string1 and m is the length of string2
 // Space complexity: O(min(n, m)), using the smallest string as string2
 // The drawback of this approach is that the optimal solution cannot be reconstructed

@@ -2,6 +2,9 @@ package chapter6.section3.section2;
 
 import java.util.*;
 
+/**
+ * Created by Rene Argento on 25/07/26.
+ */
 public class Exercise3 {
 
     private static String computeLCSDistinctChars(String string1, String string2) {

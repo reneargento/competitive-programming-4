@@ -1,5 +1,8 @@
 package chapter6.section5.section4;
 
+/**
+ * Created by Rene Argento on 02/09/26.
+ */
 public class Exercise6 {
 
     public static void main() {

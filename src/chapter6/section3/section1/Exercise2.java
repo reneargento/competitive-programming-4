@@ -1,5 +1,8 @@
 package chapter6.section3.section1;
 
+/**
+ * Created by Rene Argento on 23/07/26.
+ */
 public class Exercise2 {
 
     private static class Result {

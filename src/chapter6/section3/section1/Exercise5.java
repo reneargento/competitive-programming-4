@@ -1,5 +1,8 @@
 package chapter6.section3.section1;
 
+/**
+ * Created by Rene Argento on 24/07/26.
+ */
 public class Exercise5 {
 
     private static final int STOP = 0;
