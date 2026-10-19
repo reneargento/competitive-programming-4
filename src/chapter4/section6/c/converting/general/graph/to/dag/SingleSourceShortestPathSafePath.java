@@ -57,40 +57,40 @@ public class SingleSourceShortestPathSafePath {
     }
 
     private static int computeMinimumTime(List<Edge>[] adjacent, int start, int end, int maxJunctions) {
-        // dp[junction id][junctions available] = minimum time
-        int[][] dp = new int[adjacent.length][maxJunctions];
-        for (int[] values : dp) {
-            Arrays.fill(values, -1);
-        }
+        int junctions = adjacent.length;
+        int[] previous = new int[junctions];
+        int[] current = new int[junctions];
 
-        int minimumTime = computeMinimumTime(adjacent, end, dp, start, maxJunctions - 1);
-        if (minimumTime == INFINITE) {
-            return -1;
-        }
-        return minimumTime;
-    }
+        Arrays.fill(previous, INFINITE);
+        previous[end] = 0;
 
-    private static int computeMinimumTime(List<Edge>[] adjacent, int end, int[][] dp, int junctionId,
-                                          int junctionsAvailable) {
-        if (junctionId == end) {
-            return 0;
-        }
-        if (junctionsAvailable == 0) {
-            return INFINITE;
-        }
-        if (dp[junctionId][junctionsAvailable] != -1) {
-            return dp[junctionId][junctionsAvailable];
-        }
+        for (int k = 1; k < maxJunctions; k++) {
+            System.arraycopy(previous, 0, current, 0, junctions);
+            boolean changed = false;
 
-        int minimumTime = INFINITE;
-        for (Edge edge : adjacent[junctionId]) {
-            int candidateTime = edge.time +
-                    computeMinimumTime(adjacent, end, dp, edge.otherJunctionId, junctionsAvailable - 1);
-            minimumTime = Math.min(minimumTime, candidateTime);
-        }
+            for (int junctionId = 0; junctionId < junctions; junctionId++) {
+                for (Edge edge : adjacent[junctionId]) {
+                    int neighborJunctionId = edge.otherJunctionId;
 
-        dp[junctionId][junctionsAvailable] = minimumTime;
-        return dp[junctionId][junctionsAvailable];
+                    if (previous[neighborJunctionId] != INFINITE) {
+                        int candidateTime = previous[neighborJunctionId] + edge.time;
+                        if (candidateTime < current[junctionId]) {
+                            current[junctionId] = candidateTime;
+                            changed = true;
+                        }
+                    }
+                }
+            }
+
+            int[] temp = previous;
+            previous = current;
+            current = temp;
+
+            if (!changed) {
+                break;
+            }
+        }
+        return previous[start] == INFINITE ? -1 : previous[start];
     }
 
     private static class InputReader {
@@ -133,37 +133,8 @@ public class SingleSourceShortestPathSafePath {
             return res * sgn;
         }
 
-        public String next() throws IOException {
-            int c = snext();
-            while (isSpaceChar(c)) {
-                c = snext();
-            }
-            StringBuilder res = new StringBuilder();
-            do {
-                res.appendCodePoint(c);
-                c = snext();
-            } while (!isSpaceChar(c));
-            return res.toString();
-        }
-
-        public String nextLine() throws IOException {
-            int c = snext();
-            while (isSpaceChar(c))
-                c = snext();
-            StringBuilder res = new StringBuilder();
-            do {
-                res.appendCodePoint(c);
-                c = snext();
-            } while (!isEndOfLine(c));
-            return res.toString();
-        }
-
         public boolean isSpaceChar(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == -1;
-        }
-
-        private boolean isEndOfLine(int c) {
-            return c == '\n' || c == '\r' || c == -1;
         }
     }
 
