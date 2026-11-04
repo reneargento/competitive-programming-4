@@ -1,0 +1,12 @@
+7.2.1.4
+
+Point (10, 3) after a 77 degrees counterclockwise rotation:
+x = 10 * cos(77) - 3 * sin(77)
+x = 2.24951054 - 2.92311019
+x = -0.674
+
+y = 10 * sin(77) + 3 * cos(77)
+y = 9.74370065 + 0.67485316
+y = 10.419
+
+Rotated point: (-0.674, 10.419)

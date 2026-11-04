@@ -1,0 +1,5 @@
+7.2.1.3
+
+Point (10, 3) after a 90 degrees counterclockwise rotation:
+(-3, 10)
+

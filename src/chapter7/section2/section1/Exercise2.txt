@@ -1,0 +1,6 @@
+7.2.1.2
+
+Euclidean distance between (2, 2) and (6, 5)
+D = sqrt((6 - 2)^2 + (5 - 2)^2)
+D = 5.0
+
