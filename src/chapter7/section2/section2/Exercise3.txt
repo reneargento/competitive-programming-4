@@ -1,0 +1,8 @@
+7.2.2.3
+
+In the line equation y = m * x + c, the slope is computed in the following way:
+m = (y2 - y1) / (x2 - x1)
+Then c is computed by substitution of the values of x and y from any of the points and isolating c.
+
+With the points (2, 2) and (2, 4), this would lead to a problem when computing the slope: a division by zero.
+So this line equation cannot be used for vertical lines.

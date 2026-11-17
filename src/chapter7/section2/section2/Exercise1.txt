@@ -1,0 +1,5 @@
+7.2.2.1
+
+The best form is the line equation ax + by + c = 0.
+This is because the equation y = mx + c cannot handle all cases: vertical lines have infinite gradient/slope in this equation and near vertical lines are also problematic.
+When using that equation, vertical lines have to be treated separately in the code.
