@@ -1,0 +1,17 @@
+7.2.2.4
+
+Point c (3, 2)
+
+a) Vector ab is defined by (2, 2) and (4, 3)
+Vector x = 4 - 2 = 2
+       y = 3 - 2 = 1
+Translated: (5, 3)
+
+b) Vector x = 1
+          y = 0.5
+Translated: (4.0, 2.5)
+
+c) Vector x = 2
+          y = 1
+Translated: (5, 3)
+Rotated: (-3, 5)

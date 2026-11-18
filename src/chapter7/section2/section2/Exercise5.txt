@@ -1,0 +1,8 @@
+7.2.2.5
+
+Point c (3, 2)
+Rotated: (-2, 3)
+Translated: (0, 4)
+
+The result is different from Exercise 7.2.2.4 (a).
+This phenomenon shows that a rotation followed by a translation yields a different result from a translation followed by a rotation.
