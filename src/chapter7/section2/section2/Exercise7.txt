@@ -1,0 +1,24 @@
+7.2.2.7
+
+a) a (2, 2), o (2, 6), b (6, 6)
+Vector oa = (2 - 2, 6 - 2) = (0, 4)
+Vector ob = (6 - 2, 6 - 6) = (4, 0)
+Dot product oa . ob (dp) = 0 * 4 + 4 * 0 = 0
+Squared norm oa (snoa) = 0^2 + 4^2 = 16
+Squared norm ob (snob) = 4^2 + 0^2 = 16
+Sqrt of (snoa * snob) = sqrt(16 * 16) = 16
+Angle aob = acos(dp / Sqrt of (snoa * snob)) = acos(0 / 16)
+Angle aob = acos(0)
+Angle aob = 90 degrees
+
+b) a (2, 2), o (2, 4), b (4, 3)
+Vector oa = (2 - 2, 4 - 2) = (0, 2)
+Vector ob = (4 - 2, 3 - 4) = (2, -1)
+Dot product oa . ob (dp) = 0 * 2 + 2 * -1 = -2
+Squared norm oa (snoa) = 0^2 + 2^2 = 4
+Squared norm ob (snob) = 2^2 + (-1)^2 = 4 + 1 = 5
+Sqrt of (snoa * snob) = sqrt(4 * 5) = sqrt(20) = 4.47213
+Angle aob = acos(dp / Sqrt of (snoa * snob)) = acos(-2 / 4.47213)
+Angle aob = acos(-0.44721419)
+Angle aob = 116.57 degrees
+Note: the book solution for this exercise is 63.43 degrees, but that is actually angle OAB, not AOB.

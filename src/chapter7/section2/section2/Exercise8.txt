@@ -1,0 +1,10 @@
+7.2.2.8
+
+Point r (35, 30)
+Point p (3, 7)
+Point q (11, 13)
+
+Vector pq = (11 - 3, 13 - 7) = (8, 6)
+Vector pr = (35 - 3, 30 - 7) = (32, 23)
+Cross product pq x pr = (8 * 23) - (6 * 32) = 184 - 192 = -8
+Since the cross product is negative, point r is on the right side of the line that passes through points p and q.

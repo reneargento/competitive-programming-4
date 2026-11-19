@@ -1,0 +1,7 @@
+7.2.2.6
+
+Point c (3, 2) rotated 90 degrees counterclockwise around point p (2, 1):
+Vector op from (2, 1) to (0, 0) = (-2, -1)
+Translate c based on op: (1, 1)
+Rotate 90 degrees around origin: (-1, 1)
+Translate based on p: (1, 2)
