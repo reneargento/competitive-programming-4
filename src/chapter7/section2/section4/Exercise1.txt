@@ -1,0 +1,5 @@
+7.2.4.1
+
+To avoid overflow, Heron's formula can be rewritten to:
+A = sqrt(s) * sqrt(s - a) * sqrt(s - b) * sqrt(s - c)
+The result will be slightly less precise due to calling sqrt() 4 times instead of once.
